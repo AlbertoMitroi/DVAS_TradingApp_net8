@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipTradingApp.Server", "InternshipTradingApp.Server\InternshipTradingApp.Server.csproj", "{0A8E40A7-32A6-4935-BEF3-FBC82B6C6937}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "internshiptradingapp.client", "internshiptradingapp.client\internshiptradingapp.client.esproj", "{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderManagementSystem", "OrderManagementSystem", "{25D602C5-5DEA-48B1-B5A5-9BA26C52BAEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccountManagement", "AccountManagement", "{0A092031-B966-4AAD-9969-ADE354035003}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompanyInventory", "CompanyInventory", "{26024570-E131-466D-BC13-AE4ACFBD1F7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalDataSynchronization", "ExternalDataSynchronization", "{8FBDBD36-EFFD-4841-9AD5-49BCE7385A9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipTradingApp.CompanyInventory", "CompanyInventory\InternshipTradingApp.CompanyInventory\InternshipTradingApp.CompanyInventory.csproj", "{EB57CEB0-B683-4112-B3FE-7CDF4D70FA0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A8E40A7-32A6-4935-BEF3-FBC82B6C6937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8E40A7-32A6-4935-BEF3-FBC82B6C6937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8E40A7-32A6-4935-BEF3-FBC82B6C6937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8E40A7-32A6-4935-BEF3-FBC82B6C6937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A3FC448-F35D-4A18-B1D4-3B5F65EE8E84}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{EB57CEB0-B683-4112-B3FE-7CDF4D70FA0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB57CEB0-B683-4112-B3FE-7CDF4D70FA0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB57CEB0-B683-4112-B3FE-7CDF4D70FA0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB57CEB0-B683-4112-B3FE-7CDF4D70FA0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB57CEB0-B683-4112-B3FE-7CDF4D70FA0A} = {26024570-E131-466D-BC13-AE4ACFBD1F7A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {37369618-FAD3-46EA-BD72-B13EA1F5C23A}
+	EndGlobalSection
+EndGlobal
