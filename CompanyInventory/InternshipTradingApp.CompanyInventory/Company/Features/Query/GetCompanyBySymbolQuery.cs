@@ -8,5 +8,6 @@ namespace InternshipTradingApp.CompanyInventory.Company.Features.Query
 {
     internal class GetCompanyBySymbolQuery
     {
+        public string Symbol { get; set; } = string.Empty;
     }
 }

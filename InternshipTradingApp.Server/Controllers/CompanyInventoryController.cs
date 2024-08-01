@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using InternshipTradingApp.CompanyInventory;
+using InternshipTradingApp.CompanyInventory.Company.Features.Shared;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,22 +10,28 @@ namespace InternshipTradingApp.Server.Controllers
     [ApiController]
     public class CompanyInventoryController : ControllerBase
     {
-        CompanyInventoryController() 
+        private readonly ICompanyInventoryService companyInventoryService;
+        public CompanyInventoryController(ICompanyInventoryService companyInventoryService) 
         { 
-        
+            this.companyInventoryService = companyInventoryService; 
         }
-        // GET: api/<CompanyInventoryController>
+        
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<CompanyDTO>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await companyInventoryService.GetAllCompanies();
         }
 
         // GET api/<CompanyInventoryController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{symbol}")]
+        public async Task<IActionResult> Get(string symbol)
         {
-            return "value";
+            var company = await companyInventoryService.GetCompanyBySymbol(symbol);
+            if (company!=null) 
+            {
+                return Ok(company);
+            }
+            return NotFound(symbol);
         }
 
         // POST api/<CompanyInventoryController>

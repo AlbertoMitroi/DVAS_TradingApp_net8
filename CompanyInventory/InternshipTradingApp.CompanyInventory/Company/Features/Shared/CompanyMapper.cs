@@ -20,5 +20,23 @@ namespace InternshipTradingApp.CompanyInventory.Company.Features.Shared
                     company.EPS
                 );
         }
+
+        public static CompanyDTO ToDTO(this Company company) 
+        {
+            return new CompanyDTO
+            {
+                Id = company.Id,
+                Name = company.Name,
+                Symbol = company.Symbol,
+                Price = company.Price,
+                OpeningPrice = company.OpeningPrice,
+                ClosingPrice = company.ClosingPrice,
+                ReferencePrice = company.ReferencePrice,
+                DayVariation = company.DayVariation,
+                EPS = company.EPS,
+                PER = company.PER,
+                Status = (int)company.Status
+            };
+        }
     }
 }

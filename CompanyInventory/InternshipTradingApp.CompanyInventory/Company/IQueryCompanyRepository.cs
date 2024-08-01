@@ -9,6 +9,6 @@ namespace InternshipTradingApp.CompanyInventory.Company
     internal interface IQueryCompanyRepository
     {
         Task<IQueryable<Company>> GetAll();
-        Task<IQueryable<Company>> GetCompanyBySymbol(string symbol);
+        Task<Company?> GetCompanyBySymbol(string symbol);
     }
 }

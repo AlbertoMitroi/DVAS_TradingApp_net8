@@ -1,4 +1,6 @@
 
+using InternshipTradingApp.CompanyInventory;
+
 namespace InternshipTradingApp.Server
 {
     public class Program
@@ -8,7 +10,7 @@ namespace InternshipTradingApp.Server
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddCompanyInventoryModule();
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
