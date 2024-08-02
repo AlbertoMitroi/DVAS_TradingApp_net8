@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using InternshipTradingApp.CompanyInventory.Domain;
 
-namespace InternshipTradingApp.CompanyInventory.Company
+namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 {
     internal class CompanyRepository : ICompanyRepository
     {
@@ -37,5 +34,6 @@ namespace InternshipTradingApp.CompanyInventory.Company
         {
             throw new NotImplementedException();
         }
+        
     }
 }

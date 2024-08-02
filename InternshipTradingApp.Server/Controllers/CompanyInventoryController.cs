@@ -1,5 +1,6 @@
-﻿using InternshipTradingApp.CompanyInventory;
-using InternshipTradingApp.CompanyInventory.Company.Features.Shared;
+﻿
+
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

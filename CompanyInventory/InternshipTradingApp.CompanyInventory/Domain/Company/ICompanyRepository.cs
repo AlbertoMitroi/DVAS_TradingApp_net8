@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InternshipTradingApp.CompanyInventory.Company
-{
+﻿namespace InternshipTradingApp.CompanyInventory.Domain
+{ 
     internal interface ICompanyRepository
     {
         Task<Company> GetById(int id);

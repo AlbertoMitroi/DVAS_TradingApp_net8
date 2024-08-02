@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InternshipTradingApp.CompanyInventory.Company.Features.Query
+namespace InternshipTradingApp.CompanyInventory.Features.Query
 {
-    internal class GetCompanyBySymbolQuery
+    public class GetCompanyBySymbolQuery
     {
         public string Symbol { get; set; } = string.Empty;
     }

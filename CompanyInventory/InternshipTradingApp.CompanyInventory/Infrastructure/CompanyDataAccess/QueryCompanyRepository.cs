@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using InternshipTradingApp.CompanyInventory.Domain;
 
-namespace InternshipTradingApp.CompanyInventory.Company
+namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 {
     internal class QueryCompanyRepository : IQueryCompanyRepository
     {
@@ -16,7 +13,7 @@ namespace InternshipTradingApp.CompanyInventory.Company
 
         public async Task<Company?> GetCompanyBySymbol(string symbol)
         {
-            return Company.Create("asdasd","asdasd",2,3,4,5,6);//default(Company);
+            return Company.Create("asdasd", "asdasd", 2, 3, 4, 5, 6);//default(Company);
         }
     }
 }

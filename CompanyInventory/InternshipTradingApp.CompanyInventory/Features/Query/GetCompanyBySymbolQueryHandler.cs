@@ -1,11 +1,9 @@
-﻿using InternshipTradingApp.CompanyInventory.Company.Features.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InternshipTradingApp.CompanyInventory.Domain;
+using InternshipTradingApp.CompanyInventory.Features.Shared;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
-namespace InternshipTradingApp.CompanyInventory.Company.Features.Query
+
+namespace InternshipTradingApp.CompanyInventory.Features.Query
 {
     internal class GetCompanyBySymbolQueryHandler
     {
@@ -17,9 +15,9 @@ namespace InternshipTradingApp.CompanyInventory.Company.Features.Query
         //return CompanyDTO for now. this will be changed later to GetCompanyQueryResult
         public async Task<CompanyDTO?> Handle(GetCompanyBySymbolQuery query)
         {
-            var companySymbol = query.Symbol;                
+            var companySymbol = query.Symbol;
             var company = await companyQueryRepository.GetCompanyBySymbol(companySymbol);
-            if (company != default) 
+            if (company != default)
                 return company.ToDTO();
 
             return default;

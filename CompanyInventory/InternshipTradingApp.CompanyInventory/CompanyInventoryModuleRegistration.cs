@@ -1,12 +1,10 @@
-﻿using InternshipTradingApp.CompanyInventory.Company;
-using InternshipTradingApp.CompanyInventory.Company.Features.Add;
-using InternshipTradingApp.CompanyInventory.Company.Features.Query;
+﻿using InternshipTradingApp.CompanyInventory.Domain;
+using InternshipTradingApp.CompanyInventory.Features.Add;
+using InternshipTradingApp.CompanyInventory.Features.Query;
+using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace InternshipTradingApp.CompanyInventory
 {

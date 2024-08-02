@@ -1,10 +1,6 @@
-﻿using InternshipTradingApp.CompanyInventory.Company.Features.Query;
-using InternshipTradingApp.CompanyInventory.Company.Features.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using InternshipTradingApp.CompanyInventory.Features.Query;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
+
 
 namespace InternshipTradingApp.CompanyInventory
 {
