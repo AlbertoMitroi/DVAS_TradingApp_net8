@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CompanyInventory\InternshipTradingApp.CompanyInventory\InternshipTradingApp.CompanyInventory.csproj" />
     <ProjectReference Include="..\internshiptradingapp.client\internshiptradingapp.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\ModuleIntegration\InternshipTradingApp.ModuleIntegration.csproj" />
+    <ProjectReference Include="..\Modules\CompanyInventory\InternshipTradingApp.CompanyInventory\InternshipTradingApp.CompanyInventory.csproj" />
   </ItemGroup>
 
 </Project>

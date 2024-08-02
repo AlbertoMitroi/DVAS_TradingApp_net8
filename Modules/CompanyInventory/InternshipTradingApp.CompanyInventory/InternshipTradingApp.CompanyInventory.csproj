@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ModuleIntegration\InternshipTradingApp.ModuleIntegration.csproj" />
+    <ProjectReference Include="..\..\..\ModuleIntegration\InternshipTradingApp.ModuleIntegration.csproj" />    
   </ItemGroup>
 
 </Project>
