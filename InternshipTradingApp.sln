@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{2A0D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipTradingApp.CompanyInventory", "Modules\CompanyInventory\InternshipTradingApp.CompanyInventory\InternshipTradingApp.CompanyInventory.csproj", "{D61FA3A9-FE9B-4C6C-A9BD-94E1A4F8376A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalDataSynchronization", "ExternalDataSynchronization\ExternalDataSynchronization.csproj", "{4F07C058-D80F-47A8-9FAE-F5940DB3DB84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D61FA3A9-FE9B-4C6C-A9BD-94E1A4F8376A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D61FA3A9-FE9B-4C6C-A9BD-94E1A4F8376A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D61FA3A9-FE9B-4C6C-A9BD-94E1A4F8376A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F07C058-D80F-47A8-9FAE-F5940DB3DB84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F07C058-D80F-47A8-9FAE-F5940DB3DB84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F07C058-D80F-47A8-9FAE-F5940DB3DB84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F07C058-D80F-47A8-9FAE-F5940DB3DB84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 		{0A092031-B966-4AAD-9969-ADE354035003} = {2A0D72CF-305E-4614-BFF3-8D89D0AAD8F6}
 		{26024570-E131-466D-BC13-AE4ACFBD1F7A} = {2A0D72CF-305E-4614-BFF3-8D89D0AAD8F6}
 		{D61FA3A9-FE9B-4C6C-A9BD-94E1A4F8376A} = {26024570-E131-466D-BC13-AE4ACFBD1F7A}
+		{4F07C058-D80F-47A8-9FAE-F5940DB3DB84} = {8FBDBD36-EFFD-4841-9AD5-49BCE7385A9B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37369618-FAD3-46EA-BD72-B13EA1F5C23A}
