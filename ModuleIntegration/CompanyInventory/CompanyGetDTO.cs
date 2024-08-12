@@ -1,8 +1,6 @@
-﻿
-
-namespace InternshipTradingApp.ModuleIntegration.CompanyInventory
+﻿namespace InternshipTradingApp.ModuleIntegration.CompanyInventory
 {
-    public class CompanyDTO
+    public class CompanyGetDTO
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

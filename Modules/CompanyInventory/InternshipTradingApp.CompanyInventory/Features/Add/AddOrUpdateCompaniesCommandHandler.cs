@@ -1,47 +1,38 @@
 ﻿using InternshipTradingApp.CompanyInventory.Domain;
-using InternshipTradingApp.CompanyInventory.Features.Shared;
-using InternshipTradingApp.ModuleIntegration.CompanyInventory;
-
 
 namespace InternshipTradingApp.CompanyInventory.Features.Add
 {
-    internal class AddOrUpdateCompaniesCommandHandler
+    public class AddOrUpdateCompaniesCommandHandler(ICompanyRepository repository, IQueryCompanyRepository queryCompanyRepository)
     {
-        private readonly ICompanyRepository companyRepository;
-        public AddOrUpdateCompaniesCommandHandler(ICompanyRepository repository)
+        public async Task<List<Company>> Handle(AddOrUpdateCompaniesCommand command)
         {
-            companyRepository = repository;
-        }
+            var companiesMap = command.companies.ToDictionary(c => c.Symbol, c => c);
 
-        public async Task Handle(AddOrUpdateCompaniesCommand command)
-        {
+            var existingCompanies = await queryCompanyRepository.GetCompaniesBySymbols(companiesMap.Keys);
+            var processedCompanies = new List<Company>();
 
-            Dictionary<int, CompanyDTO> companiesMap = new Dictionary<int, CompanyDTO>();
-            foreach (var company in command.companies)
+            foreach (var existingCompany in existingCompanies)
             {
-                companiesMap[company.Id] = company;
-            }
-            var companiesToUpdate = await companyRepository
-                                        .GetExistingCompanies(companiesMap.Keys);
-
-
-            foreach (var existingCompany in companiesToUpdate)
-            {
-                var newData = companiesMap[existingCompany.Id]
-                                .ToDomainObject();
-
-                companiesMap.Remove(existingCompany.Id);
+                var newData = companiesMap[existingCompany.Symbol];
                 existingCompany.UpdateTradingData(newData);
+                processedCompanies.Add(existingCompany);
+
+                companiesMap.Remove(existingCompany.Symbol);
             }
 
-            foreach (var newCompanyEntry in companiesMap)
+            if (companiesMap.Any())
             {
-                await companyRepository.Add(newCompanyEntry.Value
-                                                            .ToDomainObject());
+                foreach (var newCompany in companiesMap.Values)
+                {
+                    await repository.Add(newCompany);
+                    processedCompanies.Add(newCompany);
+                }
             }
 
-            await companyRepository.SaveChanges();
+            await repository.SaveChanges();
 
+            return processedCompanies;
         }
+
     }
 }

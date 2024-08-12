@@ -2,25 +2,19 @@
 using InternshipTradingApp.CompanyInventory.Features.Shared;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
-
 namespace InternshipTradingApp.CompanyInventory.Features.Query
 {
-    internal class GetCompanyBySymbolQueryHandler
+    internal class GetCompanyBySymbolQueryHandler(IQueryCompanyRepository queryCompanyRepository)
     {
-        private readonly IQueryCompanyRepository companyQueryRepository;
-        public GetCompanyBySymbolQueryHandler(IQueryCompanyRepository companyRepository)
+        public async Task<CompanyGetDTO?> Handle(GetCompanyBySymbolQuery query)
         {
-            companyQueryRepository = companyRepository;
-        }
-        //return CompanyDTO for now. this will be changed later to GetCompanyQueryResult
-        public async Task<CompanyDTO?> Handle(GetCompanyBySymbolQuery query)
-        {
-            var companySymbol = query.Symbol;
-            var company = await companyQueryRepository.GetCompanyBySymbol(companySymbol);
-            if (company != default)
-                return company.ToDTO();
+            if (string.IsNullOrEmpty(query.Symbol))
+            {
+                throw new ArgumentException("Symbol must be provided.", nameof(query.Symbol));
+            }
 
-            return default;
+            var company = await queryCompanyRepository.GetCompanyBySymbol(query.Symbol);
+            return company?.ToCompanyGetDTO();
         }
     }
 }

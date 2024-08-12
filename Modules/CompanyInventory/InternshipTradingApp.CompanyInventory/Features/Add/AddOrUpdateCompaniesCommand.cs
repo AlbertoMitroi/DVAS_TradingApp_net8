@@ -1,10 +1,10 @@
-﻿using InternshipTradingApp.ModuleIntegration.CompanyInventory;
-
+﻿
+using InternshipTradingApp.CompanyInventory.Domain;
 
 namespace InternshipTradingApp.CompanyInventory.Features.Add
 {
     public class AddOrUpdateCompaniesCommand
     {
-        public List<CompanyDTO> companies = new List<CompanyDTO>();
+        public List<Company> companies = new List<Company>();
     }
 }

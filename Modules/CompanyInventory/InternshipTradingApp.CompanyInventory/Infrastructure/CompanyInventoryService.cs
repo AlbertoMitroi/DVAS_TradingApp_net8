@@ -1,33 +1,34 @@
-﻿using InternshipTradingApp.CompanyInventory.Features.Query;
+﻿using InternshipTradingApp.CompanyInventory.Features.Add;
+using InternshipTradingApp.CompanyInventory.Features.Query;
+using InternshipTradingApp.CompanyInventory.Features.Shared;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
-
 
 namespace InternshipTradingApp.CompanyInventory
 {
-    internal class CompanyInventoryService:ICompanyInventoryService
+    internal class CompanyInventoryService(
+        GetAllCompaniesQueryHandler getAllCompaniesQueryHandler,
+        GetCompanyBySymbolQueryHandler getCompanyBySymbolQueryHandler,
+        AddOrUpdateCompaniesCommandHandler addOrUpdateCompaniesCommandHandler
+            ) : ICompanyInventoryService
     {
-        private readonly GetCompanyBySymbolQueryHandler getCompanyBySymbolHandler; 
-        public CompanyInventoryService(
-                                    GetCompanyBySymbolQueryHandler getCompanyQueryHandler) 
+        public async Task<IEnumerable<CompanyGetDTO>> GetAllCompanies()
         {
-            getCompanyBySymbolHandler = getCompanyQueryHandler;
+            return await getAllCompaniesQueryHandler.Handle();
         }
 
-        public async Task<IEnumerable<CompanyDTO>> GetAllCompanies()
+        public async Task<CompanyGetDTO?> GetCompanyBySymbol(string symbol)
         {
-            //var queryHandler = new GetAllCompaniesQuery();
-            return new List<CompanyDTO>(); 
+            var query = new GetCompanyBySymbolQuery { Symbol = symbol };
+            return await getCompanyBySymbolQueryHandler.Handle(query);
         }
 
-        public async Task<CompanyDTO?> GetCompanyBySymbol(string symbol)
+        public async Task<IEnumerable<CompanyGetDTO>> RegisterOrUpdateCompanies(IEnumerable<CompanyAddDTO> companyAddDtos)
         {
-            var getCompanyQuery = new GetCompanyBySymbolQuery { Symbol = symbol };
-            return await getCompanyBySymbolHandler.Handle(getCompanyQuery);
-        }
+            var companyDomain = companyAddDtos.ToDomainObjects();
+            var addOrUpdateCompanies = new AddOrUpdateCompaniesCommand { companies = companyDomain.ToList() };
+            var company = await addOrUpdateCompaniesCommandHandler.Handle(addOrUpdateCompanies);
 
-        public async Task RegisterOrUpdateCompanies(IEnumerable<CompanyDTO> companies)
-        {
-            throw new NotImplementedException();
+            return company.ToCompanyGetDTOs();
         }
     }
 }

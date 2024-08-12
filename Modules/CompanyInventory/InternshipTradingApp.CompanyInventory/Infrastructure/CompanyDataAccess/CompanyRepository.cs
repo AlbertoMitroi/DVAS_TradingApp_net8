@@ -1,39 +1,53 @@
 ﻿
 using InternshipTradingApp.CompanyInventory.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 {
-    internal class CompanyRepository : ICompanyRepository
+    internal class CompanyRepository(CompanyDbContext dbContext) : ICompanyRepository
     {
         public async Task<Company> Add(Company company)
         {
+            if (company == null)
+            {
+                throw new ArgumentNullException(nameof(company));
+            }
+
+            await dbContext.Companies.AddAsync(company);
+            await SaveChanges();
             return company;
         }
 
         public async Task Delete(int companyId)
         {
-            throw new NotImplementedException();
+            var company = await dbContext.Companies.FindAsync(companyId);
+            if (company != null)
+            {
+                dbContext.Companies.Remove(company);
+                await SaveChanges();
+            }
         }
 
         public async Task<Company> GetById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Company>> GetExistingCompanies(IEnumerable<int> filterList)
-        {
-            return new List<Company>();
-        }
-
-        public async Task SaveChanges()
-        {
-            throw new NotImplementedException();
+            var company = await dbContext.Companies.FindAsync(id);
+            if (company == null)
+            {
+                throw new Exception("Id not found");
+            }
+            return company;
         }
 
         public async Task<Company> Update(Company company)
         {
-            throw new NotImplementedException();
+            dbContext.Companies.Update(company);
+            await SaveChanges();
+            return company;
         }
-        
+
+        public async Task SaveChanges()
+        {
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

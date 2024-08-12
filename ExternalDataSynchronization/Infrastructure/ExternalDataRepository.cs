@@ -1,7 +1,10 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using ExternalDataSynchronization.Domain.ExternalData;
+using ExternalDataSynchronization.Models;
+using Newtonsoft.Json;
 using System.IO.Compression;
+using System.Net.Http.Json;
 
 namespace ExternalDataSynchronization.Infrastructure
 {
@@ -101,6 +104,46 @@ namespace ExternalDataSynchronization.Infrastructure
             });
 
             return externalDataList;
+        }
+
+        public async Task PostDataApiAsync(string url, IEnumerable<ExternalDataDTO> externalDataDto)
+        {
+            try
+            {
+                using HttpClient client = new HttpClient();
+
+                Console.WriteLine("Sending data to the API...");
+                using HttpResponseMessage response = await client.PostAsJsonAsync(url, externalDataDto);
+
+                string responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {           
+                    var formattedJson = JsonConvert.SerializeObject(
+                        JsonConvert.DeserializeObject(responseContent),
+                        Formatting.Indented
+                    );
+
+                    Console.WriteLine("Data successfully sent to the API.");
+                    Console.WriteLine("Response Content:\n" + Environment.NewLine + formattedJson + "\n");
+
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to send data to the API. Status Code: {response.StatusCode}");
+                    Console.WriteLine("Response Content: " + responseContent);
+                }
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                Console.WriteLine("Error: An HTTP request exception occurred.");
+                Console.WriteLine("Exception message: " + httpRequestException.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: An unexpected exception occurred.");
+                Console.WriteLine("Exception message: " + ex.Message);
+            }
         }
     }
 }

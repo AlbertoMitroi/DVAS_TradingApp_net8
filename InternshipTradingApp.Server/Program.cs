@@ -1,5 +1,8 @@
 
 using InternshipTradingApp.CompanyInventory;
+using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace InternshipTradingApp.Server
 {
@@ -12,6 +15,11 @@ namespace InternshipTradingApp.Server
             // Add services to the container.
             builder.Services.AddCompanyInventoryModule();
             builder.Services.AddControllers();
+            builder.Services.AddDbContext<CompanyDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

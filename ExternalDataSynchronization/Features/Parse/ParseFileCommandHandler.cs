@@ -1,8 +1,4 @@
-﻿
-
-using ExternalDataSynchronization.Domain.ExternalData;
-using ExternalDataSynchronization.Models;
-using Newtonsoft.Json;
+﻿using ExternalDataSynchronization.Domain.ExternalData;
 
 namespace ExternalDataSynchronization.Features.Parse
 {
@@ -15,13 +11,11 @@ namespace ExternalDataSynchronization.Features.Parse
             this.externalDataRepository = externalDataRepository;
         }
 
-        public async Task<IEnumerable<ExternalDataDTO>> Handle(ParseFileCommand command)
+        public async Task<IEnumerable<ExternalData>> Handle(ParseFileCommand command)
         {
             IEnumerable<ExternalData> externalData = await this.externalDataRepository.ParseFileAsync(command.filePath);
 
-            IEnumerable<ExternalDataDTO> externalDataDtos = externalData.Select(ExternalDataDTO.ToDto);
-
-            return externalDataDtos;
+            return externalData;
         }
     }
 }

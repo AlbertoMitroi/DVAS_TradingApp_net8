@@ -4,9 +4,9 @@ namespace InternshipTradingApp.ModuleIntegration.CompanyInventory
 {
     public interface ICompanyInventoryService
     {
-        Task<IEnumerable<CompanyDTO>> GetAllCompanies();
-        Task<CompanyDTO?> GetCompanyBySymbol(string symbol);
-        Task RegisterOrUpdateCompanies(IEnumerable<CompanyDTO> companies);
+        Task<IEnumerable<CompanyGetDTO>> GetAllCompanies();
+        Task<CompanyGetDTO?> GetCompanyBySymbol(string symbol);
+        Task<IEnumerable<CompanyGetDTO>> RegisterOrUpdateCompanies(IEnumerable<CompanyAddDTO> companies);
 
     }
 }

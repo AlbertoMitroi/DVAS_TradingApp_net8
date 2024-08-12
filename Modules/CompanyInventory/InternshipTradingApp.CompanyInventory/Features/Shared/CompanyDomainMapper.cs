@@ -1,27 +1,13 @@
-﻿
-using InternshipTradingApp.CompanyInventory.Domain;
+﻿using InternshipTradingApp.CompanyInventory.Domain;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
 namespace InternshipTradingApp.CompanyInventory.Features.Shared
 {
-    internal static class CompanyMapper
+    public static class CompanyDomainMapper
     {
-        public static Company ToDomainObject(this CompanyDTO company)
+        public static CompanyGetDTO ToCompanyGetDTO(this Company company)
         {
-            return Company.Create(
-                    company.Name,
-                    company.Symbol,
-                    company.Price,
-                    company.OpeningPrice,
-                    company.ClosingPrice,
-                    company.ReferencePrice,
-                    company.EPS
-                );
-        }
-
-        public static CompanyDTO ToDTO(this Company company)
-        {
-            return new CompanyDTO
+            return new CompanyGetDTO
             {
                 Id = company.Id,
                 Name = company.Name,
@@ -35,6 +21,11 @@ namespace InternshipTradingApp.CompanyInventory.Features.Shared
                 PER = company.PER,
                 Status = (int)company.Status
             };
+        }
+
+        public static IEnumerable<CompanyGetDTO> ToCompanyGetDTOs(this IEnumerable<Company> companies)
+        {
+            return companies.Select(company => company.ToCompanyGetDTO());
         }
     }
 }

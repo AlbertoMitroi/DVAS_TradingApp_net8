@@ -1,45 +1,36 @@
 ﻿using ExternalDataSynchronization.Domain.ExternalData;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
 namespace ExternalDataSynchronization.Models
 {
-    public class ExternalDataDTO
+    public class ExternalDataDTO : CompanyGetDTO
     {
-        public string Symbol { get; set; } = string.Empty;
-        public string CompanyName { get; set; } = string.Empty;
-        public decimal Close { get; set; }
-        public decimal Change { get; set; }
-        public decimal Open { get; set; }
-        public decimal High { get; set; }
-        public decimal Low { get; set; }
-        public decimal Avg { get; set; }
-        public decimal Volume { get; set; }
-        public decimal NoOfTrades { get; set; }
-        public decimal High52 { get; set; }
-        public decimal Low52 { get; set; }
+        private static readonly Random _random = new Random();
 
         public static ExternalDataDTO ToDto(ExternalData externalData)
         {
+            decimal closePrice = ConvertToDecimal(externalData.Close);
+            decimal variation = (decimal)_random.NextDouble() * 0.10m - 0.05m;
+            decimal roundedVariation = Math.Round(variation, 4);
+            decimal randomPrice = Math.Round(closePrice * (1 + roundedVariation), 4);
+
             return new ExternalDataDTO
             {
                 Symbol = externalData.Symbol,
-                CompanyName = externalData.CompanyName,
-                Close = ConvertToDecimal(externalData.Close),
-                Change = ConvertToDecimal(externalData.Change),
-                Open = ConvertToDecimal(externalData.Open),
-                High = ConvertToDecimal(externalData.High),
-                Low = ConvertToDecimal(externalData.Low),
-                Avg = ConvertToDecimal(externalData.Avg),
-                Volume = ConvertToDecimal(externalData.Volume),
-                NoOfTrades = ConvertToDecimal(externalData.NoOfTrades),
-                High52 = ConvertToDecimal(externalData.High52),
-                Low52 = ConvertToDecimal(externalData.Low52)
+                Name = externalData.CompanyName,
+                Price = randomPrice,
+                ReferencePrice = ConvertToDecimal(externalData.Close),
+                OpeningPrice = ConvertToDecimal(externalData.Open),
+                ClosingPrice = ConvertToDecimal(externalData.Close),
+                EPS = ConvertToDecimal(externalData.Avg)
             };
         }
+
         private static decimal ConvertToDecimal(string value)
         {
             if (decimal.TryParse(value, out var result))
             {
-                return result;
+                return Math.Round(result, 4);
             }
             return 0m;
         }

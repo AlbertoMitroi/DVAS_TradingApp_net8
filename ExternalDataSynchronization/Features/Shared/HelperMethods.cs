@@ -1,6 +1,4 @@
 ﻿
-using System.IO;
-
 namespace ExternalDataSynchronization.Features.Shared
 {
     public class HelperMethods

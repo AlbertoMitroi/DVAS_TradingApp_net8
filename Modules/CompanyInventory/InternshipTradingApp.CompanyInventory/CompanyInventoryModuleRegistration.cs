@@ -32,6 +32,7 @@ namespace InternshipTradingApp.CompanyInventory
         private static void RegisterQueryHandlers(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<GetCompanyBySymbolQueryHandler>();
+            serviceCollection.AddScoped<GetAllCompaniesQueryHandler>();
         }
     }
 }

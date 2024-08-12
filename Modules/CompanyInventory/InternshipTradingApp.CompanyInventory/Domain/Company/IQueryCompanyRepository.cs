@@ -1,9 +1,10 @@
 ﻿
 namespace InternshipTradingApp.CompanyInventory.Domain
 {
-    internal interface IQueryCompanyRepository
+    public interface IQueryCompanyRepository
     {
-        Task<IQueryable<Company>> GetAll();
-        Task<Company?> GetCompanyBySymbol(string symbol);
+        Task<IQueryable<Company>> GetAllCompanies();
+        Task<IEnumerable<Company>> GetCompaniesBySymbols(IEnumerable<string> symbols);
+        Task<Company?> GetCompanyBySymbol(string companySymbol);
     }
 }

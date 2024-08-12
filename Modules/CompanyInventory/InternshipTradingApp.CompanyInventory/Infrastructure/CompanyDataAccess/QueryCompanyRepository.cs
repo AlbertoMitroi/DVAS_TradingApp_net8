@@ -1,19 +1,31 @@
 ﻿
 using InternshipTradingApp.CompanyInventory.Domain;
+using InternshipTradingApp.CompanyInventory.Features.Shared;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
+using Microsoft.EntityFrameworkCore;
 
 namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 {
-    internal class QueryCompanyRepository : IQueryCompanyRepository
+    internal class QueryCompanyRepository(CompanyDbContext dbContext) : IQueryCompanyRepository
     {
-        public async Task<IQueryable<Company>> GetAll()
+        public async Task<IQueryable<Company>> GetAllCompanies()
         {
-            return new List<Company>()
-                   .AsQueryable();
+            var companies = dbContext.Companies.AsQueryable();
+            return await Task.FromResult(companies);
+        }
+
+
+        public async Task<IEnumerable<Company>> GetCompaniesBySymbols(IEnumerable<string> symbols)
+        {
+            return await dbContext.Companies
+                                 .Where(c => symbols.Contains(c.Symbol))
+                                 .ToListAsync();
         }
 
         public async Task<Company?> GetCompanyBySymbol(string symbol)
         {
-            return Company.Create("asdasd", "asdasd", 2, 3, 4, 5, 6);//default(Company);
+            return await dbContext.Companies
+                                  .FirstOrDefaultAsync(c => c.Symbol == symbol);
         }
     }
 }
