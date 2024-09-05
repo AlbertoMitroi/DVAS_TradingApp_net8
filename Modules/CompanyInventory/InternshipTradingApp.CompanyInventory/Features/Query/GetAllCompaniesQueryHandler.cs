@@ -4,7 +4,7 @@ using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
 namespace InternshipTradingApp.CompanyInventory.Features.Query
 {
-    public class GetAllCompaniesQueryHandler(IQueryCompanyRepository queryCompanyRepository)
+    public class GetAllCompaniesHistoryQueryHandler(IQueryCompanyRepository queryCompanyRepository)
     {
         public async Task<IEnumerable<CompanyGetDTO>> Handle()
         {

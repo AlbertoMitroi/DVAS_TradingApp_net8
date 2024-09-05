@@ -1,4 +1,6 @@
 ﻿
+using InternshipTradingApp.CompanyInventory.Domain.CompanyHistory;
+
 namespace InternshipTradingApp.CompanyInventory.Domain
 { 
     public interface ICompanyRepository

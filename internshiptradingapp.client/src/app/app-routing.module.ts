@@ -8,7 +8,6 @@ const routes: Routes = [
     path: '',
     redirectTo:'weather-forecast'
   }
-  
 ];
 
 @NgModule({

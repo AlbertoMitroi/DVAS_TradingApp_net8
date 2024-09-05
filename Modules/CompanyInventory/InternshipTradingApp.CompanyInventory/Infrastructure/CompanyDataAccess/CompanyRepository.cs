@@ -49,5 +49,6 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
         {
             await dbContext.SaveChangesAsync();
         }
+
     }
 }

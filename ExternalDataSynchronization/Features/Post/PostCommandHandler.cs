@@ -18,7 +18,8 @@ namespace ExternalDataSynchronization.Features.Post
 
         public async Task Handle(PostCommand command)
         {
-            await this.externalDataRepository.PostDataApiAsync(command.url, command.externalDataDTOs);
+            await this.externalDataRepository.PostDataApiAsync(command.url,command.historyUrl, command.externalDataDTOs,command.externalHistoyDataDTOs);
+           
         }
     }
 }

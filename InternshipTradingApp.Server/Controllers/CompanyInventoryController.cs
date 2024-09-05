@@ -11,10 +11,12 @@ namespace InternshipTradingApp.Server.Controllers
     public class CompanyInventoryController : ControllerBase
     {
         private readonly ICompanyInventoryService companyInventoryService;
+        private readonly ICompanyHistoryInventoryService companyHistoryInventoryService;
 
-        public CompanyInventoryController(ICompanyInventoryService companyInventoryService)
+        public CompanyInventoryController(ICompanyInventoryService companyInventoryService,ICompanyHistoryInventoryService companyHistoryInventoryService)
         {
             this.companyInventoryService = companyInventoryService;
+            this.companyHistoryInventoryService = companyHistoryInventoryService;
         }
 
         [HttpGet]
@@ -22,18 +24,28 @@ namespace InternshipTradingApp.Server.Controllers
         {
             return await companyInventoryService.GetAllCompanies();
         }
-
+       
         [HttpGet("{symbol}")]
         public async Task<IActionResult> Get(string symbol)
         {
-            var company = await companyInventoryService.GetCompanyBySymbol(symbol);
+            var company = await companyHistoryInventoryService.GetCompanyWithHistoryDataAsync(symbol);
             if (company != null)
             {
                 return Ok(company);
             }
             return NotFound(symbol);
         }
+        [HttpPost("history")]
+        public async Task<IEnumerable<CompanyHistoryGetDTO>> Post([FromBody] IEnumerable<CompanyHistoryAddDTO> companyHistoryDtos)
+        {
 
+            if (companyHistoryDtos == null)
+            {
+                throw new ArgumentNullException(nameof(companyHistoryDtos));
+            }
+
+            return await this.companyHistoryInventoryService.RegisterCompaniesHistory(companyHistoryDtos);
+        }
         [HttpPost("external-data")]
         public async Task<IEnumerable<CompanyGetDTO>> Post([FromBody] IEnumerable<CompanyAddDTO> companyDtos)
         {
@@ -45,5 +57,6 @@ namespace InternshipTradingApp.Server.Controllers
 
             return await this.companyInventoryService.RegisterOrUpdateCompanies(companyDtos);
         }
+       
     }
 }

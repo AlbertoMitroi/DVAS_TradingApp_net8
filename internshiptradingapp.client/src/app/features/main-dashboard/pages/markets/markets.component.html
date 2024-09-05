@@ -1,0 +1,62 @@
+<div class="container-fluid mt-4">
+  <!-- Input Group Section -->
+  <div class="input-section mb-4">
+    <div class="input-group mb-3">
+      <input pInputText type="text" class="form-control" [(ngModel)]="symbolFilter" placeholder="Enter company symbol" />
+      <button pButton pRipple class="btn btn-warning" type="button" (click)="getCompanyBySymbol()">
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Splitter Section -->
+  <div class="splitter-section">
+    <p-splitter [style]="{height:'650px'}" [panelSizes]="[25,75]" styleClass="mb-5">
+      <ng-template pTemplate>
+        <div class="panel flex align-items-center justify-content-center">
+          Panel 1
+        </div>
+      </ng-template>
+      <ng-template pTemplate>
+        <div class="col flex align-items-center justify-content-center">
+          <div *ngIf="companyData.company.symbol" class="details-panel">
+            <h4 class="company-details-header">Company Details</h4>
+            <div class="top-half">
+              <div class="expanded-content">
+                <div><strong>Name:</strong> {{ companyData.company.name }}</div>
+                <div><strong>Symbol:</strong> {{ companyData.company.symbol }}</div>
+                <div><strong>Price:</strong> {{ latestHistoryEntry.price }}</div>
+                <div><strong>Date:</strong>{{latestHistoryEntry.date}}</div>
+                <div>
+                  <strong>Reference Price:</strong>
+                  {{ latestHistoryEntry.referencePrice }}
+                </div>
+                <div>
+                  <strong>Opening Price:</strong>
+                  {{ latestHistoryEntry.openingPrice }}
+                </div>
+                <div>
+                  <strong>Closing Price:</strong>
+                  {{ latestHistoryEntry.closingPrice }}
+                </div>
+                <div><strong>EPS:</strong> {{ latestHistoryEntry.eps }}</div>
+                <div><strong>PER:</strong> {{ latestHistoryEntry.per }}</div>
+                <div>
+                  <strong>Day Variation:</strong>
+                  {{ latestHistoryEntry.dayVariation }}
+                </div>
+                <div>
+                  <strong>Status:</strong>
+                  {{ companyData.company.status === 1 ? "Ok" : "Not ok" }}
+                </div>
+              </div>
+            </div>
+            <div class="bottom-half">
+              <canvas id="priceGraph"></canvas>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-splitter>
+  </div>
+</div>

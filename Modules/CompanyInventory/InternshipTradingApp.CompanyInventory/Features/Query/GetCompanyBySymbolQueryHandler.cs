@@ -4,9 +4,9 @@ using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
 namespace InternshipTradingApp.CompanyInventory.Features.Query
 {
-    internal class GetCompanyBySymbolQueryHandler(IQueryCompanyRepository queryCompanyRepository)
+    internal class GetCompanyHistoryBySymbolQueryHandler(IQueryCompanyRepository queryCompanyRepository)
     {
-        public async Task<CompanyGetDTO?> Handle(GetCompanyBySymbolQuery query)
+        public async Task<CompanyGetDTO?> Handle(GetCompanyHistoryBySymbolQuery query)
         {
             if (string.IsNullOrEmpty(query.Symbol))
             {

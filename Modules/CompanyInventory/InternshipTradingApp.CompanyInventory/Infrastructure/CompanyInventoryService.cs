@@ -1,13 +1,14 @@
 ﻿using InternshipTradingApp.CompanyInventory.Features.Add;
 using InternshipTradingApp.CompanyInventory.Features.Query;
 using InternshipTradingApp.CompanyInventory.Features.Shared;
+using InternshipTradingApp.CompanyInventory.Features.SharedCompanyHistory;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
 namespace InternshipTradingApp.CompanyInventory
 {
     internal class CompanyInventoryService(
-        GetAllCompaniesQueryHandler getAllCompaniesQueryHandler,
-        GetCompanyBySymbolQueryHandler getCompanyBySymbolQueryHandler,
+        GetAllCompaniesHistoryQueryHandler getAllCompaniesQueryHandler,
+        GetCompanyHistoryBySymbolQueryHandler getCompanyBySymbolQueryHandler,
         AddOrUpdateCompaniesCommandHandler addOrUpdateCompaniesCommandHandler
             ) : ICompanyInventoryService
     {
@@ -18,7 +19,7 @@ namespace InternshipTradingApp.CompanyInventory
 
         public async Task<CompanyGetDTO?> GetCompanyBySymbol(string symbol)
         {
-            var query = new GetCompanyBySymbolQuery { Symbol = symbol };
+            var query = new GetCompanyHistoryBySymbolQuery { Symbol = symbol };
             return await getCompanyBySymbolQueryHandler.Handle(query);
         }
 

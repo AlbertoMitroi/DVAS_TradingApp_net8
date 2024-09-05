@@ -21,6 +21,15 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
                                  .Where(c => symbols.Contains(c.Symbol))
                                  .ToListAsync();
         }
+        public async Task<IEnumerable<Company>> GetAllCompaniesHistory(string symbol)
+        {
+            var result = await dbContext.Companies
+                                        .Include(h=>h.CompanyHistoryEntries)
+                                        .Where(c=>c.Symbol==symbol)
+                                        .ToListAsync();
+            return result;
+        }
+
 
         public async Task<Company?> GetCompanyBySymbol(string symbol)
         {

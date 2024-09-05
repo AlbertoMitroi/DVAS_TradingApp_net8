@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ModuleIntegration\InternshipTradingApp.ModuleIntegration.csproj" />
+    <ProjectReference Include="..\Modules\CompanyInventory\InternshipTradingApp.CompanyInventory\InternshipTradingApp.CompanyInventory.csproj" />
   </ItemGroup>
 
 </Project>

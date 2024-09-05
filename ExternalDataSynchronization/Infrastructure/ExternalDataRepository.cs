@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using ExternalDataSynchronization.Domain.ExternalData;
 using ExternalDataSynchronization.Models;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Newtonsoft.Json;
 using System.IO.Compression;
 using System.Net.Http.Json;
@@ -61,13 +62,13 @@ namespace ExternalDataSynchronization.Infrastructure
                 {
                     var warksheet = workbook.Worksheets.Worksheet("Titluri Capital - Equities");
 
-                    if ( warksheet == null)
+                    if (warksheet == null)
                     {
                         throw new Exception("Worksheet 'Titluri Capital - Equities' not found.");
                     }
 
                     var rows = warksheet.RowsUsed();
-                    
+
                     foreach (var row in rows)
                     {
                         var symbol = row.Cell(2).GetValue<string>();
@@ -106,32 +107,71 @@ namespace ExternalDataSynchronization.Infrastructure
             return externalDataList;
         }
 
-        public async Task PostDataApiAsync(string url, IEnumerable<ExternalDataDTO> externalDataDto)
+        public async Task PostDataApiAsync(string url, string urlHistory, IEnumerable<CompanyGetDTO> externalDataDto, IEnumerable<CompanyHistoryGetDTO> externalHistoryDataDto)
         {
             try
             {
                 using HttpClient client = new HttpClient();
 
                 Console.WriteLine("Sending data to the API...");
-                using HttpResponseMessage response = await client.PostAsJsonAsync(url, externalDataDto);
 
+                // Send the first POST request
+                using HttpResponseMessage response = await client.PostAsJsonAsync(url, externalDataDto);
                 string responseContent = await response.Content.ReadAsStringAsync();
 
+                // Send the second POST request
+                using HttpResponseMessage response2 = await client.PostAsJsonAsync(urlHistory, externalHistoryDataDto);
+                string responseContent2 = await response2.Content.ReadAsStringAsync();
+
+                // Process the first response
                 if (response.IsSuccessStatusCode)
-                {           
-                    var formattedJson = JsonConvert.SerializeObject(
-                        JsonConvert.DeserializeObject(responseContent),
-                        Formatting.Indented
-                    );
+                {
+                    try
+                    {
+                        var formattedJson = JsonConvert.SerializeObject(
+                            JsonConvert.DeserializeObject(responseContent),
+                            Formatting.Indented
+                        );
 
-                    Console.WriteLine("Data successfully sent to the API.");
-                    Console.WriteLine("Response Content:\n" + Environment.NewLine + formattedJson + "\n");
-
+                        Console.WriteLine("Data successfully sent to the API.");
+                        Console.WriteLine("First Response Content:\n" + Environment.NewLine + formattedJson + "\n");
+                    }
+                    catch (JsonException jsonEx)
+                    {
+                        Console.WriteLine("Failed to parse the first response as JSON. Response was not in expected JSON format.");
+                        Console.WriteLine("First Raw response content:\n" + responseContent);
+                        Console.WriteLine("Exception message: " + jsonEx.Message);
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to send data to the API. Status Code: {response.StatusCode}");
-                    Console.WriteLine("Response Content: " + responseContent);
+                    Console.WriteLine($"Failed to send data to the API in the first request. Status Code: {response.StatusCode}");
+                    Console.WriteLine("First Response Content: " + responseContent);
+                }
+
+                if (response2.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var formattedJson2 = JsonConvert.SerializeObject(
+                            JsonConvert.DeserializeObject(responseContent2),
+                            Formatting.Indented
+                        );
+
+                        Console.WriteLine("Data successfully sent to the API in the second request.");
+                        Console.WriteLine("Second Response Content:\n" + Environment.NewLine + formattedJson2 + "\n");
+                    }
+                    catch (JsonException jsonEx)
+                    {
+                        Console.WriteLine("Failed to parse the second response as JSON. Response was not in expected JSON format.");
+                        Console.WriteLine("Second Raw response content:\n" + responseContent2);
+                        Console.WriteLine("Exception message: " + jsonEx.Message);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to send data to the API in the second request. Status Code: {response2.StatusCode}");
+                    Console.WriteLine("Second Response Content: " + responseContent2);
                 }
             }
             catch (HttpRequestException httpRequestException)
@@ -139,11 +179,17 @@ namespace ExternalDataSynchronization.Infrastructure
                 Console.WriteLine("Error: An HTTP request exception occurred.");
                 Console.WriteLine("Exception message: " + httpRequestException.Message);
             }
+            catch (ArgumentException argEx)
+            {
+                Console.WriteLine("Error: Invalid argument.");
+                Console.WriteLine("Exception message: " + argEx.Message);
+            }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: An unexpected exception occurred.");
                 Console.WriteLine("Exception message: " + ex.Message);
             }
         }
+
     }
 }

@@ -9,12 +9,7 @@ namespace InternshipTradingApp.CompanyInventory.Features.Shared
         {
             return Company.Create(
                 companyDto.Name,
-                companyDto.Symbol,
-                companyDto.Price,
-                companyDto.OpeningPrice,
-                companyDto.ClosingPrice,
-                companyDto.ReferencePrice,
-                companyDto.EPS
+                companyDto.Symbol
             );
         }
 

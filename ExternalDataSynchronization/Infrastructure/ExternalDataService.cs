@@ -6,6 +6,7 @@ using ExternalDataSynchronization.Features.Post;
 using ExternalDataSynchronization.Features.Shared;
 using ExternalDataSynchronization.Infrastructure;
 using ExternalDataSynchronization.Models;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InternshipTradingApp.CompanyInventory.Infrastructure
@@ -31,6 +32,7 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
             string extractionFilePath = Path.Combine(downloadLocationPath, "dataExtracted");
             string xlsxFilePath = HelperMethods.GetXlsxFilePath(extractionFilePath);
             string postUrl = "https://localhost:7221/api/CompanyInventory/external-data";
+            string historyUrl = "https://localhost:7221/api/CompanyInventory/history";
 
             try
             {
@@ -38,9 +40,10 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
                 await ExtractFileAsync(serviceProvider, zipFilePath, extractionFilePath);
                 var externalData = await ParseFileAsync(serviceProvider, xlsxFilePath);
                 var externalDataDtos = externalData.Select(ExternalDataDTO.ToDto);
+                var externalHistoryDataDtos= externalData.Select(ExternalHistoryDataDTO.ToDto);
 
 
-                await PostDataAsync(serviceProvider, postUrl, externalDataDtos);
+                await PostDataAsync(serviceProvider, postUrl,historyUrl, externalDataDtos,externalHistoryDataDtos);
 
                 return externalData;
             }
@@ -79,10 +82,10 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
             return externalData;
         }
 
-        private static async Task PostDataAsync(IServiceProvider serviceProvider, string postUrl, IEnumerable<ExternalDataDTO> externalDataDtos)
+        private static async Task PostDataAsync(IServiceProvider serviceProvider, string postUrl,string historyUrl, IEnumerable<CompanyGetDTO> externalDataDtos, IEnumerable<CompanyHistoryGetDTO> externalHistoryDataDtos)
         {
             var postCommandHandler = GetService<PostCommandHandler>(serviceProvider);
-            var postCommand = new PostCommand(postUrl, externalDataDtos);
+            var postCommand = new PostCommand(postUrl,historyUrl, externalDataDtos, externalHistoryDataDtos);
             Console.WriteLine("Starting data post...");
             await postCommandHandler.Handle(postCommand);
             Console.WriteLine("Data posted successfully.\n");
