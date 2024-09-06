@@ -1,0 +1,18 @@
+<p-carousel [value]="companyHistoryEntries"
+            [numVisible]="5"
+            [numScroll]="5"
+            [circular]="true"
+            [responsiveOptions]="responsiveOptions"
+            autoplayInterval="5000">
+  <ng-template let-historyEntry pTemplate="item">
+    <div class="p-carousel-item">
+      <div class="circle-card">
+        <h5 class="font-medium">{{ historyEntry.companySymbol }}</h5>
+        <h6 class="font-semibold">{{ historyEntry.price + ' RON' }}</h6>
+        <p class="text-sm {{ historyEntry.dayVariation >= 0 ? 'text-green-500' : 'text-red-500' }}">
+          {{ historyEntry.dayVariation | number: '1.2-2' }}%
+        </p>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>

@@ -8,9 +8,11 @@ import { MainDashboardModule } from "./features/main-dashboard/module-config/mai
 import { WeatherForecastModule } from "./features/weather-forecast/module-config/weather-forecast.module";
 
 
+
 @NgModule({
     declarations: [
         AppComponent,
+
 
     ],
     imports: [
