@@ -12,7 +12,7 @@ namespace InternshipTradingApp.CompanyInventory
         AddOrUpdateCompaniesCommandHandler addOrUpdateCompaniesCommandHandler
             ) : ICompanyInventoryService
     {
-        public async Task<IEnumerable<CompanyGetDTO>> GetAllCompanies()
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetAllCompanies()
         {
             return await getAllCompaniesQueryHandler.Handle();
         }

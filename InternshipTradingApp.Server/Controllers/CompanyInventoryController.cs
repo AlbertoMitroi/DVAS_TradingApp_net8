@@ -2,6 +2,7 @@
 using InternshipTradingApp.CompanyInventory.Features.Shared;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using InternshipTradingApp.CompanyInventory.Domain;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace InternshipTradingApp.Server.Controllers
@@ -20,21 +21,22 @@ namespace InternshipTradingApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CompanyGetDTO>> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] string? symbol)
         {
-            return await companyInventoryService.GetAllCompanies();
-        }
-       
-        [HttpGet("{symbol}")]
-        public async Task<IActionResult> Get(string symbol)
-        {
-            var company = await companyHistoryInventoryService.GetCompanyWithHistoryDataAsync(symbol);
-            if (company != null)
+            if (!string.IsNullOrEmpty(symbol))
             {
-                return Ok(company);
+                var company = await companyHistoryInventoryService.GetCompanyWithHistoryDataAsync(symbol);
+                if (company != null)
+                {
+                    return Ok(company); 
+                }
+                return NotFound(symbol);
             }
-            return NotFound(symbol);
+
+            var allCompanies = await companyInventoryService.GetAllCompanies();
+            return Ok(allCompanies); 
         }
+
         [HttpPost("history")]
         public async Task<IEnumerable<CompanyHistoryGetDTO>> Post([FromBody] IEnumerable<CompanyHistoryAddDTO> companyHistoryDtos)
         {

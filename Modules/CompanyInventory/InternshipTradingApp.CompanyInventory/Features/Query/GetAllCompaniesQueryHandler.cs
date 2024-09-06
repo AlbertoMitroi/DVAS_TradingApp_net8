@@ -6,10 +6,10 @@ namespace InternshipTradingApp.CompanyInventory.Features.Query
 {
     public class GetAllCompaniesHistoryQueryHandler(IQueryCompanyRepository queryCompanyRepository)
     {
-        public async Task<IEnumerable<CompanyGetDTO>> Handle()
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> Handle()
         {
             var allCompanies = await queryCompanyRepository.GetAllCompanies();
-            return allCompanies.Select(company => company.ToCompanyGetDTO());
+            return allCompanies.Select(company => company.ToCompanyWithHistoryGetDTO());
         }
     }
 }

@@ -23,7 +23,11 @@ export class MarketsComponent implements OnInit {
 
   getCompanyBySymbol() {
     if (this.symbolFilter && this.symbolFilter.trim()) {
-      this.http.get(`https://localhost:7221/api/CompanyInventory/${this.symbolFilter}`)
+      this.http.get(`https://localhost:7221/api/CompanyInventory/`, {
+        params: {
+          symbol: this.symbolFilter
+        }
+      })
         .subscribe(
           (response: any) => {
             this.companyData = response;

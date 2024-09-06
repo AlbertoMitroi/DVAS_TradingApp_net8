@@ -23,7 +23,6 @@ namespace InternshipTradingApp.CompanyInventory.Features.QueryCompanyHistory
             {
                 throw new Exception($"Company with symbol {getCompanyWithHistoryDataQuery.CompanySymbol} not found.");
             }
-            //Transform each companies in companies using a mapper to the compose dto.
             var result = company.ToCompanyWithHistoryGetDTO();
 
             return result;

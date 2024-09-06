@@ -8,10 +8,11 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 {
     internal class QueryCompanyRepository(CompanyDbContext dbContext) : IQueryCompanyRepository
     {
-        public async Task<IQueryable<Company>> GetAllCompanies()
+        public async Task<IEnumerable<Company>> GetAllCompanies()
         {
-            var companies = dbContext.Companies.AsQueryable();
-            return await Task.FromResult(companies);
+            var companies = await dbContext.Companies.Include(h => h.CompanyHistoryEntries)
+                                               .ToListAsync();
+            return companies;
         }
 
 
