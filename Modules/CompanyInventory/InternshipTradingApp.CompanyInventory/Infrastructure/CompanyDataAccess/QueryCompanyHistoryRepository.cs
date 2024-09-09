@@ -23,5 +23,6 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
                 .ToListAsync();
         }
 
+
     }
 }

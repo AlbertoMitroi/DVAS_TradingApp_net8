@@ -25,7 +25,8 @@ namespace ExternalDataSynchronization.Models
                 ReferencePrice = ConvertToDecimal(externalHistoryData.Close),
                 OpeningPrice = ConvertToDecimal(externalHistoryData.Open),
                 ClosingPrice = ConvertToDecimal(externalHistoryData.Close),
-                EPS = ConvertToDecimal(externalHistoryData.Avg)
+                EPS = ConvertToDecimal(externalHistoryData.Avg),
+                Volume = ConvertToDecimal(externalHistoryData.Volume),
             };
         }
        

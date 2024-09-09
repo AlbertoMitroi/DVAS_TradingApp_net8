@@ -39,11 +39,11 @@ namespace InternshipTradingApp.Server
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            
             app.UseCors(x => x
-               .AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader());
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.MapControllers();
 

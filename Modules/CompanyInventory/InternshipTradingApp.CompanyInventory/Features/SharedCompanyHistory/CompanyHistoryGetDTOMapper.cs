@@ -14,7 +14,8 @@ namespace InternshipTradingApp.CompanyInventory.Features.SharedCompanyHistory
                 companyHistoryDto.OpeningPrice,
                 companyHistoryDto.ClosingPrice,
                 companyHistoryDto.ReferencePrice,
-                companyHistoryDto.EPS
+                companyHistoryDto.EPS,
+                companyHistoryDto.Volume
             );
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 
 namespace InternshipTradingApp.CompanyInventory.Domain.CompanyHistory
 {
@@ -16,6 +17,7 @@ namespace InternshipTradingApp.CompanyInventory.Domain.CompanyHistory
         public DateOnly Date { get; private set; }
         public Company Company { get; set; }
 
+        public decimal Volume { get; set; }
         private CompanyHistoryEntry() { }
 
         public static CompanyHistoryEntry Create(string companySymbol,
@@ -23,7 +25,8 @@ namespace InternshipTradingApp.CompanyInventory.Domain.CompanyHistory
                                                  decimal openingPrice,
                                                  decimal closingPrice,
                                                  decimal referencePrice,
-                                                 decimal eps)
+                                                 decimal eps,
+                                                 decimal volume)
         {
             if (string.IsNullOrEmpty(companySymbol) || companySymbol.Length > 10)
                 throw new ArgumentException("Symbol cannot be null, empty, or exceed 10 characters.", nameof(companySymbol));
@@ -44,7 +47,8 @@ namespace InternshipTradingApp.CompanyInventory.Domain.CompanyHistory
                 EPS = eps,
                 PER = eps > 0 ? Math.Round(price / eps, 2) : 0,
                 DayVariation = referencePrice > 0 ? Math.Round((price - referencePrice) / referencePrice * 100, 2) : 0,
-                Date = DateOnly.FromDateTime(DateTime.Now)
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Volume = volume
             };
         }
 
@@ -63,6 +67,7 @@ namespace InternshipTradingApp.CompanyInventory.Domain.CompanyHistory
             PER = newCompanyData.EPS > 0 ? Math.Round(newCompanyData.Price / newCompanyData.EPS, 2) : 0;
             DayVariation = newCompanyData.ReferencePrice > 0 ? Math.Round((newCompanyData.Price - newCompanyData.ReferencePrice) / newCompanyData.ReferencePrice * 100, 2) : 0;
             Date = DateOnly.FromDateTime(DateTime.Now);
+            Volume = newCompanyData.Volume;
         }
 
         public void UpdatePrice(decimal newPrice)

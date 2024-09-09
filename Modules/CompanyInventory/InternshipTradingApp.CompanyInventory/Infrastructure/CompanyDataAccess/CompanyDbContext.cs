@@ -9,7 +9,7 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
     public class CompanyDbContext : DbContext
     {
         public CompanyDbContext(DbContextOptions<CompanyDbContext> options)
-            : base(options)
+        : base(options)
         {
         }
 
@@ -80,6 +80,9 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
                 entity.Property(e => e.Date)
                     .HasConversion(dateOnlyConverter)
                     .HasColumnType("datetime");
+
+                entity.Property(e => e.Volume)
+                .HasColumnType("decimal(20,2)");
             });
         }
     }

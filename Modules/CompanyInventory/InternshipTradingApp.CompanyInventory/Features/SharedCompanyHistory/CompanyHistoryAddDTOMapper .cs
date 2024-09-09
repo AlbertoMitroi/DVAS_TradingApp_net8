@@ -14,7 +14,8 @@ namespace InternshipTradingApp.CompanyInventory.Features.Shared
                 companyHistoryAddDto.OpeningPrice,
                 companyHistoryAddDto.ClosingPrice,
                 companyHistoryAddDto.ReferencePrice,
-                companyHistoryAddDto.EPS
+                companyHistoryAddDto.EPS,
+                companyHistoryAddDto.Volume
             );
         }
 
@@ -35,7 +36,8 @@ namespace InternshipTradingApp.CompanyInventory.Features.Shared
                 DayVariation = companyHistoryAddDto.DayVariation,
                 EPS = companyHistoryAddDto.EPS,
                 PER = companyHistoryAddDto.PER,
-                Date = companyHistoryAddDto.Date
+                Date = companyHistoryAddDto.Date,
+                Volume = companyHistoryAddDto.Volume,
             };
         }
 

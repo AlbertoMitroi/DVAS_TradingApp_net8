@@ -1,4 +1,6 @@
 ﻿
+using InternshipTradingApp.CompanyInventory.Domain.CompanyHistory;
+
 namespace InternshipTradingApp.CompanyInventory.Domain
 {
     public interface IQueryCompanyRepository
@@ -7,5 +9,9 @@ namespace InternshipTradingApp.CompanyInventory.Domain
         Task<IEnumerable<Company>> GetCompaniesBySymbols(IEnumerable<string> symbols);
         Task<IEnumerable<Company>> GetAllCompaniesHistory(string symbol);
         Task<Company?> GetCompanyBySymbol(string companySymbol);
+
+        Task<IEnumerable<Company>> GetTopXCompanies(int? x, string? value);
+
+
     }
 }

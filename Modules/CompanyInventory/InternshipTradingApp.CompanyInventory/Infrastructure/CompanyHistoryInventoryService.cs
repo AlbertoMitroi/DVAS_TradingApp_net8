@@ -1,4 +1,5 @@
 ﻿using InternshipTradingApp.CompanyInventory.Features.AddCompanyHistory;
+using InternshipTradingApp.CompanyInventory.Features.Query;
 using InternshipTradingApp.CompanyInventory.Features.QueryCompanyHistory;
 using InternshipTradingApp.CompanyInventory.Features.Shared;
 using InternshipTradingApp.CompanyInventory.Features.SharedCompanyHistory;
@@ -9,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace InternshipTradingApp.CompanyHistoryInventory
 {
-    internal class CompanyHistoryInventoryService (
-        GetAllCompaniesHistoryQueryHandler getAllCompaniesHistoryQueryHandler, 
-        AddCompanyHistoryCommandHandler addCompanyHistoryCommandHandler,
-        GetCompanyWithHistoryDataQueryHandler getCompanyWithHistoryDataQueryHandler): ICompanyHistoryInventoryService
+    internal class CompanyHistoryInventoryService(
+    InternshipTradingApp.CompanyInventory.Features.QueryCompanyHistory.GetAllCompaniesHistoryQueryHandler getAllCompaniesHistoryQueryHandler,
+    AddCompanyHistoryCommandHandler addCompanyHistoryCommandHandler,
+    GetCompanyWithHistoryDataQueryHandler getCompanyWithHistoryDataQueryHandler
+    ) : ICompanyHistoryInventoryService
     {
       
         public async Task<IEnumerable<CompanyHistoryGetDTO>> GetAllCompanies()
@@ -48,6 +50,6 @@ namespace InternshipTradingApp.CompanyHistoryInventory
 
             return companyHistory.ToCompanyHistoryGetDTOs();
         }
-        
+
     }
 }

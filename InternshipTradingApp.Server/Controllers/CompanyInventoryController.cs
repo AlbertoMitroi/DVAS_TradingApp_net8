@@ -14,7 +14,7 @@ namespace InternshipTradingApp.Server.Controllers
         private readonly ICompanyInventoryService companyInventoryService;
         private readonly ICompanyHistoryInventoryService companyHistoryInventoryService;
 
-        public CompanyInventoryController(ICompanyInventoryService companyInventoryService,ICompanyHistoryInventoryService companyHistoryInventoryService)
+        public CompanyInventoryController(ICompanyInventoryService companyInventoryService, ICompanyHistoryInventoryService companyHistoryInventoryService)
         {
             this.companyInventoryService = companyInventoryService;
             this.companyHistoryInventoryService = companyHistoryInventoryService;
@@ -28,13 +28,19 @@ namespace InternshipTradingApp.Server.Controllers
                 var company = await companyHistoryInventoryService.GetCompanyWithHistoryDataAsync(symbol);
                 if (company != null)
                 {
-                    return Ok(company); 
+                    return Ok(company);
                 }
                 return NotFound(symbol);
             }
 
             var allCompanies = await companyInventoryService.GetAllCompanies();
-            return Ok(allCompanies); 
+            return Ok(allCompanies);
+        }
+
+        [HttpGet("topXCompaniesByParameter")]
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies([FromQuery] int? x, string? value) 
+        {
+            return await companyInventoryService.GetTopXCompanies(x,value);
         }
 
         [HttpPost("history")]
@@ -59,6 +65,5 @@ namespace InternshipTradingApp.Server.Controllers
 
             return await this.companyInventoryService.RegisterOrUpdateCompanies(companyDtos);
         }
-       
     }
 }

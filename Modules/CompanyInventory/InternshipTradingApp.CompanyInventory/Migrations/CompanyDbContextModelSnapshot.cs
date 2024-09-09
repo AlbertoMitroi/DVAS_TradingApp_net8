@@ -85,6 +85,9 @@ namespace InternshipTradingApp.CompanyInventory.Migrations
                     b.Property<decimal>("ReferencePrice")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<decimal>("Volume")
+                        .HasColumnType("decimal(20,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanySymbol");

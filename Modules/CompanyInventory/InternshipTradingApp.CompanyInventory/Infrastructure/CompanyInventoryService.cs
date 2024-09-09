@@ -9,8 +9,11 @@ namespace InternshipTradingApp.CompanyInventory
     internal class CompanyInventoryService(
         GetAllCompaniesHistoryQueryHandler getAllCompaniesQueryHandler,
         GetCompanyHistoryBySymbolQueryHandler getCompanyBySymbolQueryHandler,
-        AddOrUpdateCompaniesCommandHandler addOrUpdateCompaniesCommandHandler
-            ) : ICompanyInventoryService
+        AddOrUpdateCompaniesCommandHandler addOrUpdateCompaniesCommandHandler,
+        GetTopXCompaniesQueryHandler getTopXCompaniesQueryHandler
+       ) : ICompanyInventoryService
+    
+    
     {
         public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetAllCompanies()
         {
@@ -30,6 +33,11 @@ namespace InternshipTradingApp.CompanyInventory
             var company = await addOrUpdateCompaniesCommandHandler.Handle(addOrUpdateCompanies);
 
             return company.ToCompanyGetDTOs();
+        }
+
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies(int? x, string? value) {
+            var query = new GetTopXCompaniesQuery { X = x, Value = value };
+            return await getTopXCompaniesQueryHandler.Handle(query);
         }
     }
 }

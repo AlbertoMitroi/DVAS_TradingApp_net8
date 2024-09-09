@@ -13,5 +13,7 @@ namespace InternshipTradingApp.ModuleIntegration.CompanyInventory
         public decimal EPS { get; set; }
         public DateOnly Date {  get; set; }
 
+        public decimal Volume { get; set; }
+
     }
 }

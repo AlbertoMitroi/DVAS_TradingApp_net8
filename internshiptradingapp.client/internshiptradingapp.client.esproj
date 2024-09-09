@@ -10,10 +10,17 @@
   <ItemGroup>
     <Folder Include="src\app\features\account-management\components\" />
     <Folder Include="src\app\features\account-management\pages\" />
+    <Folder Include="src\app\features\main-dashboard\pages\" />
     <Folder Include="src\app\features\main-dashboard\components\" />
     <Folder Include="src\app\features\user-dashboard\" />
     <Folder Include="src\app\features\orders-management\" />
     <Folder Include="src\app\features\weather-forecast\pages\" />
     <Folder Include="src\app\features\main-dashboard\services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\app\features\main-dashboard\components\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\features\main-dashboard\components\NewFolder\**" />
   </ItemGroup>
 </Project>

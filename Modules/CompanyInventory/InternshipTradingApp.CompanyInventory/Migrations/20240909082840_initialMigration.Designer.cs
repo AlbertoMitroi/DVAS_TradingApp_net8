@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternshipTradingApp.CompanyInventory.Migrations
 {
     [DbContext(typeof(CompanyDbContext))]
-    [Migration("20240903155818_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240909082840_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,6 +87,9 @@ namespace InternshipTradingApp.CompanyInventory.Migrations
 
                     b.Property<decimal>("ReferencePrice")
                         .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("Volume")
+                        .HasColumnType("decimal(20,2)");
 
                     b.HasKey("Id");
 

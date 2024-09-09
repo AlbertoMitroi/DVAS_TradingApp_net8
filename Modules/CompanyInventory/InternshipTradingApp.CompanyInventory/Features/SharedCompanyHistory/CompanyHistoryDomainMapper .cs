@@ -19,7 +19,8 @@ namespace InternshipTradingApp.CompanyInventory.Features.SharedCompanyHistory
                 DayVariation = company.DayVariation,
                 EPS = company.EPS,
                 PER = company.PER,
-                Date=company.Date
+                Date=company.Date,
+                Volume = company.Volume
 
             };
         }
