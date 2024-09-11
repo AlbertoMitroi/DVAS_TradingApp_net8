@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InternshipTradingApp.CompanyInventory.Features.AddCompanyHistory
 {
-    public class AddCompanyHistoryCommandHandler(ICompanyHistoryEntryRepository repository, IQueryCompanyHistoryRepository queryCompanyHistoryRepository)
+    public class AddCompanyHistoryCommandHandler(ICompanyHistoryEntryRepository repository)
     {
         public async Task<List<CompanyHistoryEntry>> Handle(AddCompanyHistoryCommand command)
         {

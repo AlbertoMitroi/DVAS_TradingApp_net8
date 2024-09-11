@@ -8,12 +8,15 @@ import { AppComponent } from './app.component';
 import { MainDashboardModule } from './features/main-dashboard/module-config/main-dashboard.module';
 import { WeatherForecastModule } from './features/weather-forecast/module-config/weather-forecast.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChartComponent
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,16 +26,22 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     WeatherForecastModule,
     BrowserAnimationsModule,
     TableModule,
-    PaginatorModule
+    PaginatorModule,
+    MatTableModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSlideToggleModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
 
 import { platformBrowser } from '@angular/platform-browser';
 import { ChartComponent } from './features/main-dashboard/components/chart/chart.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 platformBrowser().bootstrapModule(AppModule).catch(err => console.error(err));

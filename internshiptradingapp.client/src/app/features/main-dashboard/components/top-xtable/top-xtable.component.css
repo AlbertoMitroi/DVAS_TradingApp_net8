@@ -1,0 +1,27 @@
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 400px;
+  display: block; /* no inline spacing */
+  margin: 0 auto; /* centers the canvas */
+}
+
+.mat-card {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 20px;
+}
+
+.selected-row {
+  background-color: #f0f0f0;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .table-title {
+    text-align: center;
+  }
+}
