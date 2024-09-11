@@ -35,7 +35,7 @@ namespace InternshipTradingApp.CompanyInventory
         {
             serviceCollection.AddScoped<AddOrUpdateCompaniesCommandHandler>();
             serviceCollection.AddScoped<AddCompanyHistoryCommandHandler>();
-           
+
         }
 
         private static void RegisterQueryHandlers(IServiceCollection serviceCollection)

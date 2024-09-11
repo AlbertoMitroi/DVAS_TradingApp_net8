@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using InternshipTradingApp.CompanyInventory.Features.Shared;
-using InternshipTradingApp.ModuleIntegration.CompanyInventory;
-using InternshipTradingApp.CompanyInventory.Domain;
-using Microsoft.IdentityModel.Tokens;
+﻿using InternshipTradingApp.ModuleIntegration.CompanyInventory;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace InternshipTradingApp.Server.Controllers
@@ -38,9 +35,9 @@ namespace InternshipTradingApp.Server.Controllers
         }
 
         [HttpGet("topXCompaniesByParameter")]
-        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies([FromQuery] int? x, string? value) 
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies([FromQuery] int? x, string? value)
         {
-            return await companyInventoryService.GetTopXCompanies(x,value);
+            return await companyInventoryService.GetTopXCompanies(x, value);
         }
 
         [HttpPost("history")]

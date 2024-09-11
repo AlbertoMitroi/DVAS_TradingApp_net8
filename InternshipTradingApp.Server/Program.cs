@@ -2,7 +2,6 @@
 using InternshipTradingApp.CompanyInventory;
 using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace InternshipTradingApp.Server
 {
@@ -20,11 +19,21 @@ namespace InternshipTradingApp.Server
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://127.0.0.1:4200")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
+            });
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseDefaultFiles();
             app.UseStaticFiles();

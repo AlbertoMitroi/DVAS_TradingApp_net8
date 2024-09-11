@@ -1,0 +1,188 @@
+.full-width-height {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  box-sizing: border-box;
+}
+
+.table-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.table-responsive {
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.table-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.expanded-content {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.expanded-content div {
+  flex: 1 1 50%;
+  margin-bottom: 10px;
+}
+
+.company-details-header {
+  font-size: 1.5rem; /* Larger font size */
+  font-weight: bold; /* Bold weight */
+  text-align: center; /* Center-align text */
+  color: #007bff; /* A subtle blue color, adjust as needed */
+  padding: 10px 0; /* Add vertical spacing */
+  border-bottom: 2px solid #007bff; /* A border under the title for emphasis */
+  margin-bottom: 20px; /* Space below the header */
+  background-color: #f8f9fa; /* Light gray background to make it stand out */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.top-half {
+  height: 50%;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.bottom-half {
+  height: 50%;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#priceGraph {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.details-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .table-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+
+  .table-container {
+    padding: 5px;
+  }
+
+  .expanded-content div {
+    flex: 1 1 100%;
+  }
+
+  .top-half,
+  .bottom-half {
+    height: auto;
+    max-height: 50%;
+    padding: 5px;
+  }
+
+  #priceGraph {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .table-container {
+    padding: 5px;
+  }
+
+  .expanded-content div {
+    flex: 1 1 100%;
+    margin-bottom: 5px;
+  }
+
+  .top-half,
+  .bottom-half {
+    height: auto;
+    max-height: 50%;
+    padding: 5px;
+  }
+
+  #priceGraph {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+  }
+
+  .details-panel {
+    padding: 10px;
+  }
+}
+
+/* Style for card layout */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  height: auto;
+}
+
+.card {
+  flex: 1 1 calc(100% - 20px);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: #f9f9f9;
+  font-size: 0.9rem;
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.card-body {
+  margin-top: 8px;
+}
+
+.card-footer {
+  margin-top: 8px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 1 1 calc(100% - 10px);
+    font-size: 0.8rem;
+  }
+
+  .card-header {
+    font-size: 0.9rem;
+  }
+}

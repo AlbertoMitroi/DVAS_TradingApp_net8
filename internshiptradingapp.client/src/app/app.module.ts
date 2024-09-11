@@ -6,42 +6,37 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainDashboardModule } from './features/main-dashboard/module-config/main-dashboard.module';
-import { WeatherForecastModule } from './features/weather-forecast/module-config/weather-forecast.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
+import { ChartModule } from 'primeng/chart';
+import { SplitterModule } from 'primeng/splitter';
+import { CarouselModule } from 'primeng/carousel';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ChartComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
+    PaginatorModule,
+    ChartModule,
+    CarouselModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     MainDashboardModule,
-    WeatherForecastModule,
-    BrowserAnimationsModule,
+    InputTextModule,
     TableModule,
-    PaginatorModule,
-    MatTableModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSlideToggleModule
+    SplitterModule,
+    FormsModule,
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
+  providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 import { platformBrowser } from '@angular/platform-browser';
 import { ChartComponent } from './features/main-dashboard/components/chart/chart.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-
-platformBrowser().bootstrapModule(AppModule).catch(err => console.error(err));
+platformBrowser()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));

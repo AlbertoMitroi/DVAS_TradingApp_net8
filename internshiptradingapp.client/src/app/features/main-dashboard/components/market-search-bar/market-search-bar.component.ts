@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-markets',
-  templateUrl: './markets.component.html',
-  styleUrls: ['./markets.component.css']
+  selector: 'app-market-search-bar',
+  templateUrl: './market-search-bar.component.html',
+  styleUrls: ['./market-search-bar.component.css'],
 })
-export class MarketsComponent implements OnInit {
-
+export class MarketSearchBarComponent implements OnInit {
   public symbolFilter: string | null = null;
   public companyData: any = {};
   public latestHistoryEntry: any = null;
@@ -15,7 +14,7 @@ export class MarketsComponent implements OnInit {
   public data: any;
   public options: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.getCompanyBySymbol();
@@ -23,17 +22,21 @@ export class MarketsComponent implements OnInit {
 
   getCompanyBySymbol() {
     if (this.symbolFilter && this.symbolFilter.trim()) {
-      this.http.get(`https://localhost:7221/api/CompanyInventory/`, {
-        params: {
-          symbol: this.symbolFilter
-        }
-      })
+      this.http
+        .get(`https://localhost:7221/api/CompanyInventory/`, {
+          params: {
+            symbol: this.symbolFilter,
+          },
+        })
         .subscribe(
           (response: any) => {
             this.companyData = response;
             console.log('Company data:', this.companyData);
 
-            if (this.companyData.history && typeof this.companyData.history[Symbol.iterator] === 'function') {
+            if (
+              this.companyData.history &&
+              typeof this.companyData.history[Symbol.iterator] === 'function'
+            ) {
               const historyArray = Array.from(this.companyData.history);
               this.latestHistoryEntry = historyArray[historyArray.length - 1];
               console.log('Latest history entry:', this.latestHistoryEntry);
@@ -46,7 +49,9 @@ export class MarketsComponent implements OnInit {
           }
         );
     } else {
-      console.error('symbolFilter is null, undefined, or empty. API call not made.');
+      console.error(
+        'symbolFilter is null, undefined, or empty. API call not made.'
+      );
     }
   }
 }

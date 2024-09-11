@@ -1,0 +1,118 @@
+<div class="full-width-height">
+  <h3 class="table-title">Top 10 Symbols by Total Value</h3>
+
+  <p-splitter
+    [panelSizes]="[40, 60]"
+    [style]="{ height: '100%', width: '100%' }"
+    styleClass="custom-splitter"
+  >
+    <!-- Left Panel: Company Table -->
+    <ng-template pTemplate>
+      <div
+        class="col flex align-items-center justify-content-center table-container"
+      >
+        <div class="table-responsive">
+          <!-- Table view for larger screens -->
+          <ng-container *ngIf="!isMobileView">
+            <p-table
+              [value]="companies"
+              [paginator]="true"
+              [rows]="5"
+              [paginatorPosition]="'bottom'"
+              [responsive]="true"
+              class="table table-striped table-bordered"
+              (onRowSelect)="onRowSelect($event.data)"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Symbol</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-company>
+                <tr (click)="onRowSelect(company)" style="cursor: pointer">
+                  <td>{{ company.company.symbol }}</td>
+                  <td>{{ company.company.name }}</td>
+                  <td>{{ company.history[0].price }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </ng-container>
+
+          <!-- Card view for smaller screens -->
+          <ng-container *ngIf="isMobileView">
+            <div *ngIf="companies.length > 0" class="card-container">
+              <div
+                (click)="onRowSelect(company)"
+                style="cursor: pointer"
+                class="card"
+                *ngFor="let company of companies"
+              >
+                <div class="card-header">
+                  {{ company.company.symbol }}
+                </div>
+                <div class="card-body">
+                  <p><strong>Name:</strong> {{ company.company.name }}</p>
+                  <p><strong>Price:</strong> {{ company.history[0].price }}</p>
+                </div>
+                <div class="card-footer"></div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Right Panel: Company Details Panel -->
+    <ng-template pTemplate>
+      <div class="col flex align-items-center justify-content-center">
+        <div *ngIf="selectedCompany" class="details-panel">
+          <h4 class="company-details-header">Company Details</h4>
+          <div class="top-half">
+            <div class="expanded-content">
+              <div>
+                <strong>Name:</strong> {{ selectedCompany.company.name }}
+              </div>
+              <div>
+                <strong>Symbol:</strong> {{ selectedCompany.company.symbol }}
+              </div>
+              <div>
+                <strong>Price:</strong> {{ selectedCompany.history[0].price }}
+              </div>
+              <div>
+                <strong>Reference Price:</strong>
+                {{ selectedCompany.history[0].referencePrice }}
+              </div>
+              <div>
+                <strong>Opening Price:</strong>
+                {{ selectedCompany.history[0].openingPrice }}
+              </div>
+              <div>
+                <strong>Closing Price:</strong>
+                {{ selectedCompany.history[0].closingPrice }}
+              </div>
+              <div>
+                <strong>EPS:</strong> {{ selectedCompany.history[0].eps }}
+              </div>
+              <div>
+                <strong>PER:</strong> {{ selectedCompany.history[0].per }}
+              </div>
+              <div>
+                <strong>Day Variation:</strong>
+                {{ selectedCompany.history[0].dayVariation }}
+              </div>
+              <div>
+                <strong>Status:</strong>
+                {{ selectedCompany.company.status === 1 ? "Ok" : "Not ok" }}
+              </div>
+            </div>
+          </div>
+          <div class="bottom-half">
+            <canvas id="priceGraph"></canvas>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-splitter>
+</div>

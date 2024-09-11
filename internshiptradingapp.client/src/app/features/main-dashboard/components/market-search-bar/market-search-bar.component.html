@@ -1,0 +1,23 @@
+<div class="container-fluid mt-4">
+  <!-- Input Group Section -->
+  <div class="input-section mb-4">
+    <div class="input-group mb-3">
+      <input
+        pInputText
+        type="text"
+        class="form-control"
+        [(ngModel)]="symbolFilter"
+        placeholder="Enter company symbolss"
+      />
+      <button
+        pButton
+        pRipple
+        class="btn btn-warning"
+        type="button"
+        (click)="getCompanyBySymbol()"
+      >
+        <i class="pi pi-search"></i>
+      </button>
+    </div>
+  </div>
+</div>

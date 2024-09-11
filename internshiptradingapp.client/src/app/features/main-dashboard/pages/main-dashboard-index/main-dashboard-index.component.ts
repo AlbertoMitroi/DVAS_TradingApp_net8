@@ -1,13 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, AfterViewInit, HostListener } from '@angular/core';
-import { Chart } from 'chart.js';
-
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-main-dashboard-index',
   templateUrl: './main-dashboard-index.component.html',
-  styleUrls: ['./main-dashboard-index.component.css'],
+  styleUrl: './main-dashboard-index.component.css',
 })
-export class MainDashboardIndexComponent {
-}
+export class MainDashboardIndexComponent {}

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -42,7 +41,6 @@ namespace InternshipTradingApp.CompanyInventory.Migrations
                     PER = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DayVariation = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Volume = table.Column<decimal>(type: "decimal(20,2)", nullable: false)
                 },
                 constraints: table =>
                 {

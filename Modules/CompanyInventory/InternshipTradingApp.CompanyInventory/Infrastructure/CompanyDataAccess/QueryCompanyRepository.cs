@@ -1,10 +1,5 @@
 ﻿using InternshipTradingApp.CompanyInventory.Domain;
-using InternshipTradingApp.CompanyInventory.Domain.CompanyHistory;
-using InternshipTradingApp.CompanyInventory.Features.Shared;
-using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 {
@@ -26,8 +21,8 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
         public async Task<IEnumerable<Company>> GetAllCompaniesHistory(string symbol)
         {
             var result = await dbContext.Companies
-                                        .Include(h=>h.CompanyHistoryEntries)
-                                        .Where(c=>c.Symbol==symbol)
+                                        .Include(h => h.CompanyHistoryEntries)
+                                        .Where(c => c.Symbol == symbol)
                                         .ToListAsync();
             return result;
         }
@@ -42,7 +37,7 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
 
         public async Task<IEnumerable<Company>> GetTopXCompanies(int? x, string? value)
         {
-            
+
             x ??= 10;
 
             var query = dbContext.Companies
@@ -81,10 +76,10 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
                     break;
             }
 
-           
+
             var topCompaniesQuery = query.Take(x.Value);
 
-            
+
             var sql = topCompaniesQuery.ToQueryString();
 
             var result = await topCompaniesQuery.Select(c => c.Company).ToListAsync();
