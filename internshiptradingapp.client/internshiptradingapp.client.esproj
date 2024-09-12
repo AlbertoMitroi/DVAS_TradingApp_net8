@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\app\features\account-management\components\" />
+    <Folder Include="src\app\features\account-management\components\" />
     <Folder Include="src\app\features\account-management\pages\" />
     <Folder Include="src\app\features\main-dashboard\pages\" />
     <Folder Include="src\app\features\main-dashboard\components\" />

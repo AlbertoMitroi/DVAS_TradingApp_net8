@@ -12,8 +12,8 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess
         : base(options)
         {
         }
-
         public DbSet<Company> Companies { get; set; }
+
         public DbSet<CompanyHistoryEntry> CompanyHistoryEntries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

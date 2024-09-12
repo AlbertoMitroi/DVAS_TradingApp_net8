@@ -1,0 +1,64 @@
+.add-bank-container {
+    max-width: 450px;
+    margin: 100px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  #iban, #bankName {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  .btn-primary {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #222831;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #59616c;
+  }  
+
+  .spinner {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #222831;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+    display: block;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .alert {
+    margin-top: 20px;
+    padding: 12px;
+  }

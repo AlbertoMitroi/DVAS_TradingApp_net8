@@ -1,5 +1,7 @@
-﻿using InternshipTradingApp.ModuleIntegration.CompanyInventory;
+﻿using InternshipTradingApp.CompanyInventory.Features.Shared;
 using Microsoft.AspNetCore.Mvc;
+using InternshipTradingApp.CompanyInventory.Domain;
+using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 
 
 namespace InternshipTradingApp.Server.Controllers

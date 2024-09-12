@@ -1,24 +1,23 @@
-
-using InternshipTradingApp.CompanyInventory;
-using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
+using InternshipTradingApp.AccountManagement.Data;
+using InternshipTradingApp.AccountManagement.Entities;
+using InternshipTradingApp.Server.Extensions;
+using InternshipTradingApp.Server.SignalR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace InternshipTradingApp.Server
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddApplicationServices(builder.Configuration);
+            builder.Services.AddIdentityServices(builder.Configuration);
             // Add services to the container.
 
-            builder.Services.AddCompanyInventoryModule();
-            builder.Services.AddControllers();
-            builder.Services.AddDbContext<CompanyDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
@@ -27,18 +26,15 @@ namespace InternshipTradingApp.Server
                                       .AllowAnyMethod());
             });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSignalR();
 
             var app = builder.Build();
 
-            app.UseCors("AllowSpecificOrigin");
 
-            app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseRouting();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -47,18 +43,39 @@ namespace InternshipTradingApp.Server
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
-            
-            app.UseCors(x => x
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+            app.UseCors(policy =>
+                policy.WithOrigins("http://localhost:4200")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials());
+
+            app.UseAuthentication();
+            app.UseAuthorization();     
 
             app.MapControllers();
 
+            app.MapHub<UserNotificationHub>("/hubs/userHub");
+
             app.MapFallbackToFile("/index.html");
+
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var context = services.GetRequiredService<AccountDbContext>();
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+                await context.Database.MigrateAsync();
+                await Seed.SeedUsers(userManager, roleManager);
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred during migration");
+            }
+
 
             app.Run();
         }
-    }
+        }
 }

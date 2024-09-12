@@ -1,0 +1,55 @@
+<p-toast key="global"></p-toast>
+
+
+<div class="main">
+  <div class="withdraw-container">
+    <h2>Withdraw Funds</h2>
+
+    <form (ngSubmit)="withdrawFunds()">
+      <div class="form-group">
+        <label for="bankAccount">Select Bank Account:</label>
+        <button type="button" class="btn btn-select button-bank" (click)="openBankAccountDialog()">
+          {{ selectedBankAccountId ? getSelectedBankName() : ' - ' }}
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" class="form-control" [(ngModel)]="amount" name="amount" required>
+      </div>
+
+      <button type="submit" 
+        class="btn btn-primary" 
+        [disabled]="isLoading">
+        <span *ngIf="isLoading" class="spinner"></span>
+        <span *ngIf="!isLoading">Withdraw</span>
+      </button>
+
+    </form>
+
+    <div *ngIf="message" class="alert alert-info mt-3">
+      {{ message }}
+    </div>
+
+    <p-dialog header="Select Bank Account" [(visible)]="isBankAccountDialogVisible" [modal]="true" [closable]="true" [style]="{width: '30vw'}">
+      <div class="bank-list-container">
+        <ul class="list-group">
+          <li class="list-group-item bank-item" *ngFor="let account of bankAccounts" (click)="selectBankAccount(account.id)">
+            <div class="bank-item-container">
+              <span class="bank-name">Bank: {{ account.bankName }}</span>
+              <div class="divider"></div>
+              <span class="bank-iban">IBAN: {{ account.iban }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <p-footer>
+        <button type="button" class="btn btn-secondary btn-add-bank" (click)="addNewBank()">Add new bank </button>
+        <button type="button" class="btn btn-secondary" (click)="isBankAccountDialogVisible = false">Close</button>
+      </p-footer>
+    </p-dialog>
+  </div>
+  <div class="transactions-container">
+    <app-transactions></app-transactions>
+  </div>
+</div>

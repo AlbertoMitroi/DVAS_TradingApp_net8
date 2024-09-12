@@ -1,0 +1,26 @@
+<div class="container-wrapper">
+    <div class="login-container">
+        <div class="login-card">
+            <h2>Login</h2>
+            <h3>Access your account</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="p-field">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" pInputText formControlName="email" />
+                    <p-message *ngIf="email?.invalid && email?.touched" severity="error" text="Invalid email address"></p-message>
+                </div>
+                
+                <div class="p-field">
+                    <label for="password">Password</label>
+                    <div style="width: 100%;">                     
+                        <p-password [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}" 
+                        class="full-width" id="password" formControlName="password" [feedback]="false"></p-password>
+                      </div>
+                      
+                </div>        
+                
+                <button pButton type="submit" label="Sign In"></button>
+            </form>
+        </div>
+    </div>
+</div>

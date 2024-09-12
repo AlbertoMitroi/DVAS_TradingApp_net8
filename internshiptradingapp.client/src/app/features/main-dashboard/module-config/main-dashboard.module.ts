@@ -47,6 +47,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     BrowserAnimationsModule,
     CarouselModule,
   ],
+  exports: [
+    MainDashboardIndexComponent
+  ],
   providers: [],
   bootstrap: [MainDashboardModule],
 })

@@ -1,0 +1,34 @@
+<div class="container-wrapper">
+    <div class="register-container">
+        <div class="register-card">
+            <h2>Register</h2>
+            <h3>Create your account</h3>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="p-field">
+                    <label for="fullname">Full Name</label>
+                    <input id="fullname" type="text" formControlName="fullname" />
+                    <p-message *ngIf="fullname?.invalid && fullname?.touched" severity="error" text="Full Name is required"></p-message>
+                </div>
+
+                <div class="p-field">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" formControlName="email" />
+                    <p-message *ngIf="email?.invalid && email?.touched" severity="error" text="Invalid email address"></p-message>
+                </div>
+                
+                <div class="p-field">
+                    <label for="password">Password</label>
+                    <p-password [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}"  id="password" formControlName="password" [feedback]="false"></p-password>
+                </div>
+                
+                <div class="p-field">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <p-password [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}"  id="confirmPassword" formControlName="confirmPassword" [feedback]="false"></p-password>
+                    <p-message *ngIf="registerForm.errors?.['mismatch'] && confirmPassword?.touched" severity="error" text="Passwords must match"></p-message>
+                </div>
+
+                <button pButton type="submit" label="Register"></button>
+            </form>
+        </div>
+    </div>
+</div>

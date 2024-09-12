@@ -1,0 +1,117 @@
+<div class="main">
+    <div class="navbar">
+        <ul class="nav-links">
+            <li><a (click)="selectTab('withdraw')" [ngClass]="{'active': selectedTab === 'withdraw'}">Withdraw</a></li>
+            <li><a (click)="selectTab('all')" [ngClass]="{'active': selectedTab === 'all'}">Transactions</a></li>
+            <li><a (click)="selectTab('deposit')" [ngClass]="{'active': selectedTab === 'deposit'}">Deposit</a></li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+        <!-- Withdraw Content -->
+        <div *ngIf="selectedTab === 'withdraw'" class="container withdraw-container">
+            <span class="header-text">Your Withdraw Transactions</span>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Bank</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of filteredWithdrawTransactions | paginate: { id: 'withdraw', itemsPerPage: pageSize, currentPage: pWithdraw }">
+                    <td>{{ transaction.date }}</td>
+                    <td>{{ transaction.amount | currency }}</td>
+                    <td>{{ transaction.type }}</td>
+                    <td>{{ transaction.bank }}</td>
+                </tr>
+            </tbody>
+        </table>
+            <pagination-controls
+                id="withdraw"
+                (pageChange)="pWithdraw = $event"
+                (pageBoundsCorrection)="pWithdraw = $event"
+                [directionLinks]="true"
+                [responsive]="true"
+                [autoHide]="false"
+                [maxSize]="maxSize"
+                previousLabel=""
+                nextLabel=""
+                class="custom-pagination"
+                ></pagination-controls>
+            </div>
+            
+            <!-- All Transactions Content -->
+            <div *ngIf="selectedTab === 'all'" class="container transactions-container">
+                <span class="header-text">Your All Transactions</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Bank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let transaction of filteredAllTransactions | paginate: { id: 'all', itemsPerPage: pageSize, currentPage: pAll }">
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.amount | currency }}</td>
+                            <td>{{ transaction.type }}</td>
+                            <td>{{ transaction.bank }}</td>
+                        </tr>
+                    </tbody>
+            </table>
+            <pagination-controls
+            id="all"
+            (pageChange)="pAll = $event"
+            (pageBoundsCorrection)="pAll = $event"
+            [directionLinks]="true"
+            [responsive]="true"
+                [autoHide]="false"
+                [maxSize]="maxSize"
+                previousLabel=""
+                nextLabel=""
+                class="custom-pagination"
+            ></pagination-controls>
+            </div>
+        
+            <!-- Deposit Content -->
+            <div *ngIf="selectedTab === 'deposit'" class="container deposit-container">
+                <span class="header-text">Your Deposit Transactions</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Bank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let transaction of filteredDepositTransactions | paginate: { id: 'deposit', itemsPerPage: pageSize, currentPage: pDeposit }">
+                            <td>{{ transaction.date }}</td>
+                            <td>{{ transaction.amount | currency }}</td>
+                            <td>{{ transaction.type }}</td>
+                            <td>{{ transaction.bank }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls
+                id="deposit"
+                (pageChange)="pDeposit = $event"
+                (pageBoundsCorrection)="pDeposit = $event"
+                [directionLinks]="true"
+                [responsive]="true"
+                [autoHide]="false"
+                [maxSize]="maxSize"
+                previousLabel=""
+                nextLabel=""
+                class="custom-pagination"
+                ></pagination-controls>
+            </div>
+        </div>
+  
+</div>

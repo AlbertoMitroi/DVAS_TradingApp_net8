@@ -1,0 +1,20 @@
+<div class="payment-container">
+    <h2 class="payment-header">Stripe Payment</h2>
+    
+    <label for="amount" class="amount-label">Amount to pay:</label>
+    <input type="number" [(ngModel)]="amount" id="amount" class="amount-input" />
+    
+
+    <form (ngSubmit)="createCheckoutSession()">
+        <button type="submit" 
+                class="pay-button" 
+                [disabled]="isLoading">
+          <span *ngIf="isLoading" class="spinner"></span>
+          <span *ngIf="!isLoading">Pay</span>
+        </button>
+      </form>
+    </div>
+    <div class="transactions-container">
+      <app-transactions></app-transactions>
+    </div>
+    

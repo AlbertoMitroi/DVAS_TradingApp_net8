@@ -11,6 +11,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="UserSeedData.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="UserSeedData.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy">
       <Version>8.*-*</Version>
     </PackageReference>
@@ -20,18 +31,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+    <PackageReference Include="Stripe.net" Version="45.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExternalDataSynchronization\ExternalDataSynchronization.csproj" />
+    <ProjectReference Include="..\InternshipTradingApp.AccountManagement\InternshipTradingApp.AccountManagement.csproj" />
     <ProjectReference Include="..\internshiptradingapp.client\internshiptradingapp.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\InternshipTradingApp.OrderManagementSystem\InternshipTradingApp.OrderManagementSystem.csproj" />
     <ProjectReference Include="..\ModuleIntegration\InternshipTradingApp.ModuleIntegration.csproj" />
     <ProjectReference Include="..\Modules\CompanyInventory\InternshipTradingApp.CompanyInventory\InternshipTradingApp.CompanyInventory.csproj" />
   </ItemGroup>

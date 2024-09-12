@@ -1,0 +1,25 @@
+<p-toast key="global"></p-toast>
+<div class="add-bank-container">
+    <h2>Add New Bank Account</h2>
+    <form (ngSubmit)="addBankAccount()">
+      <div class="form-group">
+        <label for="iban">IBAN:</label>
+        <input type="text" id="iban" class="form-control" [(ngModel)]="iban" name="iban" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bankName">Bank Name:</label>
+        <input type="text" id="bankName" class="form-control" [(ngModel)]="bankName" name="bankName" required>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+        <span *ngIf="isLoading" class="spinner"></span>
+        <span *ngIf="!isLoading">Add Bank Account</span>
+      </button>
+    </form>
+  
+    <div *ngIf="message" class="alert alert-info mt-3">
+      {{ message }}
+    </div>
+  </div>
+  
