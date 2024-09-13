@@ -34,6 +34,24 @@ export class SignalRService implements OnDestroy {
     this.startConnection();
     this.registerEvents();
   }
+  createOrderHubConnection(user: User): void {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl(`${this.hubUrl}orderHub`, {
+        accessTokenFactory: () => user.token
+      })
+      .withAutomaticReconnect({
+        nextRetryDelayInMilliseconds: retryContext => {
+          if (retryContext.previousRetryCount < 5) {
+            return 1000 * Math.pow(2, retryContext.previousRetryCount);
+          }
+          return null;
+        }
+      })
+      .build();
+
+    this.startOrderConnection();
+    this.registerOrderEvents();
+  }
 
   private async startConnection(): Promise<void> {
     if (this.hubConnection?.state === HubConnectionState.Connected) {
@@ -49,10 +67,30 @@ export class SignalRService implements OnDestroy {
     }
   }
 
+  private async startOrderConnection(): Promise<void> {
+    if (this.hubConnection?.state === HubConnectionState.Connected) {
+      return;
+    }
+
+    try {
+      await this.hubConnection?.start();
+      console.log('SignalR Connected');
+      await this.hubConnection?.invoke('SendOrderUpdate');
+    } catch (error) {
+      console.error('SignalR Connection Error:', error);
+    }
+  }
+
   private registerEvents(): void {
     this.hubConnection?.on('ReceiveUserDetails', (userDetails: UserDetailsDto) => {
       this.toastr.info(`${userDetails.username} has connected`);
       this.userDetailsSubject.next(userDetails);
+    });
+  }
+
+  private registerOrderEvents(): void {
+    this.hubConnection?.on('ReceiveOrders', (orders: any) => {
+      this.userDetailsSubject.next(orders);
     });
   }
 

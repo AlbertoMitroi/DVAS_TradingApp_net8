@@ -1,9 +1,9 @@
-﻿/*
-using InternshipTradingApp.CompanyInventory.Features.Shared;
+﻿using InternshipTradingApp.CompanyInventory.Features.Shared;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace InternshipTradingApp.CompanyInventory.Infrastructure
 {
@@ -28,41 +28,69 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
                 using (var scope = _serviceProvider.CreateScope())
                 {
                     var companyInventoryService = scope.ServiceProvider.GetRequiredService<ICompanyInventoryService>();
-                    await UpdatePricesAsync(companyInventoryService);
+                    var companyHistoryInventoryService = scope.ServiceProvider.GetRequiredService<ICompanyHistoryInventoryService>();
+                    await UpdatePricesAsync(companyInventoryService, companyHistoryInventoryService);
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                // 10 seconds
+                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
 
             _logger.LogInformation("Price Generation Service is stopping.");
         }
 
-        private async Task UpdatePricesAsync(ICompanyInventoryService companyInventoryService)
+        private async Task UpdatePricesAsync(ICompanyInventoryService companyInventoryService, ICompanyHistoryInventoryService companyHistoryInventoryService)
         {
-            var companyDtos = await companyInventoryService.GetAllCompanies();
-            var companies = companyDtos.ToDomainObjects();
-            var updatedCompanyDtos = new List<CompanyAddDTO>();
+            var companyGetDto = await companyInventoryService.GetAllCompanies();
 
-            foreach (var company in companies)
+            var updatedCompanyDtos = new List<CompanyHistoryAddDTO>();
+
+            foreach (var company in companyGetDto)
             {
-                var variationPercentage = (decimal)(_random.NextDouble() * 0.1 - 0.05);
-                var newPrice = company.Price * (1 + variationPercentage);
+                var lastHistory = company.History.LastOrDefault();
+
+                if (lastHistory == null)
+                {
+                    _logger.LogWarning($"No history found for company {company.Company.Name} ({company.Company.Symbol})");
+                    continue;
+                }
+
+                var referencePrice = lastHistory.ClosingPrice;
+
+                var variationPercentage = (decimal)(_random.NextDouble() * 0.04 - 0.02); // -2% <=> +2%
+                var newPrice = referencePrice * (1 + variationPercentage);
+
+                var openingPrice = lastHistory.OpeningPrice;
+                var closingPrice = newPrice;
+                var dayVariation = (newPrice - openingPrice) / openingPrice * 100;  
+                var volume = _random.Next(100, 10000);
 
                 try
                 {
-                    company.UpdatePrice(newPrice);
-                    if (company == null) throw new ArgumentNullException(nameof(company));
-                    updatedCompanyDtos.Add(company.ToCompanyAddDTO());
-                    _logger.LogInformation($"Updated {company.Name} ({company.Symbol}) price to {newPrice:C}");
+                    var addNewCompanyPrice = new CompanyHistoryAddDTO
+                    {
+                        CompanySymbol = company.Company.Symbol,
+                        Price = newPrice,
+                        ReferencePrice = referencePrice,
+                        OpeningPrice = openingPrice,
+                        ClosingPrice = closingPrice,
+                        PER = lastHistory.PER,
+                        DayVariation = dayVariation,
+                        EPS = lastHistory.EPS, 
+                        Date = new DateOnly(),
+                        Volume = volume
+                    };
+                    updatedCompanyDtos.Add(addNewCompanyPrice);
+
+                    _logger.LogInformation($"Updated {company.Company.Name} ({company.Company.Symbol}) price to {newPrice:C}, day variation: {dayVariation:F2}%, volume: {volume}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, $"Failed to update price for {company.Name} ({company.Symbol})");
+                    _logger.LogError(ex, $"Failed to update price for {company.Company.Name} ({company.Company.Symbol})");
                 }
             }
 
-           // await companyInventoryService.RegisterOrUpdateCompanies(updatedCompanyDtos);
+            await companyHistoryInventoryService.RegisterCompaniesHistory(updatedCompanyDtos);
         }
     }
 }
-*/

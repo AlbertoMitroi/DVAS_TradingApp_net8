@@ -14,7 +14,7 @@ namespace InternshipTradingApp.OrderManagementSystem.Entities
         public decimal Price { get; set; }        
         public OrderType Type { get; set; }       
         public OrderStatus Status { get; set; }   
-        public DateTime OrderDate { get; set; }   
+        public DateTime OrderDate { get; set; }
     }
 
     public enum OrderType

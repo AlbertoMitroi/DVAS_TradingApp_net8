@@ -1,0 +1,104 @@
+
+.order-form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.order-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 150px;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.form-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-buttons button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: white;
+    margin-left: 10px;
+}
+
+.buy-btn {
+    background-color: #28a745;
+}
+
+.buy-btn:hover {
+    background-color: #218838;
+}
+
+.sell-btn {
+    background-color: #dc3545; 
+}
+
+.sell-btn:hover {
+    background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+    .order-form-container {
+        width: 100%;
+        margin: 0 20px;
+    }
+
+    .order-form {
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .form-buttons button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
