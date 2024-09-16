@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { MainDashboardRoutingModule } from './main-dashboard-routing.module';
 import { MainDashboardIndexComponent } from '../pages/main-dashboard-index/main-dashboard-index.component';
-import { MarketSearchBarComponent } from '../components/market-search-bar/market-search-bar.component';
 import { CarouselOfSymbolsComponent } from '../components/carousel-of-symbols/carousel-of-symbols.component';
 import { MarketTableComponent } from '../components/market-table/market-table.component';
 import { TopXTableComponent } from '../components/top-xtable/top-xtable.component';
@@ -32,6 +31,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
+import { MarketSearchBarComponent } from '../components/market-search-bar/market-search-bar.component';
 
 
 

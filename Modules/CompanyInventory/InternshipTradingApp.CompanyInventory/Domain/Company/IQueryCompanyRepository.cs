@@ -12,5 +12,6 @@
         Task<decimal> GetMarketIndex();
 
 
+
     }
 }

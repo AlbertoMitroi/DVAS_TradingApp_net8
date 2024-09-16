@@ -122,6 +122,13 @@ export class MarketTableComponent {
     });
     this.showMarketIndex = true;
     console.log(this.companies);
+
+    this.sharedCompanyService.selectedCompany$.subscribe(company => {
+      this.selectedCompany = company;
+      if (this.selectedCompany) {
+        this.onRowSelect(this.selectedCompany);
+      }
+    })
   }
 
   ngAfterViewInit() {
