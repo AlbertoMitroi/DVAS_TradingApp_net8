@@ -22,18 +22,18 @@ namespace InternshipTradingApp.CompanyHistoryInventory
             return await getAllCompaniesHistoryQueryHandler.Handle();
         }
 
-        public async Task<CompanyWithHistoryGetDTO> GetCompanyWithHistoryDataAsync(string companySymbol)
+        public async Task<CompanyWithHistoryGetDTO> GetCompanyWithHistoryDataAsync(string? value)
         {
             var query = new GetCompanyWithHistoryDataQuery
             {
-                CompanySymbol = companySymbol
+               Value = value
             };
 
             var result = await getCompanyWithHistoryDataQueryHandler.Handle(query);
 
             if (result == null)
             {
-                throw new Exception($"Company with symbol {companySymbol} not found.");
+                throw new Exception($"Company with value {value} not found.");
             }
 
             return result;

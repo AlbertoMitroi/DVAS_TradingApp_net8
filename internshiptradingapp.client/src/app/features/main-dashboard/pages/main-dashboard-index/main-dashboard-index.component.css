@@ -1,73 +1,116 @@
-/* Aplică dimensiuni pe întreaga pagină și elimină scroll-ul */
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
-
-/* Container principal pe toată înălțimea paginii */
 .page-container {
   display: flex;
+  flex-direction: column;
+  width: 100vw;
   height: 100vh;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 10px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
-/* Două coloane pentru stânga și dreapta */
-.left-column, .right-column {
-  width: 50%;
-  flex: 1;
+app-carousel-of-symbols {
+  flex: 0 1 20%; /* Reduced height to 20% of the page */
+  padding: 0.2rem; /* Reduce padding around the carousel */
+  box-sizing: border-box;
+}
+
+.p-carousel {
+  padding: 10px; /* Minimize padding around carousel */
+}
+
+  .p-carousel .p-carousel-item {
+    max-width: 120px; /* Smaller carousel items */
+    height: 120px;
+  }
+
+.circle-card {
+  width: 70px; /* Smaller circles */
+  height: 70px;
+}
+
+app-market-table {
+  flex: 0 1 80%; /* Increased height to 80% for the market table */
+  padding: 0.3rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.left-panel {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
-  box-sizing: border-box;
+  width: 40%;
+  padding: 0.3rem;
 }
 
-/* Ajustează fundalul pentru vizibilitate (opțional) */
-.left-column {
-  background-color: #f5f5f5; /* Culoare pentru stânga */
+.table-container {
+  flex-grow: 3;
+  /* Remove overflow so that pagination works properly */
+  overflow: unset; /* or just remove the overflow property */
 }
 
-.right-column {
-  background-color: #fafafa; /* Culoare pentru dreapta */
+.search-container {
+  flex-grow: 0; /* Do not grow the search container */
+  padding: 0.1rem; /* Minimize padding */
 }
 
-/* Fiecare componentă ocupă o parte proporțională */
-.page-container > .left-column > *, 
-.page-container > .right-column > * {
-  flex: 1;
-  margin-bottom: 10px;
-  background-color: #ffffff;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Umbră pentru aspect mai elegant */
-  box-sizing: border-box;
+.topxtable-container {
+  flex-grow: 1;
+  padding: 0.1rem; /* Minimize padding */
+  overflow-y: auto; /* Make the volume table scrollable */
 }
 
-/* Elimină ultimul margin pentru fiecare coloană */
-.left-column > *:last-child,
-.right-column > *:last-child {
-  margin-bottom: 0;
+/* Hover effect for table rows */
+table.mat-table tr:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Responsivitate pentru ecrane mici */
-@media (max-width: 768px) {
-  .page-container {
-    flex-direction: column;
-  }
-  
-  .left-column, .right-column {
-    flex: none;
-    width: 100%;
-  }
+.details-panel {
+  width: 60%;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-  /* Componentele se afișează una sub alta pe mobile */
-  .page-container > .left-column > *, 
-  .page-container > .right-column > * {
-    margin-bottom: 15px;
-  }
+.company-details {
+  padding: 0.3rem;
+  background-color: #fff;
+  flex: 0 1 50%;
+}
+
+.chart-container {
+  flex: 0 1 50%;
+  padding: 0.3rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.paginator {
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+body {
+  overflow: hidden;
+}
+
+
+/* Add hover effect for table rows */
+table.mat-table tr:hover {
+  background-color: #f0f0f0; /* Light grey background when hovered */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease;
+}
+
+/* Add clicked effect */
+table.mat-table tr.selected-row {
+  background-color: #d0eaff; /* Light blue background for selected row */
 }

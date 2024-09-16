@@ -1,118 +1,82 @@
 <div class="full-width-height">
-  <h3 class="table-title">Top 10 Symbols by Total Value</h3>
+  <!-- Left Panel -->
+  <div class="left-panel">
+    <!-- Table Container -->
+    <div class="table-container">
+      <!-- Sort Dropdown -->
+      <mat-form-field appearance="fill" class="sort-dropdown">
+        <mat-label>Sort by Attribute</mat-label>
+        <mat-select [(value)]="selectedAttribute" (selectionChange)="getCompanies($event.value)">
+          <mat-option *ngFor="let attr of companyAttributes" [value]="attr">{{ attr }}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <p-splitter
-    [panelSizes]="[40, 60]"
-    [style]="{ height: '100%', width: '100%' }"
-    styleClass="custom-splitter"
-  >
-    <!-- Left Panel: Company Table -->
-    <ng-template pTemplate>
-      <div
-        class="col flex align-items-center justify-content-center table-container"
-      >
-        <div class="table-responsive">
-          <!-- Table view for larger screens -->
-          <ng-container *ngIf="!isMobileView">
-            <p-table
-              [value]="companies"
-              [paginator]="true"
-              [rows]="5"
-              [paginatorPosition]="'bottom'"
-              [responsive]="true"
-              class="table table-striped table-bordered"
-              (onRowSelect)="onRowSelect($event.data)"
-            >
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>Symbol</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-company>
-                <tr (click)="onRowSelect(company)" style="cursor: pointer">
-                  <td>{{ company.company.symbol }}</td>
-                  <td>{{ company.company.name }}</td>
-                  <td>{{ company.history[0].price }}</td>
-                </tr>
-              </ng-template>
-            </p-table>
+      <!-- Table Container with Pagination -->
+      <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+          <!-- Columns definition -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+            <td mat-cell *matCellDef="let company">{{ company?.company?.symbol }}</td>
           </ng-container>
 
-          <!-- Card view for smaller screens -->
-          <ng-container *ngIf="isMobileView">
-            <div *ngIf="companies.length > 0" class="card-container">
-              <div
-                (click)="onRowSelect(company)"
-                style="cursor: pointer"
-                class="card"
-                *ngFor="let company of companies"
-              >
-                <div class="card-header">
-                  {{ company.company.symbol }}
-                </div>
-                <div class="card-body">
-                  <p><strong>Name:</strong> {{ company.company.name }}</p>
-                  <p><strong>Price:</strong> {{ company.history[0].price }}</p>
-                </div>
-                <div class="card-footer"></div>
-              </div>
-            </div>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let company">{{ company?.company?.name }}</td>
           </ng-container>
-        </div>
-      </div>
-    </ng-template>
 
-    <!-- Right Panel: Company Details Panel -->
-    <ng-template pTemplate>
-      <div class="col flex align-items-center justify-content-center">
-        <div *ngIf="selectedCompany" class="details-panel">
-          <h4 class="company-details-header">Company Details</h4>
-          <div class="top-half">
-            <div class="expanded-content">
-              <div>
-                <strong>Name:</strong> {{ selectedCompany.company.name }}
-              </div>
-              <div>
-                <strong>Symbol:</strong> {{ selectedCompany.company.symbol }}
-              </div>
-              <div>
-                <strong>Price:</strong> {{ selectedCompany.history[0].price }}
-              </div>
-              <div>
-                <strong>Reference Price:</strong>
-                {{ selectedCompany.history[0].referencePrice }}
-              </div>
-              <div>
-                <strong>Opening Price:</strong>
-                {{ selectedCompany.history[0].openingPrice }}
-              </div>
-              <div>
-                <strong>Closing Price:</strong>
-                {{ selectedCompany.history[0].closingPrice }}
-              </div>
-              <div>
-                <strong>EPS:</strong> {{ selectedCompany.history[0].eps }}
-              </div>
-              <div>
-                <strong>PER:</strong> {{ selectedCompany.history[0].per }}
-              </div>
-              <div>
-                <strong>Day Variation:</strong>
-                {{ selectedCompany.history[0].dayVariation }}
-              </div>
-              <div>
-                <strong>Status:</strong>
-                {{ selectedCompany.company.status === 1 ? "Ok" : "Not ok" }}
-              </div>
-            </div>
-          </div>
-          <div class="bottom-half">
-            <canvas id="priceGraph"></canvas>
-          </div>
+          <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+            <td mat-cell *matCellDef="let company">{{ company?.history?.[company?.history?.length - 1]?.price }}</td>
+          </ng-container>
+
+          <!-- Table Rows -->
+          <tr mat-header-row *matHeaderRowDef="['symbol', 'name', 'price']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['symbol', 'name', 'price'];" (click)="onRowSelect(row)" style="cursor: pointer;"></tr>
+        </table>
+      </div>
+
+      <!-- Paginator -->
+      <mat-paginator [length]="companies.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" (page)="onPaginateChange($event)">
+      </mat-paginator>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <app-market-search-bar (search)="onSearch($event)"></app-market-search-bar>
+    </div>
+
+    <!-- Top X Table -->
+    <div class="topxtable-container">
+      <app-top-xtable></app-top-xtable>
+    </div>
+  </div>
+
+  <!-- Right Panel - Details -->
+  <div class="details-panel" *ngIf="selectedCompany && selectedCompany.history?.length">
+    <div class="company-details">
+      <div class="details-content">
+        <div class="details-column-left">
+          <p><strong>Name:</strong> {{ selectedCompany?.company?.name }}</p>
+          <p><strong>Symbol:</strong> {{ selectedCompany?.company?.symbol }}</p>
+          <p><strong>Reference Price:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.referencePrice }}</p>
+          <p><strong>Opening Price:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.openingPrice }}</p>
+          <p><strong>Closing Price:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.closingPrice }}</p>
+        </div>
+
+        <div class="details-column-right">
+          <p><strong>EPS:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.eps }}</p>
+          <p><strong>PER:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.per }}</p>
+          <p><strong>Day Variation:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.dayVariation }}</p>
+          <p><strong>Volume:</strong> {{ selectedCompany?.history?.[selectedCompany.history.length - 1]?.volume }}</p>
+          <p><strong>Status:</strong> {{ selectedCompany?.company?.status === 1 ? 'Ok' : 'Not ok' }}</p>
         </div>
       </div>
-    </ng-template>
-  </p-splitter>
+    </div>
+
+    <!-- Canvas for the chart -->
+    <div class="chart-container">
+      <canvas id="priceGraph"></canvas>
+    </div>
+  </div>
 </div>

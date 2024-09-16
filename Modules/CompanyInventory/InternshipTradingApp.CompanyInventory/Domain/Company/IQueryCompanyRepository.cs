@@ -7,10 +7,12 @@ namespace InternshipTradingApp.CompanyInventory.Domain
     {
         Task<IEnumerable<Company>> GetAllCompanies();
         Task<IEnumerable<Company>> GetCompaniesBySymbols(IEnumerable<string> symbols);
-        Task<IEnumerable<Company>> GetAllCompaniesHistory(string symbol);
+        Task<IEnumerable<Company>> GetAllCompaniesHistory(string? value);
         Task<Company?> GetCompanyBySymbol(string companySymbol);
 
-        Task<IEnumerable<Company>> GetTopXCompanies(int? x, string? value);
+        Task<IEnumerable<Company>> GetTopXCompanies(int? x, string? value, string orderToggle);
+
+        Task<decimal> GetMarketIndex();
 
 
     }

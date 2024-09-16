@@ -49,6 +49,7 @@ namespace InternshipTradingApp.CompanyInventory
             serviceCollection.AddScoped<Features.QueryCompanyHistory.GetAllCompaniesHistoryQueryHandler>();
             serviceCollection.AddScoped<GetCompanyWithHistoryDataQueryHandler>();
             serviceCollection.AddScoped<GetTopXCompaniesQueryHandler>();
+            serviceCollection.AddScoped<GetMarketIndexQueryHandler>();
         }
     }
 }

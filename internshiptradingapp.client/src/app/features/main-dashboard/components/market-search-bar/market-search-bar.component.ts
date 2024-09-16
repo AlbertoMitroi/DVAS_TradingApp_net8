@@ -1,57 +1,76 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-market-search-bar',
   templateUrl: './market-search-bar.component.html',
   styleUrls: ['./market-search-bar.component.css'],
 })
-export class MarketSearchBarComponent implements OnInit {
-  public symbolFilter: string | null = null;
-  public companyData: any = {};
-  public latestHistoryEntry: any = null;
+export class MarketSearchBarComponent {
+  public value: string | null = null;
+  public suggestions: any[] = [];
 
-  public data: any;
-  public options: any;
+  @Output() search = new EventEmitter<any>();
 
-  constructor(private http: HttpClient) {}
+  private searchSubject = new Subject<string>();
 
-  ngOnInit() {
-    this.getCompanyBySymbol();
+  constructor(private http: HttpClient) {
+    this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(query => {
+      this.fetchSuggestions(query);
+    });
   }
 
-  getCompanyBySymbol() {
-    if (this.symbolFilter && this.symbolFilter.trim()) {
+  onInput() {
+    if (this.value) {
+      this.searchSubject.next(this.value.trim());
+    } else {
+      this.suggestions = [];
+    }
+  }
+
+  fetchSuggestions(query: string) {
+    if (query) {
       this.http
-        .get(`https://localhost:7221/api/CompanyInventory/`, {
-          params: {
-            symbol: this.symbolFilter,
+        .get<any[]>(`https://localhost:7221/api/CompanyInventory`)
+        .subscribe(
+          (response: any[]) => {
+            this.suggestions = response.filter(suggestion =>
+              suggestion.company.name.toLowerCase().startsWith(query.toLowerCase())
+            );
           },
-        })
+          (error) => {
+            console.error('Error fetching suggestions:', error);
+          }
+        );
+    }
+  }
+
+
+  onSuggestionSelect(suggestion: any) {
+    this.value = suggestion.company.name;
+    this.suggestions = [];
+    this.onSearch();
+  }
+
+  onSearch() {
+    if (this.value && this.value.trim()) {
+      this.http
+        .get(`https://localhost:7221/api/CompanyInventory?value=${this.value.trim()}`)
         .subscribe(
           (response: any) => {
-            this.companyData = response;
-            console.log('Company data:', this.companyData);
-
-            if (
-              this.companyData.history &&
-              typeof this.companyData.history[Symbol.iterator] === 'function'
-            ) {
-              const historyArray = Array.from(this.companyData.history);
-              this.latestHistoryEntry = historyArray[historyArray.length - 1];
-              console.log('Latest history entry:', this.latestHistoryEntry);
-            } else {
-              console.log('History is not iterable or not present');
-            }
+            this.search.emit(response);
           },
           (error) => {
             console.error('Error fetching company data:', error);
           }
         );
     } else {
-      console.error(
-        'symbolFilter is null, undefined, or empty. API call not made.'
-      );
+      console.error('Please enter a valid symbol.');
     }
   }
 }

@@ -20,16 +20,16 @@ namespace InternshipTradingApp.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] string? symbol)
+        public async Task<IActionResult> GetAll([FromQuery] string? value)
         {
-            if (!string.IsNullOrEmpty(symbol))
+            if (!string.IsNullOrEmpty(value))
             {
-                var company = await companyHistoryInventoryService.GetCompanyWithHistoryDataAsync(symbol);
+                var company = await companyHistoryInventoryService.GetCompanyWithHistoryDataAsync(value);
                 if (company != null)
                 {
                     return Ok(company);
                 }
-                return NotFound(symbol);
+                return NotFound(value);
             }
 
             var allCompanies = await companyInventoryService.GetAllCompanies();
@@ -37,10 +37,17 @@ namespace InternshipTradingApp.Server.Controllers
         }
 
         [HttpGet("topXCompaniesByParameter")]
-        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies([FromQuery] int? x, string? value)
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies([FromQuery] int? x, string? value, string orderToggle)
         {
-            return await companyInventoryService.GetTopXCompanies(x, value);
+            return await companyInventoryService.GetTopXCompanies(x, value, orderToggle);
         }
+
+        [HttpGet("marketIndex")]
+        public async Task<decimal> GetMarketIndex()
+        {
+            return await companyInventoryService.GetMarketIndex();
+        }
+
 
         [HttpPost("history")]
         public async Task<IEnumerable<CompanyHistoryGetDTO>> Post([FromBody] IEnumerable<CompanyHistoryAddDTO> companyHistoryDtos)
