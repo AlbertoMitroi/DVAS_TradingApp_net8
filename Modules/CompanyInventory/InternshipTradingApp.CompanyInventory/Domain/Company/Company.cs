@@ -1,7 +1,4 @@
 ﻿using InternshipTradingApp.CompanyInventory.Domain.CompanyHistory;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace InternshipTradingApp.CompanyInventory.Domain
 {
@@ -17,7 +14,7 @@ namespace InternshipTradingApp.CompanyInventory.Domain
         public string Name { get; private set; } = string.Empty;
         public string Symbol { get; private set; } = string.Empty;
         public CompanyStatus Status { get; private set; }
-        public ICollection<CompanyHistoryEntry> CompanyHistoryEntries { get;set; } = new List<CompanyHistoryEntry>();
+        public ICollection<CompanyHistoryEntry> CompanyHistoryEntries { get; set; } = new List<CompanyHistoryEntry>();
 
         private Company() { }
 

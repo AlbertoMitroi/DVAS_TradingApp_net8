@@ -7,6 +7,7 @@ import { MarketSearchBarComponent } from '../components/market-search-bar/market
 import { CarouselOfSymbolsComponent } from '../components/carousel-of-symbols/carousel-of-symbols.component';
 import { MarketTableComponent } from '../components/market-table/market-table.component';
 import { TopXTableComponent } from '../components/top-xtable/top-xtable.component';
+import { MarketIndexComponent } from '../components/market-index/market-index/market-index.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';

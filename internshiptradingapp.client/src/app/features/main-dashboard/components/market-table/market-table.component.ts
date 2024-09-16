@@ -1,9 +1,37 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, AfterViewInit, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  HostListener,
+  ViewChild,
+} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
+
 import { Chart } from 'chart.js';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SharedCompanyService } from '../../services/shared-company/shared-company.service';
+
+import { SortableColumn } from 'primeng/table';
+
+// interface Company {
+//   name: string;
+//   symbol: string;
+//   price: number;
+//   referencePrice: number;
+//   openingPrice: number;
+//   closingPrice: number;
+//   eps: number;
+//   per: number;
+//   dayVariation: number;
+//   status: number;
+// }
 
 export interface HistoryEntry {
   id: number;
@@ -36,6 +64,25 @@ export interface CompanyObject {
   selector: 'app-market-table',
   templateUrl: './market-table.component.html',
   styleUrls: ['./market-table.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      state(
+        'visible',
+        style({
+          opacity: 1,
+          transform: 'translateY(0)',
+        })
+      ),
+      state(
+        'hidden',
+        style({
+          opacity: 0,
+          transform: 'translateY(-20px)',
+        })
+      ),
+      transition('visible <=> hidden', [animate('300ms ease-in-out')]),
+    ]),
+  ],
 })
 export class MarketTableComponent {
   isMobileView: boolean = window.innerWidth < 768;
@@ -43,28 +90,37 @@ export class MarketTableComponent {
   public expandedRows: { [key: number]: boolean } = {};
   public selectedCompany: CompanyObject | null = null;
   private chart: Chart | null = null;
-  private ask: any | null = null;
-  companyAttributes: string[] = ['Price', 'Volume', 'Day Variation', 'Name', 'Symbol'];
+  private sharedCompany: any | null = null;
+  sortOrder: string = 'desc';
+  selectedRow: any;
+  showMarketIndex: boolean | null = null;
+  displayedColumns: string[] = ['symbol', 'name', 'price'];
+  companyAttributes: string[] = [
+    'Price',
+    'Volume',
+    'Day Variation',
+    'Name',
+    'Symbol',
+  ];
   selectedAttribute: string | null = null;
-
-  // DataSource for MatTable
   public dataSource = new MatTableDataSource<CompanyObject>([]);
-
-  // ViewChild to access the paginator component
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private http: HttpClient,
     private sharedCompanyService: SharedCompanyService
-  ) { }
+  ) {}
+
+  // ViewChild to access the paginator component
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
     this.getCompanies();
     this.sharedCompanyService.selectedCompany$.subscribe((receivedValue) => {
-      this.ask = receivedValue;
-      console.log('Received value:', this.ask);
-      this.onRowSelect(this.ask);
+      this.sharedCompany = receivedValue;
+      console.log('Received value:', this.sharedCompany);
+      this.onRowSelect(this.sharedCompany);
     });
+    this.showMarketIndex = true;
     console.log(this.companies);
   }
 
@@ -78,14 +134,23 @@ export class MarketTableComponent {
     this.isMobileView = window.innerWidth < 768;
   }
 
-  getCompanies(sortAttribute?: string) {
+  toggleSortOrder() {
+    // Toggle between ascending and descending
+    this.sortOrder = this.sortOrder === 'desc' ? 'asc' : 'desc';
+
+    // Call getCompanies with the updated sortOrder and selected attribute
+    this.getCompanies(this.selectedAttribute, this.sortOrder);
+  }
+  getCompanies(sortAttribute?: string | null, sortOrder: string = 'desc') {
     let params = new HttpParams();
 
+    // Only set 'value' if sortAttribute is not null
     if (sortAttribute) {
       params = params.set('value', sortAttribute);
     }
 
-    params = params.set('orderToggle', 'desc');
+    params = params.set('orderToggle', sortOrder); // Add the order param
+    console.log('API Parameters:', params.toString());
     this.http
       .get<CompanyObject[]>(
         'https://localhost:7221/api/CompanyInventory/topXCompaniesByParameter',
@@ -94,12 +159,8 @@ export class MarketTableComponent {
       .subscribe(
         (result) => {
           this.companies = result;
-          console.log(this.companies);
-
           // Populate the MatTableDataSource with the companies
           this.dataSource.data = this.companies;
-
-          console.log('Received response from server');
 
           if (this.companies.length > 0) {
             this.selectedCompany = this.companies[0];
@@ -112,17 +173,52 @@ export class MarketTableComponent {
       );
   }
 
+  getSelectedCompany() {
+    if (this.showMarketIndex) {
+      this.showMarketIndex = false;
+    }
+    return this.selectedCompany;
+  }
+
+  setSelectedCompany(company: any) {
+    if (this.showMarketIndex) {
+      this.showMarketIndex = false;
+    }
+    this.selectedCompany = company;
+  }
+
+  // getCompanyBySymbol(symbol: string) {
+  //   this.http
+  //     .get<Company[]>(
+  //       'https://localhost:7221/api/CompanyInventory?symbol=${symbol}'
+  //     )
+  //     .subscribe(
+  //       (result) => {
+  //         this.companyToDisplay = result;
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
   onSearch(companyData: any) {
     if (companyData) {
-      this.selectedCompany = companyData;
+      //this.selectedCompany = companyData;
+      this.setSelectedCompany(companyData);
       this.initializeChart();
     }
   }
 
+  swapRightPanelContent() {
+    this.showMarketIndex = !this.showMarketIndex;
+    setTimeout(() => this.initializeChart(), 1);
+  }
   onRowSelect(company: any) {
-    this.selectedCompany = company;
+    //this.selectedCompany = company;
+    this.setSelectedCompany(company);
+    this.selectedRow = company;
     console.log(this.selectedCompany);
-    this.initializeChart();
+    setTimeout(() => this.initializeChart(), 1);
   }
 
   initializeChart() {
@@ -138,8 +234,10 @@ export class MarketTableComponent {
       this.chart.destroy();
     }
 
-    const prices = this.selectedCompany.history?.map((entry) => entry.price) || [];
-    const labels = this.selectedCompany.history?.map((entry) => entry.date) || [];
+    const prices =
+      this.selectedCompany.history?.map((entry) => entry.price) || [];
+    const labels =
+      this.selectedCompany.history?.map((entry) => entry.date) || [];
 
     this.chart = new Chart(ctx, {
       type: 'line',

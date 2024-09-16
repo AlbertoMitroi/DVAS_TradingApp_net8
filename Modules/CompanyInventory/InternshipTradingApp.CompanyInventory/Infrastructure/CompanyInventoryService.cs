@@ -13,8 +13,8 @@ namespace InternshipTradingApp.CompanyInventory
         GetTopXCompaniesQueryHandler getTopXCompaniesQueryHandler,
         GetMarketIndexQueryHandler getMarketIndexQueryHandler
        ) : ICompanyInventoryService
-    
-    
+
+
     {
         public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetAllCompanies()
         {
@@ -36,8 +36,9 @@ namespace InternshipTradingApp.CompanyInventory
             return company.ToCompanyGetDTOs();
         }
 
-        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies(int? x, string? value, string orderToggle) {
-            var query = new GetTopXCompaniesQuery { X = x, Value = value , OrderToggle=orderToggle};
+        public async Task<IEnumerable<CompanyWithHistoryGetDTO>> GetTopXCompanies(int? x, string? value, string orderToggle)
+        {
+            var query = new GetTopXCompaniesQuery { X = x, Value = value, OrderToggle = orderToggle };
             return await getTopXCompaniesQueryHandler.Handle(query);
         }
 

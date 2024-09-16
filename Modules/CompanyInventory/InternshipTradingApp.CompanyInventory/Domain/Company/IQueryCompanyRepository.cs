@@ -1,7 +1,4 @@
-﻿
-using InternshipTradingApp.CompanyInventory.Domain.CompanyHistory;
-
-namespace InternshipTradingApp.CompanyInventory.Domain
+﻿namespace InternshipTradingApp.CompanyInventory.Domain
 {
     public interface IQueryCompanyRepository
     {
