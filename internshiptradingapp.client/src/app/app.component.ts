@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { AccountService } from '../app/_services/account.service';
+import { AuthService } from './_services/auth.service'; 
+import { SignalRService } from './_services/signal-r.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,8 @@ import { AccountService } from '../app/_services/account.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  private accountService = inject(AccountService);
+  private authService = inject(AuthService);
+  private signalRService = inject(SignalRService);
 
   ngOnInit(): void {
     this.setCurrentUser();
@@ -17,6 +19,9 @@ export class AppComponent implements OnInit {
     const userString = localStorage.getItem('user');
     if (!userString) return;
     const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
+    this.authService.currentUser.set(user);
+    if (user) {
+      this.signalRService.initializeSignalRConnections(user);
+    }
   }
 }

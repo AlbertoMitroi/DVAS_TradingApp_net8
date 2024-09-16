@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // Import ActivatedRoute
-import { AccountService } from '../../../_services/account.service'; // Adjust path as needed
-import { Transaction } from '../../../_models/userDetailsDto'; // Adjust path as needed
+import { ActivatedRoute } from '@angular/router';
+import { SignalRService } from '../../../_services/signal-r.service'; 
+import { Transaction } from '../../../_models/userDetailsDto'; 
 
 @Component({
   selector: 'app-transactions',
@@ -9,7 +9,7 @@ import { Transaction } from '../../../_models/userDetailsDto'; // Adjust path as
   styleUrls: ['./transactions.component.css']
 })
 export class TransactionsComponent implements OnInit {
-  transactions: Transaction[] = []; // Use the Transaction interface from the service
+  transactions: Transaction[] = [];
   pWithdraw: number = 1;
   pAll: number = 1;
   pDeposit: number = 1;
@@ -23,7 +23,7 @@ export class TransactionsComponent implements OnInit {
   filteredAllTransactions: Transaction[] = [];
 
   constructor(
-    private accountService: AccountService,
+    private singalRService: SignalRService,
     private route: ActivatedRoute
   ) {}
 
@@ -49,7 +49,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   loadTransactions(): void {
-    this.accountService.getUserDetails$.subscribe(userDetails => {
+    this.singalRService.userDetails$.subscribe(userDetails => {
       if (userDetails) {
         this.transactions = userDetails.transactions;
         this.filterTransactions();

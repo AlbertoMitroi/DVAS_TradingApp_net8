@@ -1,0 +1,64 @@
+.orders-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.orders-table thead {
+    background-color: #0000008a;
+    color: white;
+}
+
+.orders-table th, .orders-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.orders-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.orders-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.orders-table td {
+    font-size: 14px;
+}
+
+.orders-table th {
+    font-size: 16px;
+}
+
+.orders-table td.status-completed {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.orders-table td.status-pending {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.orders-table td.status-canceled,
+.orders-table td.status-failed {
+    color: #dc3545;
+    font-weight: bold;
+}

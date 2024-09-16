@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../_services/account.service';
+import { BankAccountService } from '../../../_services/bank-account.service'; 
+import { FundsService } from '../../../_services/funds.service';
 import { BankAccount } from '../../../_models/bankAccount';
 import { MessageService } from 'primeng/api';
 
@@ -18,7 +19,8 @@ export class WithdrawComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(
-    private accountService: AccountService, 
+    private bankAccountService: BankAccountService, 
+    private fundsService: FundsService,
     private router: Router,
     private messageService: MessageService) {}
 
@@ -27,7 +29,7 @@ export class WithdrawComponent implements OnInit {
   }
 
   loadBankAccounts() {
-    this.accountService.getBankAccounts().subscribe(
+    this.bankAccountService.getBankAccounts().subscribe(
       accounts => this.bankAccounts = accounts,
       err => console.error('Failed to load bank accounts', err)
     );
@@ -53,7 +55,7 @@ export class WithdrawComponent implements OnInit {
       this.isLoading = true;
       await this.wait(3000);
       this.isLoading = false;
-      this.accountService.withdrawFunds(this.selectedBankAccountId, this.amount).subscribe(
+      this.fundsService.withdrawFunds(this.selectedBankAccountId, this.amount).subscribe(
         () => {
           this.router.navigate(['/success']);
           this.message = 'Withdrawal successful.';

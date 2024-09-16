@@ -3,6 +3,7 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  width: 100%;
   overflow: hidden;
   font-family: Arial, sans-serif;
 }
@@ -11,12 +12,14 @@ body, html {
 .page-container {
   display: flex;
   height: 100vh;
+  width: 100%;
   box-sizing: border-box;
   padding: 10px;
 }
 
 /* Două coloane pentru stânga și dreapta */
 .left-column, .right-column {
+  width: 50%;
   flex: 1;
   display: flex;
   flex-direction: column;

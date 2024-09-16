@@ -5,7 +5,9 @@ using InternshipTradingApp.CompanyInventory.Features.Add;
 using InternshipTradingApp.CompanyInventory.Features.AddCompanyHistory;
 using InternshipTradingApp.CompanyInventory.Features.Query;
 using InternshipTradingApp.CompanyInventory.Features.QueryCompanyHistory;
+using InternshipTradingApp.CompanyInventory.Infrastructure;
 using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
+using InternshipTradingApp.CompanyInventory.SignalR;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,7 +27,8 @@ namespace InternshipTradingApp.CompanyInventory
 
         private static void RegisterRepositories(IServiceCollection serviceCollection)
         {
-            //serviceCollection.AddHostedService<PriceGenerationService>();
+            // serviceCollection.AddHostedService<PriceGenerationService>(); // PRICE GENERATION
+            serviceCollection.AddScoped<ICompanyNotificationService, CompanyNotificationService>();
             serviceCollection.AddScoped<ICompanyRepository, CompanyRepository>();
             serviceCollection.AddScoped<IQueryCompanyRepository, QueryCompanyRepository>();
             serviceCollection.AddScoped<ICompanyHistoryEntryRepository, CompanyHistoryRepository>();
