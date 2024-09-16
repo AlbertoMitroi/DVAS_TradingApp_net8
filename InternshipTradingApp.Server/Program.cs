@@ -1,5 +1,6 @@
 using InternshipTradingApp.AccountManagement.Data;
 using InternshipTradingApp.AccountManagement.Entities;
+using InternshipTradingApp.CompanyInventory.SignalR;
 using InternshipTradingApp.OrderManagementSystem.SignalR;
 using InternshipTradingApp.Server.Extensions;
 using InternshipTradingApp.Server.SignalR;
@@ -57,6 +58,7 @@ namespace InternshipTradingApp.Server
 
             app.MapHub<UserNotificationHub>("/hubs/userHub");
             app.MapHub<OrderNotificationHub>("/hubs/orderHub");
+            app.MapHub<CompanyNotificationHub>("/hubs/companiesHub");
 
             app.MapFallbackToFile("/index.html");
 

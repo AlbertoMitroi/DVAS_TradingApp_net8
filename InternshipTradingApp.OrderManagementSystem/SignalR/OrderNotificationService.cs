@@ -18,8 +18,8 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
         {
             logger.LogInformation($"Fetching orders for user ID: {userId}");
 
-            var orders = orderDbContext.Orders.Select(o => o.CustomerId == int.Parse(userId)).ToList();
-            var ordersDto = mapper.Map<OrderDetailsDTO>(orders);
+            var orders = orderDbContext.Orders.Where(o => o.CustomerId == int.Parse(userId)).ToList();
+            var ordersDto = mapper.Map<List<OrderDetailsDTO>>(orders);
 
             await hubContext.Clients.User(userId).SendAsync("ReceiveOrders", ordersDto);
         }

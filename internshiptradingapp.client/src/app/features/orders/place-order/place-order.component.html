@@ -2,19 +2,58 @@
     <h2>Place Your Order</h2>
 
     <form class="order-form">
-        <div class="form-group">
-            <label for="symbol">Stock Symbol</label>
-            <input type="text" id="symbol" name="symbol" placeholder="e.g. AAPL" required>
-        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="symbol">Stock Symbol</label>
+                <input
+                    type="text"
+                    id="symbol"
+                    [(ngModel)]="stockSymbol"
+                    name="symbol"
+                    placeholder="e.g. AAPL"
+                    (input)="onSymbolInput()"
+                    required
+                    autocomplete="off"
+                />
+                <div class="dropdown" *ngIf="filteredSymbols.length">
+                    <ul *ngIf="filteredSymbols.length && stockSymbol.length > 0">
+                        <li *ngFor="let symbol of filteredSymbols" (click)="selectSymbol(symbol)">
+                            {{ symbol }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" name="quantity" min="1" placeholder="Quantity" required>
+            <div class="form-group">
+                <label for="quantity">Amount to Invest</label>
+                <input
+                    type="number"
+                    id="quantity"
+                    [(ngModel)]="quantity"
+                    name="quantity"
+                    min="1"
+                    placeholder="Quantity"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price per Share</label>
+                <input
+                    type="number"
+                    id="price"
+                    [(ngModel)]="price"
+                    name="price"
+                    placeholder="Price"
+                    required
+                    readonly
+                />
+            </div>
         </div>
 
         <div class="form-buttons">
-            <button type="button" class="buy-btn">Buy</button>
-            <button type="button" class="sell-btn">Sell</button>
+            <button type="button" class="buy-btn" (click)="placeBuyOrder()">Buy</button>
+            <button type="button" class="sell-btn" (click)="placeSellOrder()">Sell</button>
         </div>
     </form>
 </div>

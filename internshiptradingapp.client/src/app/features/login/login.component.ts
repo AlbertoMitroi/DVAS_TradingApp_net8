@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from '../../_services/account.service';
+import { AuthService } from '../../_services/auth.service'; 
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,7 +14,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService,
+    private authService: AuthService,
     private router: Router,
     private toastr: ToastrService
   ) {
@@ -35,9 +35,10 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.accountService.login(this.loginForm.value).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: _ => {
-          window.location.href = '/';
+          //window.location.href = '/';
+          this.router.navigate(['/']);
         },
         error: error => this.toastr.error(error.error)
       });

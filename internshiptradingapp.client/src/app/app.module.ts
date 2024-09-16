@@ -48,6 +48,7 @@ import { MainDashboardModule } from './features/main-dashboard/module-config/mai
     AddBankComponent,
     TransactionsComponent,
     PlaceOrderComponent,
+    OrdersTableComponent,
   ],
   imports: [
     MainDashboardModule,
@@ -86,6 +87,7 @@ import { platformBrowser } from '@angular/platform-browser';
 import { ChartComponent } from './features/main-dashboard/components/chart/chart.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PlaceOrderComponent } from './features/orders/place-order/place-order.component';
+import { OrdersTableComponent } from './features/orders/orders-table/orders-table.component';
 
 platformBrowser()
   .bootstrapModule(AppModule)

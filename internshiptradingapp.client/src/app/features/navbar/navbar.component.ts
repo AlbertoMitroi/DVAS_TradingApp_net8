@@ -1,5 +1,6 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { AccountService } from '../../_services/account.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SignalRService } from '../../_services/signal-r.service';
+import { AuthService } from '../../_services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -9,23 +10,22 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  accountService = inject(AccountService);
-  private router = inject(Router);
   username: string | null = null;
   balance: string | null = null;
+  
   private userSubscription: Subscription | null = null;
-  private balanceSubscription: Subscription | null = null;
+
+  constructor(
+    public authService: AuthService,
+    private signalRService: SignalRService, 
+    private router: Router 
+  ) {}
 
   ngOnInit() {
-    const user = this.accountService.currentUser();
-    if (user) {
-      this.accountService.userHub.createHubConnection(user);
-    }
-
-    this.userSubscription = this.accountService.getUserDetails$.subscribe({
+    this.userSubscription = this.signalRService.userDetails$.subscribe({
       next: (userDetails) => {
         if (userDetails) {
-          this.username = this.accountService.transformUsername(userDetails.username);
+          this.username = this.signalRService.transformUsername(userDetails.username);
           this.balance = userDetails.balance;
         }
       },
@@ -35,31 +35,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.balance = "$ ERROR";
       }
     });
-
-    this.balanceSubscription = this.accountService.balance$.subscribe({
-      next: (balance) => {
-        if (balance !== null) {
-          this.balance = balance;
-        }
-      }
-    });
   }
 
   ngOnDestroy() {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
-    if (this.balanceSubscription) {
-      this.balanceSubscription.unsubscribe();
-    }
   }
 
   reloadPage(event: Event) {
     event.preventDefault();
-    window.location.href = '/';
+    //window.location.href = '/';
+    this.router.navigate(['/']);
   }
+
   logout() {
-    this.accountService.logout();
+    this.authService.logout();
     this.router.navigateByUrl('/login');
   }
 }

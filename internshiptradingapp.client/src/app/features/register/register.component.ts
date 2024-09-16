@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidationErrors } from '@angular/forms';
-import { AccountService } from '../../_services/account.service';
+import { AuthService } from '../../_services/auth.service'; 
 import { RegisterDto } from '../../_models/RegisterDto';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private accountService: AccountService,
+    private authService: AuthService,
     private router: Router,
     private toastr: ToastrService
   ) {
@@ -62,7 +62,7 @@ export class RegisterComponent {
 
       console.log('Payload:', registerDto);
 
-      this.accountService.register(registerDto).subscribe({
+      this.authService.register(registerDto).subscribe({
         next: user => {
 
           console.log('Registration Successful:', user);
@@ -71,7 +71,8 @@ export class RegisterComponent {
           console.log('Full Response:', user);
 
 
-          window.location.href = '/';
+          //window.location.href = '/';
+          this.router.navigate(['/']);
         },
         error: error => {
 

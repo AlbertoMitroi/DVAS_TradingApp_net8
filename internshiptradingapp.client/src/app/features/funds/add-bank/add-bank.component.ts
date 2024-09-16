@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService } from '../../../_services/account.service';
+import { BankAccountService } from '../../../_services/bank-account.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -17,7 +17,7 @@ export class AddBankComponent implements OnInit {
   showRedirectMessage: boolean = false;
 
   constructor(
-    private accountService: AccountService,
+    private bankAccountService: BankAccountService,
     private router: Router,
     private route: ActivatedRoute,
     private messageService: MessageService
@@ -44,7 +44,7 @@ export class AddBankComponent implements OnInit {
   addBankAccount() {
     if (this.iban && this.bankName) {
       this.isLoading = true;
-      this.accountService.addBankAccount(this.iban, this.bankName).subscribe(
+      this.bankAccountService.addBankAccount(this.iban, this.bankName).subscribe(
         () => {
           this.message = 'Bank account added successfully.';
           this.messageService.add({
