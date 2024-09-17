@@ -10,7 +10,7 @@
                     id="symbol"
                     [(ngModel)]="stockSymbol"
                     name="symbol"
-                    placeholder="e.g. AAPL"
+                    placeholder="e.g. ATB"
                     (input)="onSymbolInput()"
                     required
                     autocomplete="off"
@@ -25,6 +25,21 @@
             </div>
 
             <div class="form-group">
+                <label for="price">Price per Share</label>
+                <input
+                    type="number"
+                    id="price"
+                    [(ngModel)]="price"
+                    name="price"
+                    placeholder="Select an Stock"
+                    required
+                    readonly
+                />
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group price-form">
                 <label for="quantity">Amount to Invest</label>
                 <input
                     type="number"
@@ -32,21 +47,8 @@
                     [(ngModel)]="quantity"
                     name="quantity"
                     min="1"
-                    placeholder="Quantity"
+                    placeholder="Amount"
                     required
-                />
-            </div>
-
-            <div class="form-group">
-                <label for="price">Price per Share</label>
-                <input
-                    type="number"
-                    id="price"
-                    [(ngModel)]="price"
-                    name="price"
-                    placeholder="Price"
-                    required
-                    readonly
                 />
             </div>
         </div>

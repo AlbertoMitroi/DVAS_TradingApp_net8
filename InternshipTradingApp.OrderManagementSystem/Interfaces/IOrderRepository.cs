@@ -9,6 +9,7 @@ namespace InternshipTradingApp.OrderManagementSystem.Interfaces
         Task<Order> GetByIdAsync(int id);
         Task<IEnumerable<Order>> GetAllAsync();
         Task AddAsync(Order order);
+        Task<IEnumerable<Order>> GetAllPendingAsync();
         Task UpdateAsync(Order order);
         Task DeleteAsync(int id);
     }

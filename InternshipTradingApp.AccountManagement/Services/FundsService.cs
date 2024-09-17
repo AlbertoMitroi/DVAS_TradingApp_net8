@@ -67,5 +67,39 @@ namespace InternshipTradingApp.AccountManagement.Services
             if (userId.ToString() == null) throw new Exception("UserId is null");
             await userNotification.SendUserDetailsAsync(userId.ToString());
         }
+
+
+        public async Task BuyOrderAsync(int userId, decimal amount)
+        {
+            var user = await userManager.Users
+                .Include(u => u.BankAccounts)
+                .FirstOrDefaultAsync(u => u.Id == userId)
+                ?? throw new Exception("User not found");
+
+            if (user.Balance < amount)
+                throw new Exception("Insufficient funds");
+
+            user.Balance -= amount;
+
+            await context.SaveChangesAsync();
+
+            if (userId.ToString() == null) throw new Exception("UserId is null");
+            await userNotification.SendUserDetailsAsync(userId.ToString());
+        }
+
+
+        public async Task SellOrderAsync(int userId, decimal amount)
+        {
+            var user = await userManager.Users
+                .FirstOrDefaultAsync(u => u.Id == userId)
+                ?? throw new Exception("User not found");
+
+            user.Balance += amount;
+
+            await context.SaveChangesAsync();
+
+            if (userId.ToString() == null) throw new Exception("UserId is null");
+            await userNotification.SendUserDetailsAsync(userId.ToString());
+        }
     }
 }

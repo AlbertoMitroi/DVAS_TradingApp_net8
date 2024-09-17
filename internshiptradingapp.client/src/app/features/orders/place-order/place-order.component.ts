@@ -54,19 +54,21 @@ export class PlaceOrderComponent implements OnInit {
 
   placeBuyOrder(): void {
     if (this.stockSymbol && this.quantity && this.price) {
+      const numberOfShares = this.quantity / this.price;
       const orderData = {
-        customerId: 1, 
         stockSymbol: this.stockSymbol,
-        quantity: this.quantity,
+        quantity: numberOfShares,
         price: this.price,
-        type: 0 
+        type: 0
       };
 
       this.orderService.placeOrder(orderData).subscribe(
         response => {
+          console.log(orderData);
           console.log('Buy Order placed successfully', response);
         },
         error => {
+          console.log(orderData);
           console.error('Error placing Buy Order', error);
         }
       );
@@ -75,10 +77,10 @@ export class PlaceOrderComponent implements OnInit {
 
   placeSellOrder(): void {
     if (this.stockSymbol && this.quantity && this.price) {
+      const numberOfShares = this.quantity / this.price;
       const orderData = {
-        customerId: 1, 
         stockSymbol: this.stockSymbol,
-        quantity: this.quantity,
+        quantity: numberOfShares,
         price: this.price,
         type: 1 
       };
