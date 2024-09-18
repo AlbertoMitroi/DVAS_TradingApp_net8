@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InternshipTradingApp.AccountManagement.Entities;
 using InternshipTradingApp.OrderManagementSystem.DTOs;
+using InternshipTradingApp.OrderManagementSystem.Entities;
 using InternshipTradingApp.OrderManagementSystem.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,14 @@ namespace InternshipTradingApp.Server.Controllers.OrderManagement
             await orderService.CreateOrderAsync(createOrderDTO);
 
             return Ok(createOrderDTO);
+        }
+
+        [HttpPost("id")]
+        public async Task<IActionResult> CancelOrder(int id)
+        {
+            await orderService.UpdateOrderStatusAsync(id, OrderStatus.Canceled);
+
+            return Ok($"OderID: {id} has now status 'Cancel'");
         }
     }
 }

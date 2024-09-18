@@ -21,7 +21,7 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
             var orders = orderDbContext.Orders.Where(o => o.CustomerId == int.Parse(userId)).ToList();
             var ordersDto = mapper.Map<List<OrderDetailsDTO>>(orders);
 
-            await hubContext.Clients.User(userId).SendAsync("ReceiveOrders", ordersDto);
+            await hubContext.Clients.All.SendAsync("ReceiveOrders", ordersDto);
         }
     }
 }

@@ -48,7 +48,11 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     CarouselModule,
   ],
   exports: [
-    MainDashboardIndexComponent
+    MainDashboardIndexComponent,
+    MarketSearchBarComponent,
+    CarouselOfSymbolsComponent,
+    MarketTableComponent,
+    TopXTableComponent,
   ],
   providers: [],
   bootstrap: [MainDashboardModule],
