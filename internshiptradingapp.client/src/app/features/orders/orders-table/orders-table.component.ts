@@ -90,7 +90,8 @@ export class OrdersTableComponent implements OnInit {
       case 'Failed': return 'status-canceled';
       default: return '';
     }
-  }
+    }
+  ];
 
   getStatusText(status: number): string {
     const statusString = this.statusMap[status];
@@ -102,7 +103,7 @@ export class OrdersTableComponent implements OnInit {
       case 'Processing': return 'Processing';
       default: return '';
     }
-  }
+    }
 
   getOrderType(type: number): string {
     return this.typeMap[type] || '';

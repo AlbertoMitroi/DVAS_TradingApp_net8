@@ -56,10 +56,11 @@ export class PlaceOrderComponent implements OnInit {
     if (this.stockSymbol && this.quantity && this.price) {
       const numberOfShares = this.quantity / this.price;
       const orderData = {
+        customerId: 1, 
         stockSymbol: this.stockSymbol,
         quantity: numberOfShares,
         price: this.price,
-        type: 0
+        type: 0 
       };
 
       this.orderService.placeOrder(orderData).subscribe(
@@ -79,6 +80,7 @@ export class PlaceOrderComponent implements OnInit {
     if (this.stockSymbol && this.quantity && this.price) {
       const numberOfShares = this.quantity / this.price;
       const orderData = {
+        customerId: 1, 
         stockSymbol: this.stockSymbol,
         quantity: numberOfShares,
         price: this.price,

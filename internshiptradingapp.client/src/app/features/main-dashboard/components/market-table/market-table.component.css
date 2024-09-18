@@ -1,188 +1,120 @@
 .full-width-height {
   display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 0.75rem;
+  overflow: hidden;
+}
+
+.left-panel {
+  width: 40%;
+  display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100vh; /* Full viewport height */
-  box-sizing: border-box;
+  height: 100vh; /* Ensure it takes the full height */
+  padding: 0.5rem;
+  gap: 0.5rem;
 }
 
-.table-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.table-responsive {
-  width: 100%;
-  max-height: 100%;
-  overflow: auto;
+.table-container,
+.search-container,
+.topxtable-container {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 .table-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling for the table */
+  max-height: 300px; /* Adjust for table height */
+}
+
+.table-responsive {
+  overflow-y: auto; /* Ensure the table can scroll vertically */
+}
+
+table.mat-table {
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  box-sizing: border-box;
+  table-layout: fixed; /* Ensure equal column width */
+  border-collapse: collapse; /* Consistent table border behavior */
 }
 
-.expanded-content {
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-top: 1px solid #ddd;
+  table.mat-table tr:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  table.mat-table tr.selected-row {
+    background-color: #d0eaff;
+  }
+
+.mat-paginator {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: 0.5rem;
 }
 
-.expanded-content div {
-  flex: 1 1 50%;
-  margin-bottom: 10px;
+.search-container {
+  margin-top: 1rem;
+  flex-grow: 0;
 }
 
-.company-details-header {
-  font-size: 1.5rem; /* Larger font size */
-  font-weight: bold; /* Bold weight */
-  text-align: center; /* Center-align text */
-  color: #007bff; /* A subtle blue color, adjust as needed */
-  padding: 10px 0; /* Add vertical spacing */
-  border-bottom: 2px solid #007bff; /* A border under the title for emphasis */
-  margin-bottom: 20px; /* Space below the header */
-  background-color: #f8f9fa; /* Light gray background to make it stand out */
-  border-radius: 5px; /* Rounded corners */
-}
-
-.top-half {
-  height: 50%;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-.bottom-half {
-  height: 50%;
-  padding: 10px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#priceGraph {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
-  object-fit: contain;
+.topxtable-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Allow scrolling */
 }
 
 .details-panel {
+  width: 60%;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  gap: 0.75rem;
 }
 
-@media (max-width: 768px) {
-  .table-title {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-  }
-
-  .table-container {
-    padding: 5px;
-  }
-
-  .expanded-content div {
-    flex: 1 1 100%;
-  }
-
-  .top-half,
-  .bottom-half {
-    height: auto;
-    max-height: 50%;
-    padding: 5px;
-  }
-
-  #priceGraph {
-    width: 100%;
-    height: auto;
-    max-height: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .table-title {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-
-  .table-container {
-    padding: 5px;
-  }
-
-  .expanded-content div {
-    flex: 1 1 100%;
-    margin-bottom: 5px;
-  }
-
-  .top-half,
-  .bottom-half {
-    height: auto;
-    max-height: 50%;
-    padding: 5px;
-  }
-
-  #priceGraph {
-    width: 100%;
-    height: auto;
-    max-height: 150px;
-  }
-
-  .details-panel {
-    padding: 10px;
-  }
-}
-
-/* Style for card layout */
-.card-container {
+.company-details {
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 8px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  height: auto;
+  flex-direction: column;
 }
 
-.card {
-  flex: 1 1 calc(100% - 20px);
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 8px;
-  background-color: #f9f9f9;
-  font-size: 0.9rem;
+.details-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem; /* Adds spacing between the two columns */
 }
 
-.card-header {
-  font-weight: bold;
-  font-size: 1rem;
+.details-column-left,
+.details-column-right {
+  width: 48%; /* Each column takes up half the width */
 }
 
-.card-body {
-  margin-top: 8px;
-}
-
-.card-footer {
-  margin-top: 8px;
-  text-align: center;
-}
-
-@media (max-width: 480px) {
-  .card {
-    flex: 1 1 calc(100% - 10px);
-    font-size: 0.8rem;
+  .details-column-left p,
+  .details-column-right p {
+    font-size: 1.1rem; /* Increase the font size */
+    margin: 0.3rem 0;
   }
 
-  .card-header {
-    font-size: 0.9rem;
+  .details-column-left strong,
+  .details-column-right strong {
+    font-size: 1.15rem; /* Bolded labels slightly larger */
   }
+
+.chart-container {
+  flex: 0 1 50%;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
 }

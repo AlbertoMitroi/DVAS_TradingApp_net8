@@ -12,16 +12,16 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace InternshipTradingApp.CompanyInventory.Features.QueryCompanyHistory
 {
     
-    public class GetCompanyWithHistoryDataQueryHandler(IQueryCompanyRepository queryCompanyRepository,IQueryCompanyHistoryRepository queryCompanyHistoryRepository)
+    public class GetCompanyWithHistoryDataQueryHandler(IQueryCompanyRepository queryCompanyRepository)
     {
-        public async Task<CompanyWithHistoryGetDTO> Handle(GetCompanyWithHistoryDataQuery getCompanyWithHistoryDataQuery)
+        public async Task<CompanyWithHistoryGetDTO> Handle(GetCompanyWithHistoryDataQuery? getCompanyWithHistoryDataQuery)
         {
-
-            var companies = await queryCompanyRepository.GetAllCompaniesHistory(getCompanyWithHistoryDataQuery.CompanySymbol);
+            var value = getCompanyWithHistoryDataQuery?.Value ?? "symbol";
+            var companies = await queryCompanyRepository.GetAllCompaniesHistory(getCompanyWithHistoryDataQuery.Value);
             var company = companies.FirstOrDefault();
             if (company == null)
             {
-                throw new Exception($"Company with symbol {getCompanyWithHistoryDataQuery.CompanySymbol} not found.");
+                throw new Exception($"Company with this value {getCompanyWithHistoryDataQuery.Value} not found.");
             }
             var result = company.ToCompanyWithHistoryGetDTO();
 

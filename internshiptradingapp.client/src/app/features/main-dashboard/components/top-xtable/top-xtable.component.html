@@ -3,38 +3,45 @@
     <h3 class="table-title">Top 10 Symbols by Volume</h3>
 
     <div class="table-responsive">
-      <table mat-table [dataSource]="companies" class="mat-elevation-z8 table-hover">
+      <table
+        mat-table
+        [dataSource]="companies"
+        class="mat-elevation-z8 table-hover"
+      >
         <ng-container matColumnDef="symbol">
-          <th mat-header-cell *matHeaderCellDef> Symbol </th>
-          <td mat-cell *matCellDef="let company" (click)="onRowSelect(company)" style="cursor: pointer;">
+          <th mat-header-cell *matHeaderCellDef>Symbol</th>
+          <td
+            mat-cell
+            *matCellDef="let company"
+            (click)="onRowSelect(company)"
+            style="cursor: pointer"
+          >
             {{ company.company.symbol }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let company">
             {{ company.company.name }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="volume">
-          <th mat-header-cell *matHeaderCellDef> Volume </th>
+          <th mat-header-cell *matHeaderCellDef>Volume</th>
           <td mat-cell *matCellDef="let company">
-            {{ company.history[0].volume | number:'1.0-0' }}
+            {{ company.history[0].volume | number : "1.0-0" }}
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="['symbol', 'name', 'volume']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['symbol', 'name', 'volume'];"
-            [class.selected-row]="selectedCompany === row">
-        </tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['symbol', 'name', 'volume']"
+          [class.selected-row]="selectedCompany === row"
+        ></tr>
       </table>
     </div>
   </mat-card>
 
-  <mat-card *ngIf="selectedCompany" class="mt-5">
-    <h4>Price History of {{ selectedCompany.company.name }}</h4>
-    <canvas id="priceGraph"></canvas>
-  </mat-card>
 </div>

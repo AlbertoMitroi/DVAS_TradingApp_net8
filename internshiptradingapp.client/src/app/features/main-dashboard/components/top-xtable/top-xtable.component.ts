@@ -1,6 +1,14 @@
 import { Component, HostListener } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Chart } from 'chart.js';
+
+import {
+  HistoryEntry,
+  CompanyDetails,
+  CompanyObject,
+} from '../market-table/market-table.component';
+
+import { SharedCompanyService } from '../../services/shared-company/shared-company.service';
 
 interface Company {
   companySymbol: string;
@@ -15,15 +23,18 @@ interface Company {
 @Component({
   selector: 'app-top-xtable',
   templateUrl: './top-xtable.component.html',
-  styleUrl: './top-xtable.component.css'
+  styleUrl: './top-xtable.component.css',
 })
 export class TopXTableComponent {
   isMobileView: boolean = window.innerWidth < 768;
-  public companies: any[] = [];
-  public selectedCompany: any | null = null;
+  public companies: CompanyObject[] = [];
+  public selectedCompany: CompanyObject | null = null;
   private chart: Chart | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private sharedCompanyService: SharedCompanyService
+  ) {}
 
   ngOnInit() {
     this.getCompanies();
@@ -38,16 +49,19 @@ export class TopXTableComponent {
   }
 
   getCompanies() {
+    let params = new HttpParams();
+
+    params = params.set('orderToggle', 'desc');
     this.http
-      .get<Company[]>(
-        'https://localhost:7221/api/CompanyInventory/topXCompaniesByParameter'
+      .get<CompanyObject[]>(
+        'https://localhost:7221/api/CompanyInventory/topXCompaniesByParameter',
+        { params } 
       )
       .subscribe(
         (result) => {
           this.companies = result;
           if (this.companies.length > 0) {
             this.selectedCompany = this.companies[0];
-            setTimeout(() => this.initializeChart(), 100);
           }
         },
         (error) => {
@@ -58,64 +72,9 @@ export class TopXTableComponent {
 
   onRowSelect(company: any) {
     this.selectedCompany = company;
-    this.initializeChart();
+    this.sharedCompanyService.setValue(company);
   }
 
-  initializeChart() {
-    if (!this.selectedCompany) return;
+ 
 
-    const canvasElement = document.getElementById('priceGraph') as HTMLCanvasElement;
-    const simulatedPrices = this.getSimulatedPriceDataForCompany(this.selectedCompany);
-
-    if (this.chart) {
-      this.chart.data.datasets[0].data = simulatedPrices; 
-      this.chart.data.labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      this.chart.update(); 
-    } else {
-     
-      this.chart = new Chart(canvasElement, {
-        type: 'line',
-        data: {
-          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          datasets: [
-            {
-              label: `Price Trend`,
-              data: simulatedPrices,
-              borderColor: '#007bff',
-              borderWidth: 2,
-              fill: false,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            x: {
-              beginAtZero: true,
-            },
-            y: {
-              beginAtZero: true,
-            },
-          },
-          layout: {
-            padding: {
-              top: 10,
-              bottom: 10,
-            },
-          },
-        },
-      });
-    }
-  }
-
-
-
-  getSimulatedPriceDataForCompany(company: any): number[] {
-    const basePrice = company.price || 100;
-    return Array.from({ length: 7 }, () =>
-      basePrice + (Math.random() - 0.5) * 10
-    );
-  }
 }
-

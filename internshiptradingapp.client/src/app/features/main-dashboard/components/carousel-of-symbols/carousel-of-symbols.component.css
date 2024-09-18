@@ -87,7 +87,6 @@
   background: #007bff; /* Blue for active dot */
 }
 
-/* Responsive styling */
 @media (max-width: 768px) {
   .circle-card {
     width: 50px;
