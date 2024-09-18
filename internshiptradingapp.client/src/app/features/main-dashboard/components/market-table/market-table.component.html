@@ -1,62 +1,81 @@
-<div class="full-width-height">
-  <button
-    pButton
-    icon="pi pi-sort"
-    class="sort-button"
-    (click)="toggleSortOrder()"
-  ></button>
-  <p-splitter
-    [panelSizes]="[40, 60]"
-    [style]="{ height: '100%', width: '100%' }"
-    styleClass="custom-splitter"
-  >
-    <!-- Left Panel: Company Table -->
-    <ng-template pTemplate="left">
-      <div class="left-panel">
-        <!-- Sort Dropdown -->
-        <mat-form-field appearance="fill" class="sort-dropdown">
-          <mat-label>Sort by Attribute</mat-label>
-          <mat-select
-            [(value)]="selectedAttribute"
-            (selectionChange)="getCompanies(selectedAttribute, sortOrder)"
-          >
-            <mat-option *ngFor="let attr of companyAttributes" [value]="attr">{{
-              attr
-            }}</mat-option>
-          </mat-select>
-        </mat-form-field>
 
-        <div class="table-container">
-          <!-- Table view for larger screens -->
-          <ng-container *ngIf="!isMobileView">
-            <p-table [value]="companies"
-                     [paginator]="true"
-                     [rows]="5"
-                     [paginatorPosition]="'bottom'"
-                     [responsive]="true"
-                     class="table table-striped table-bordered"
-                     (onRowSelect)="onRowSelect($event.data)">
-              <ng-template pTemplate="header">
-                <tr>
-                  <th>Symbol</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>
-                    <button
-                      pButton
-                      icon="pi pi-sort"
-                      class="sort-button"
-                      (click)="toggleSortOrder()"
-                    ></button>
-                  </th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-company>
-                <tr
+<div class="full-width-height">
+  <p-splitter
+  [panelSizes]="[100,100]"
+  [style]="{ height: '100%', width: '100%' }"
+  styleClass="custom-splitter"
+  >
+  <!-- Left Panel: Company Table -->
+  <ng-template pTemplate="left">
+    <div class="left-panel">
+      <!-- Sort Dropdown -->
+      <div *ngIf="!showTrade">
+      <div class="btn-container">
+        <div class="buttons-container"> 
+        <div class="sort-container" style="display: flex;">
+          <mat-form-field appearance="fill" class="sort-dropdown">
+            <div class="mat-form-text">
+              <mat-label class="mat-label">Sort by Attribute</mat-label>
+              <mat-select
+              [(value)]="selectedAttribute"
+              (selectionChange)="getCompanies(selectedAttribute, sortOrder)"
+              >
+              <mat-option *ngFor="let attr of companyAttributes" [value]="attr">{{
+                attr
+              }}</mat-option>
+                </mat-select>
+            </div>
+              </mat-form-field>
+      
+              <button
+              pButton
+              icon="pi pi-sort"
+              class="sort-button"
+              (click)="toggleSortOrder()"
+              ></button>
+          </div>
+          </div>
+          
+            <div class="text-cnt">
+              <h4 class="company-details-header">Top Companies</h4>
+            </div>
+            <div class="buttons-container">
+              <p-button (click)="swapLeftPanelContent()" class="custom-btn">Trade</p-button>
+            </div>
+          </div>        
+        
+        <div class="search-container">
+          <app-market-search-bar (search)="onSearch($event)"></app-market-search-bar>
+        </div>
+
+        
+        
+          <div class="table-container">
+            <!-- Table view for larger screens -->
+            <ng-container *ngIf="!isMobileView">
+              <p-table [value]="companies"
+              [paginator]="true"
+              [rows]="5"
+              [paginatorPosition]="'bottom'"
+              [responsive]="true"
+              class="table table-striped table-bordered"
+                       (onRowSelect)="onRowSelect($event.data)">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>
+  
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-company>
+                  <tr
                   (click)="onRowSelect(company)"
                   [ngClass]="{ 'selected-row': selectedRow === company }"
                   style="cursor: pointer"
-                >
+                  >
                   <td>{{ company.company.symbol }}</td>
                   <td>{{ company.company.name }}</td>
                   <td>
@@ -66,47 +85,62 @@
               </ng-template>
             </p-table>
           </ng-container>
-          <app-market-search-bar (search)="onSearch($event)"></app-market-search-bar>
-          <app-top-xtable></app-top-xtable>
-          <!-- Card view for smaller screens -->
-          <ng-container *ngIf="isMobileView">
-            <div *ngIf="companies.length > 0" class="card-container">
-              <div
-                class="card"
-                *ngFor="let company of companies"
-                (click)="onRowSelect(company)"
-                style="cursor: pointer"
-              >
-                <div class="card-header">
-                  {{ company.company.symbol }}
+            
+            <!-- Card view for smaller screens -->
+            <ng-container *ngIf="isMobileView">
+              <div *ngIf="companies.length > 0" class="card-container">
+                <div
+                    class="card"
+                    *ngFor="let company of companies"
+                    (click)="onRowSelect(company)"
+                    style="cursor: pointer"
+                  >
+                    <div class="card-header">
+                      {{ company.company.symbol }}
+                    </div>
+                    <div class="card-body">
+                      <p><strong>Name:</strong> {{ company.company.name }}</p>
+                      <p>
+                        <strong>Price:</strong>
+                        {{ company.history[company.history.length - 1].price }}
+                      </p>
+                    </div>
+                    <div class="card-footer"></div>
+                  </div>
                 </div>
-                <div class="card-body">
-                  <p><strong>Name:</strong> {{ company.company.name }}</p>
-                  <p>
-                    <strong>Price:</strong>
-                    {{ company.history[company.history.length - 1].price }}
-                  </p>
-                </div>
-                <div class="card-footer"></div>
-              </div>
+              </ng-container>
             </div>
-          </ng-container>
-
-          <!-- Search Bar Component -->
-          <app-market-search-bar
-            (search)="onSearch($event)"
-          ></app-market-search-bar>
         </div>
+          <div *ngIf="showTrade">
+            
+            <div class="btn-container">
+              <div class="text-cnt">
+                <h4 class="company-details-header">Place Your Order</h4>
+              </div>
+              <div class="buttons-container">
+                <p-button (click)="swapLeftPanelContent()" class="custom-btn">Trade</p-button>
+              </div>
+            </div> 
+
+              <app-place-order></app-place-order>
+              <app-orders-table></app-orders-table>
+          </div>
       </div>
     </ng-template>
 
     <!-- Right Panel: Company Details Panel -->
     <ng-template pTemplate="right">
-      <p-button (click)="swapRightPanelContent()">swap</p-button>
-
       <div *ngIf="!showMarketIndex">
+        
         <div *ngIf="selectedCompany" class="details-panel">
-          <h4 class="company-details-header">Company Details</h4>
+          <div class="btn-container">
+            <div class="buttons-container">
+              <p-button (click)="swapRightPanelContent()" class="custom-btn">Swap</p-button>
+            </div>
+            <div class="text-cnt">
+              <h4 class="company-details-header">Company Details</h4>
+            </div>
+          </div>          
           <div class="top-half">
             <div class="expanded-content">
               <div>
@@ -183,7 +217,15 @@
         </div>
       </div>
 
-      <div *ngIf="showMarketIndex">
+      <div *ngIf="showMarketIndex" class="swap-index">
+        <div class="btn-container">
+          <div class="buttons-container">
+            <p-button (click)="swapRightPanelContent()" class="custom-btn">Swap</p-button>
+          </div>
+          <div class="text-cnt">
+            <h4 class="company-details-header">Top 10 Symbols</h4>
+          </div>
+        </div>
         <app-top-xtable></app-top-xtable>
       </div>
     </ng-template>

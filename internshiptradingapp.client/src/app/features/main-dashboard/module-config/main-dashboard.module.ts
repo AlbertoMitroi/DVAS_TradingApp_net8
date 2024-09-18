@@ -32,8 +32,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
 import { MarketSearchBarComponent } from '../components/market-search-bar/market-search-bar.component';
-
-
+import { OrdersTableComponent } from '../components/orders/order-table/order-table.component';
+import { PlaceOrderComponent } from '../components/orders/place-order/place-order.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -41,10 +42,13 @@ import { MarketSearchBarComponent } from '../components/market-search-bar/market
     CarouselOfSymbolsComponent,
     MarketTableComponent,
     TopXTableComponent,
-    MarketSearchBarComponent
+    MarketSearchBarComponent,
+    OrdersTableComponent,
+    PlaceOrderComponent,
   ],
   imports: [
     MatFormFieldModule,
+    NgxPaginationModule,
     MatListModule,
     MatAutocompleteModule,
     MatSelectModule,

@@ -1,12 +1,16 @@
 /* General styles for the carousel container */
 .container {
   margin: 0 0;
-  width: 100%;
+  max-width: 1450px;
   max-height: 95px;
   margin: 0 auto;
+  border-radius: 50px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 ::ng-deep .p-carousel-content{
+  display: flex;
+  width: 1400px !important;
   width: 100% !important;
   max-height: 95px !important;
   overflow: hidden;

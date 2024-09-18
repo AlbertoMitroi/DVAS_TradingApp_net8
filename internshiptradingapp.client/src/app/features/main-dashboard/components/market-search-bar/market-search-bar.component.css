@@ -1,12 +1,18 @@
 /* Adjust Input Section */
-.input-group {
+::ng-deep .input-group {
   display: flex;
   width: 100%;
+  justify-content: center !important; /* Centrează elementele orizontal */
+  align-items: center !important; /* Centrează elementele vertical */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 10px !important;
   max-width: 800px;
   border-radius: 0.375rem;
   overflow: hidden;
   transition: box-shadow 0.3s ease-in-out;
 }
+
 
 .search-container {
   flex-grow: 0;

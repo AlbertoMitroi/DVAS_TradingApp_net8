@@ -94,6 +94,7 @@ export class MarketTableComponent {
   sortOrder: string = 'desc';
   selectedRow: any;
   showMarketIndex: boolean | null = null;
+  showTrade: boolean | null = null;
   displayedColumns: string[] = ['symbol', 'name', 'price'];
   companyAttributes: string[] = [
     'Price',
@@ -121,6 +122,7 @@ export class MarketTableComponent {
       this.onRowSelect(this.sharedCompany);
     });
     this.showMarketIndex = true;
+    this.showTrade = false;
     console.log(this.companies);
 
     this.sharedCompanyService.selectedCompany$.subscribe(company => {
@@ -219,6 +221,10 @@ export class MarketTableComponent {
   swapRightPanelContent() {
     this.showMarketIndex = !this.showMarketIndex;
     setTimeout(() => this.initializeChart(), 1);
+  }
+
+  swapLeftPanelContent(){
+    this.showTrade = !this.showTrade;
   }
   onRowSelect(company: any) {
     //this.selectedCompany = company;

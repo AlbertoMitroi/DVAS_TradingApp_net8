@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { SignalRService } from '../../../_services/signal-r.service';
+import { SignalRService } from '../../../../../_services/signal-r.service';
 
 interface Order {
   id: number;
