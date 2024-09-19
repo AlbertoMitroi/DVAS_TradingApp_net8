@@ -1,12 +1,15 @@
 ﻿using ExternalDataSynchronization.Domain.ExternalData;
+using ExternalDataSynchronization.Domain.MarketIndex;
 using ExternalDataSynchronization.Features.Download;
 using ExternalDataSynchronization.Features.Extract;
 using ExternalDataSynchronization.Features.Parse;
 using ExternalDataSynchronization.Features.Post;
 using ExternalDataSynchronization.Features.Shared;
 using ExternalDataSynchronization.Infrastructure;
+using ExternalDataSynchronization.Infrastructure.DataAccess;
 using ExternalDataSynchronization.Models;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace InternshipTradingApp.CompanyInventory.Infrastructure
@@ -21,6 +24,10 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
                 .AddTransient<ExtractZipFileCommandHandler>()
                 .AddTransient<ParseFileCommandHandler>()
                 .AddTransient<PostCommandHandler>()
+                .AddScoped<IMarketIndexRepository, MarketIndexRepository>()
+                .AddScoped<IMarketIndexService, MarketIndexService>()
+                .AddDbContext<MarketIndexDbContext>(options =>
+        options.UseSqlServer("DefaultConnection"))
                 .BuildServiceProvider();
         }
 

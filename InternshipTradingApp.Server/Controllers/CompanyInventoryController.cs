@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using InternshipTradingApp.CompanyInventory.Domain;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
+using ExternalDataSynchronization.Domain.MarketIndex;
+using ExternalDataSynchronization.Infrastructure;
 
 
 namespace InternshipTradingApp.Server.Controllers
@@ -12,11 +14,13 @@ namespace InternshipTradingApp.Server.Controllers
     {
         private readonly ICompanyInventoryService companyInventoryService;
         private readonly ICompanyHistoryInventoryService companyHistoryInventoryService;
+        private readonly IMarketIndexService _marketIndexService;
 
-        public CompanyInventoryController(ICompanyInventoryService companyInventoryService, ICompanyHistoryInventoryService companyHistoryInventoryService)
+        public CompanyInventoryController(ICompanyInventoryService companyInventoryService, ICompanyHistoryInventoryService companyHistoryInventoryService, IMarketIndexService marketIndexService)
         {
             this.companyInventoryService = companyInventoryService;
             this.companyHistoryInventoryService = companyHistoryInventoryService;
+            this._marketIndexService = marketIndexService;
         }
 
         [HttpGet]
@@ -68,8 +72,17 @@ namespace InternshipTradingApp.Server.Controllers
             {
                 throw new ArgumentNullException(nameof(companyDtos));
             }
+            var importedCompanies =  await this.companyInventoryService.RegisterOrUpdateCompanies(companyDtos);
+            var marketIndex = await _marketIndexService.CalculateAndSaveMarketIndex();
 
-            return await this.companyInventoryService.RegisterOrUpdateCompanies(companyDtos);
+            return importedCompanies;
+        }
+
+        [HttpGet("marketIndexHistory")]
+        public async Task<IActionResult> GetMarketIndexHistory()
+        {
+            var history = await _marketIndexService.GetMarketIndexHistory();
+            return Ok(history);
         }
     }
 }

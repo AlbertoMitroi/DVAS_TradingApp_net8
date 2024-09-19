@@ -1,3 +1,6 @@
+using ExternalDataSynchronization.Domain.MarketIndex;
+using ExternalDataSynchronization.Infrastructure;
+using ExternalDataSynchronization.Infrastructure.DataAccess;
 using InternshipTradingApp.AccountManagement.Data;
 using InternshipTradingApp.AccountManagement.Entities;
 using InternshipTradingApp.CompanyInventory.SignalR;
@@ -31,6 +34,8 @@ namespace InternshipTradingApp.Server
 
 
             builder.Services.AddSignalR();
+            builder.Services.AddScoped<IMarketIndexRepository, MarketIndexRepository>();
+            builder.Services.AddScoped<IMarketIndexService, MarketIndexService>();
 
             var app = builder.Build();
 
@@ -68,6 +73,7 @@ namespace InternshipTradingApp.Server
             try
             {
                 var context = services.GetRequiredService<AccountDbContext>();
+                var marketIndexService = services.GetRequiredService<MarketIndexDbContext>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync();

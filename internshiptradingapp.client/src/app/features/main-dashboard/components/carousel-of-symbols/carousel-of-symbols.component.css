@@ -91,6 +91,7 @@
   background: #007bff; /* Blue for active dot */
 }
 
+/* Responsive styling for carousel */
 @media (max-width: 768px) {
   .circle-card {
     width: 50px;
