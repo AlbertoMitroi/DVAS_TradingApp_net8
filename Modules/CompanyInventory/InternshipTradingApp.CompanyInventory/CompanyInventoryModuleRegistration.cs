@@ -27,7 +27,7 @@ namespace InternshipTradingApp.CompanyInventory
 
         private static void RegisterRepositories(IServiceCollection serviceCollection)
         {
-            // serviceCollection.AddHostedService<PriceGenerationService>(); // PRICE GENERATION
+            //serviceCollection.AddHostedService<PriceGenerationService>(); // PRICE GENERATION
             serviceCollection.AddScoped<ICompanyNotificationService, CompanyNotificationService>();
             serviceCollection.AddScoped<ICompanyRepository, CompanyRepository>();
             serviceCollection.AddScoped<IQueryCompanyRepository, QueryCompanyRepository>();

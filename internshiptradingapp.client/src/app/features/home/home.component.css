@@ -1,9 +1,7 @@
-.style{
-    font-size: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;   
-    height: 70vh; 
-    background-color: gray;
+    .page-container {
+    display: block;
+    margin-top: 10px;
+  }
+.app-market-search-bar{
+    margin: 10px auto;
 }
-

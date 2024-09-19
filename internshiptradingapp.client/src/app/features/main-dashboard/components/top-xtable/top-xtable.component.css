@@ -1,12 +1,46 @@
+/* Stiluri pentru tabel */
 .topx-table {
   margin-top: 1rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for visual separation */
+}
+
+::ng-depp tr.mat-mdc-row.mdc-data-table__row.cdk-row.ng-star-inserted {
+  height: 35px !important;
+}
+tr.mat-mdc-row.mdc-data-table__row.cdk-row.ng-star-inserted {
+  height: 35px;
 }
 
 .mat-card {
   margin: 1rem 0;
 }
 
+.table-title {
+  margin: 0;
+  font-size: 1.5rem; /* Font size for the title */
+}
+
+/* Stiluri pentru tabel */
+.mat-table {
+  width: 100%;
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 4px 12px; /* Reduce padding to make rows narrower */
+  font-size: 14px; /* Adjust font size */
+}
+
+/* Stiluri pentru rândurile hover */
+.table-hover tbody tr {
+  font-size: 14px; /* Adjust font size */
+}
+
+/* Stiluri pentru rândurile selectate */
+.selected-row {
+  background-color: #d0eaff; /* Highlight selected row */
+}
+
+/* Responsivitate */
 @media (max-width: 768px) {
   .left-panel, .details-panel {
     flex: 100%; /* Full width on mobile */
@@ -18,7 +52,8 @@
     font-size: 16px; /* Smaller font for mobile */
   }
 
-  .table-hover tbody tr {
-    font-size: 14px;
+  .mat-header-cell, .mat-cell {
+    padding: 6px 8px; /* Reduce padding on mobile */
+    font-size: 12px; /* Smaller font size on mobile */
   }
 }

@@ -11,8 +11,18 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken'); 
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` 
+    });
+  }
+
   placeOrder(orderData: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(this.apiUrl, orderData, { headers });
+    return this.http.post<any>(this.apiUrl, orderData, {
+       headers : this.getAuthHeaders()
+      });
   }
 }

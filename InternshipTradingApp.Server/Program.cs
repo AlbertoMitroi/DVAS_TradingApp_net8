@@ -29,6 +29,7 @@ namespace InternshipTradingApp.Server
             });
 
 
+
             builder.Services.AddSignalR();
 
             var app = builder.Build();

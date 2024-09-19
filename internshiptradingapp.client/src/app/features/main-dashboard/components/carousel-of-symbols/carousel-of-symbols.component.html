@@ -1,19 +1,20 @@
-<p-carousel [value]="companyHistoryEntries"
-            [numVisible]="6"
-            [numScroll]="6"
-            [circular]="true"
-            [responsiveOptions]="responsiveOptions"
-            autoplayInterval="6000"
-            class="mat-elevation-z2">
-  <ng-template let-historyEntry pTemplate="item">
-    <div class="p-carousel-item mat-elevation-z3">
-      <div class="circle-card mat-card">
-        <h5 matLine>{{ historyEntry.companySymbol }}</h5>
-        <h6 matLine>{{ historyEntry.price + ' RON' }}</h6>
-        <p class="text-sm" matLine [ngClass]="{'text-green-500': historyEntry.dayVariation >= 0, 'text-red-500': historyEntry.dayVariation < 0}">
-          {{ historyEntry.dayVariation | number: '1.2-2' }}%
-        </p>
+<div class="container">
+  <p-carousel [value]="companyHistoryEntries"
+              [numVisible]="9"
+              [numScroll]="5"
+              [circular]="true"
+              [responsiveOptions]="responsiveOptions"
+              autoplayInterval="5000">
+    <ng-template let-historyEntry pTemplate="item">
+      <div class="p-carousel-item">
+        <div class="circle-card">
+          <h5 class="company-symbol">{{ historyEntry.companySymbol }}</h5>
+          <p>{{ historyEntry.price + ' RON' }}</p>       
+          <p class="day-variation {{ historyEntry.dayVariation >= 0 ? 'text-green' : 'text-red' }}">
+            {{ historyEntry.dayVariation | number: '1.2-2' }}%
+          </p>
+        </div>
       </div>
-    </div>
-  </ng-template>
-</p-carousel>
+    </ng-template>
+  </p-carousel>
+</div>

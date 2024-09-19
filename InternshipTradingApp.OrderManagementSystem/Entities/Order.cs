@@ -8,7 +8,8 @@ namespace InternshipTradingApp.OrderManagementSystem.Entities
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public string StockSymbol { get; set; }  = string.Empty;
-        public int Quantity { get; set; }
+        [Column(TypeName = "decimal(18,6)")]
+        public decimal Quantity { get; set; }
 
         [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }        
@@ -26,6 +27,7 @@ namespace InternshipTradingApp.OrderManagementSystem.Entities
     public enum OrderStatus
     {
         Pending,
+        Processing,
         Completed,
         Canceled,
         Failed

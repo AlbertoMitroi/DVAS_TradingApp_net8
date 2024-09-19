@@ -1,90 +1,121 @@
-.p-carousel {
-  padding: 10px;
+/* General styles for the carousel container */
+.container {
+  margin: 0 0;
+  max-width: 1450px;
+  max-height: 95px;
+  margin: 0 auto;
+  border-radius: 50px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-  .p-carousel .p-carousel-item {
-    max-width: 80px; /* Slightly smaller carousel items */
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin-right: 8px;
-  }
-
-.circle-card {
-  width: 80px;
-  height: 80px;
-  background-color: #fff;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+::ng-deep .p-carousel-content{
   display: flex;
-  flex-direction: column;
+  width: 1400px !important;
+  width: 100% !important;
+  max-height: 95px !important;
+  overflow: hidden;
+}
+
+/* Styles for the carousel */
+.p-carousel {
+  height: 100%;
+  display: flex; /* Aligns items horizontally */
+  align-items: center;
+}
+
+/* Styles for each carousel item */
+.p-carousel-item {
+  display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  padding: 4px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-sizing: border-box;
+  padding: 5px;
+  margin: 0 5px;
 }
 
-  .circle-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
+/* Styles for the circle card */
+.circle-card {
+  width: 70px; /* Slightly smaller to fit within max-height */
+  height: 70px;
+  border-radius: 50%;
+  background: #ffffff; /* White background for contrast */
+  display: flex;
+  flex-direction: column; /* Aligns text vertically */
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Softer shadow */
+  text-align: center;
+  padding: 5px;
+}
 
-.circle-container h5,
-.circle-container h6,
-.circle-container p {
+/* Styling for the company symbol */
+.company-symbol {
   margin: 0;
+  font-size: 0.75rem;
+  color: #333; /* Darker text for better readability */
+}
+
+/* Styling for the price and day variation */
+.circle-card p {
+  margin: 2px 0;
+  font-size: 0.625rem;
+}
+
+/* Color classes for day variation */
+.text-green {
+  color: #28a745; /* Green for positive variation */
+  font-weight: bold;
+}
+
+.text-red {
+  color: #dc3545; /* Red for negative variation */
+  font-weight: bold;
+}
+
+/* Styles for the paginator (bottom bar) */
+.p-carousel .p-carousel-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
   padding: 0;
 }
 
-.circle-container h5 {
-  font-size: 0.65rem !important; /* Force smaller symbol size */
-  color: #333;
+.p-carousel .p-carousel-pagination .p-carousel-page {
+  width: 8px; /* Smaller size for paginator dots */
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc; /* Light grey for inactive dots */
+  margin: 0 2px; /* Space between dots */
 }
 
-.circle-container h6 {
-  font-size: 0.75rem !important; /* Slightly smaller price */
-  font-weight: 600;
-  color: #007bff;
-}
-
-.circle-container p {
-  font-size: 0.6rem !important; /* Smaller percentage text */
-  line-height: 1.1; /* Closer line spacing */
-  color: #666;
-}
-
-.text-green-500 {
-  color: #4caf50;
-}
-
-.text-red-500 {
-  color: #f44336;
+.p-carousel .p-carousel-pagination .p-carousel-page.p-carousel-page-active {
+  background: #007bff; /* Blue for active dot */
 }
 
 @media (max-width: 768px) {
-  .p-carousel .p-carousel-item {
-    max-width: 70px;
-    height: 70px;
-  }
-
   .circle-card {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
+    padding: 2px;
   }
 
-  .circle-container h5 {
-    font-size: 0.55rem !important; /* Adjusted smaller symbol text */
+  .company-symbol {
+    font-size: 0.625rem;
   }
 
-  .circle-container h6 {
-    font-size: 0.65rem !important; /* Smaller price text */
+  .circle-card p {
+    font-size: 0.5rem;
   }
 
-  .circle-container p {
-    font-size: 0.5rem !important; /* Smaller percentage text */
+  .p-carousel .p-carousel-pagination .p-carousel-page {
+    width: 6px;
+    height: 6px;
   }
+}
+
+
+
+::ng-deep .p-carousel-indicators.p-reset {
+  max-height: 0px !important;
+  padding: 0 0;
+  margin: 0 0;
 }

@@ -24,6 +24,10 @@ namespace InternshipTradingApp.OrderManagementSystem
         {
             serviceCollection.AddScoped<IOrderService, OrderService>();
             serviceCollection.AddScoped<IOrderNotificationService, OrderNotificationService>();
+
+            serviceCollection.AddHostedService<OrderMatchingBackgroundService>();
+
+            serviceCollection.AddScoped<IOrderMatchingEngineService, OrderMatchingEngineService>();
         }
 
         private static void RegisterSignalR(IServiceCollection serviceCollection)
