@@ -47,7 +47,6 @@ import { MainDashboardModule } from './features/main-dashboard/module-config/mai
     WithdrawComponent,
     AddBankComponent,
     TransactionsComponent,
-    OrderWithTableComponent,
   ],
   imports: [
     MainDashboardModule,
@@ -87,7 +86,6 @@ export class AppModule {}
 import { platformBrowser } from '@angular/platform-browser';
 import { ChartComponent } from './features/main-dashboard/components/chart/chart.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { OrderWithTableComponent } from './features/main-dashboard/components/orders/order-with-table/order-with-table.component';
 platformBrowser()
   .bootstrapModule(AppModule)
   .catch((err) => console.error(err));
