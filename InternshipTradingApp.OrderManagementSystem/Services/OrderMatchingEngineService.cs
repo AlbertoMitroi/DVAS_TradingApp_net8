@@ -15,6 +15,13 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
             if (newOrder.Status == OrderStatus.Processing || newOrder.Status == OrderStatus.Completed)
                 return;
 
+            if(newOrder.Quantity == 0 && newOrder.Status != OrderStatus.Completed)
+            {
+                newOrder.Status = OrderStatus.Completed;
+                await orderRepository.UpdateAsync(newOrder);
+                return;
+            }
+
             newOrder.Status = OrderStatus.Processing;
             await orderRepository.UpdateAsync(newOrder);
 
@@ -82,7 +89,10 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
 
         private async Task ExecuteMatching(Order buyOrder, Order sellOrder)
         {
-            if (buyOrder.Quantity == sellOrder.Quantity)
+            int buyOrderQuantity = (int)Math.Round(buyOrder.Quantity);
+            int sellOrderQuantity = (int)Math.Round(sellOrder.Quantity);
+
+            if (buyOrderQuantity == sellOrderQuantity)
             {
                 buyOrder.Status = OrderStatus.Completed;
                 sellOrder.Status = OrderStatus.Completed;
@@ -90,14 +100,30 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
             else if (buyOrder.Quantity > sellOrder.Quantity)
             {
                 buyOrder.Quantity -= sellOrder.Quantity;
+                if(buyOrder.Quantity == sellOrder.Quantity)
+                    buyOrder.Status = OrderStatus.Completed;
                 sellOrder.Status = OrderStatus.Completed;
             }
             else
             {
                 sellOrder.Quantity -= buyOrder.Quantity;
+                if (buyOrder.Quantity == sellOrder.Quantity)
+                {
+                    sellOrder.Status = OrderStatus.Completed;
+                    sellOrder.Quantity += buyOrder.Quantity;
+                }
                 buyOrder.Status = OrderStatus.Completed;
             }
-
+            if (sellOrder.Quantity == 0)
+            {
+                sellOrder.Status = OrderStatus.Completed;
+                await orderRepository.UpdateAsync(sellOrder);
+            }
+            if (buyOrder.Quantity == 0)
+            {
+                buyOrder.Status = OrderStatus.Completed;
+                await orderRepository.UpdateAsync(buyOrder);
+            }
             logger.LogInformation("Executing matching: BuyOrder {BuyOrderId}, SellOrder {SellOrderId}.", buyOrder.Id, sellOrder.Id);
 
             await orderRepository.UpdateAsync(buyOrder);

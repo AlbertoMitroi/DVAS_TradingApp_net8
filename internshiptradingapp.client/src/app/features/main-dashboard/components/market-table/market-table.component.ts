@@ -21,6 +21,7 @@ import { SharedCompanyService } from '../../services/shared-company/shared-compa
 import { SortableColumn } from 'primeng/table';
 import { SignalRService } from '../../../../_services/signal-r.service';
 import { CompanyHistoryGetDTO, CompanyWithHistoryGetDTO } from '../../../../_models/CompanyWithHistoryGetDTO';
+import { AuthService } from '../../../../_services/auth.service';
 
 // interface Company {
 //   name: string;
@@ -113,7 +114,8 @@ export class MarketTableComponent {
   constructor(
     private http: HttpClient,
     private signalRService: SignalRService,
-    private sharedCompanyService: SharedCompanyService
+    private sharedCompanyService: SharedCompanyService,
+    public authService: AuthService
   ) {}
 
   // ViewChild to access the paginator component

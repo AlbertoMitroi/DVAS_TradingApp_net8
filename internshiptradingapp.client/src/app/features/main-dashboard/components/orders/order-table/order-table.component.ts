@@ -1,6 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { SignalRService } from '../../../../../_services/signal-r.service';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { Observable } from 'rxjs';
+import { User } from '../../../../../_models/user';
+import { UserDetailsDto } from '../../../../../_models/userDetailsDto';
+import { AuthService } from '../../../../../_services/auth.service';
 interface Order {
   id: number;
   customerId: number;
@@ -19,6 +24,8 @@ interface Order {
 })
 export class OrdersTableComponent implements OnInit {
   signalRService = inject(SignalRService);
+  http = inject(HttpClient);
+  authService = inject(AuthService);
   orders: Order[] = [];
   selectedTab: string = 'all';
   pAll: number = 1;
@@ -29,6 +36,7 @@ export class OrdersTableComponent implements OnInit {
   showActiveOnly: boolean = false;
 
   filteredOrders: Order[] = [];
+  userId: number | null = null;
 
   private typeMap: { [key: number]: string } = {
     0: 'Buy',
@@ -50,6 +58,15 @@ export class OrdersTableComponent implements OnInit {
       //this.orders.sort((a, b) => a.orderDate.getTime() - b.orderDate.getTime());
       this.filterOrders();
     });
+    this.authService.getUserId().subscribe(
+      (id: string | null) => {
+        this.userId = id ? parseInt(id, 10) : null;
+        console.log('User ID:', this.userId);
+      },
+      error => {
+        console.error('Error fetching user ID:', error);
+      }
+    );
   }
 
   filterOrders(): void {
@@ -62,11 +79,42 @@ export class OrdersTableComponent implements OnInit {
     }
 
     if (this.showActiveOnly) {
-      filtered = filtered.filter(order => order.status === 0 || order.status === 1);
+      filtered = filtered.filter(order => (order.customerId == this.userId) && (order.status === 0 || order.status === 1));
     }
 
     this.filteredOrders = filtered;
   }
+
+  
+
+  cancelOrder(id: number): void {
+    this.cancelOrderRequest(id).subscribe(
+      response => {
+        console.log('Order cancelled successfully:', response);
+      },
+      error => {
+        console.error('Error canceling order:', error);
+      }
+    );
+  }
+
+  private cancelOrderRequest(id: number): Observable<string> {
+    const url = `https://localhost:7221/api/Order/cancel/${id}`;
+    const headers = this.getAuthHeaders();
+
+    return this.http.post<string>(url, {}, {
+      headers: headers,
+      responseType: 'text' as 'json'
+    });
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+    
 
   selectTab(tab: string): void {
     this.selectedTab = tab;
@@ -78,6 +126,7 @@ export class OrdersTableComponent implements OnInit {
 
   toggleActiveFilter(): void {
     this.showActiveOnly = !this.showActiveOnly;
+    console.log(this.userId);
     this.filterOrders();
   }
 
@@ -86,8 +135,8 @@ export class OrdersTableComponent implements OnInit {
     switch (statusString) {
       case 'Completed': return 'status-completed';
       case 'Pending': return 'status-pending';
-      case 'Canceled':
-      case 'Failed': return 'status-canceled';
+      case 'Canceled': return 'status-canceled';
+      case 'Failed': return 'status-failed';
       default: return '';
     }
     }
@@ -98,7 +147,7 @@ export class OrdersTableComponent implements OnInit {
     switch (statusString) {
       case 'Completed': return 'Completed';
       case 'Pending': return 'Pending';
-      case 'Canceled':
+      case 'Canceled': return 'Canceled';
       case 'Failed': return 'Failed';
       case 'Processing': return 'Processing';
       default: return '';

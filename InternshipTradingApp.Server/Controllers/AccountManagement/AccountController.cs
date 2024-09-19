@@ -58,47 +58,16 @@ namespace InternshipTradingApp.Server.Controllers.AccountManagement
             };
         }
 
-        [HttpGet("current-user-details")]
-        public async Task<ActionResult<UserDetailsDto>> GetUserDetails()
+        [HttpGet("current-user-id")]
+        public string GetUserDetails()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
             {
-                return Unauthorized("User ID not found in the claims.");
+                throw new Exception("User ID not found in the claims.");
             }
 
-            var user = await userManager.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return NotFound("User not found.");
-            }
-
-            if (user.Email == null || user.UserName == null)
-                return NotFound("Email or Username not found");
-
-            var transactions = await dbContext.Transactions
-                .Include(t => t.BankAccount)
-                .Where(t => t.UserId == int.Parse(userId))
-                .OrderByDescending(t => t.Date)
-                .Select(t => new TransactionDto
-                {
-                    Id = t.Id,
-                    Amount = t.Amount,
-                    Date = t.Date,
-                    Type = t.Type,
-                    Bank = t.Type == "Deposit" ?
-                          "Stripe Card"
-                        : (t.BankAccount != null ? t.BankAccount.BankName : "Unknown")
-                })
-                .ToListAsync();
-
-            return Ok(new UserDetailsDto
-            {
-                Username = user.UserName,
-                Email = user.Email,
-                Balance = user.Balance,
-                Transactions = transactions,
-            });
+            return userId;
         }
 
 

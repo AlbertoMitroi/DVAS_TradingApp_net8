@@ -37,7 +37,7 @@ namespace InternshipTradingApp.Server.Controllers.OrderManagement
             return Ok(createOrderDTO);
         }
 
-        [HttpPost("id")]
+        [HttpPost("cancel/{id}")]
         public async Task<IActionResult> CancelOrder(int id)
         {
             await orderService.UpdateOrderStatusAsync(id, OrderStatus.Canceled);

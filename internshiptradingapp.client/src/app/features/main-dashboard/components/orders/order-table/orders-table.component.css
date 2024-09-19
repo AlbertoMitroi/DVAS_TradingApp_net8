@@ -224,3 +224,8 @@ input:checked + .slider:before {
     color: #333;
     margin-left: 10px;
 }
+::ng-deep button.p-ripple.p-element.p-button.p-component.p-button-icon-only.p-button-danger.p-button-rounded.p-button-outlined {
+  max-width: 30px;
+  max-height: 10px;
+  border-radius: 50%;
+}

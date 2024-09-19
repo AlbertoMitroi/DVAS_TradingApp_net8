@@ -1,5 +1,5 @@
 import { Injectable, inject, signal, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_models/user';
 import { RegisterDto } from '../_models/RegisterDto';
 import { Observable } from 'rxjs';
@@ -52,5 +52,16 @@ export class AuthService implements OnInit {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('authToken', user.token);
     this.currentUser.set(user);
+  }
+
+  getUserId(): Observable<string | null> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    
+    return this.http.get<string>(`${this.baseUrl}account/current-user-id`, { headers }).pipe(
+      map(userId => userId || null)
+    );
   }
 }

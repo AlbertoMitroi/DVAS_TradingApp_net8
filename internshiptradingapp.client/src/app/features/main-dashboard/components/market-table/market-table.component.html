@@ -39,9 +39,11 @@
             <div class="text-cnt">
               <h4 class="company-details-header">Top Companies</h4>
             </div>
-            <div class="buttons-container">
-              <p-button (click)="swapLeftPanelContent()" class="custom-btn">Trade</p-button>
-            </div>
+            @if (authService.currentUser()){
+              <div class="buttons-container">
+                <p-button (click)="swapLeftPanelContent()" class="custom-btn">Trade</p-button>
+              </div>
+            }
           </div>        
         
         <div class="search-container">
