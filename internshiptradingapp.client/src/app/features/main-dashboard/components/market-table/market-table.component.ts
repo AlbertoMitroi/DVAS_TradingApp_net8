@@ -19,6 +19,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SharedCompanyService } from '../../services/shared-company/shared-company.service';
 
 import { SortableColumn } from 'primeng/table';
+import { SignalRService } from '../../../../_services/signal-r.service';
+import { CompanyHistoryGetDTO, CompanyWithHistoryGetDTO } from '../../../../_models/CompanyWithHistoryGetDTO';
 
 // interface Company {
 //   name: string;
@@ -105,9 +107,12 @@ export class MarketTableComponent {
   ];
   selectedAttribute: string | null = null;
   public dataSource = new MatTableDataSource<CompanyObject>([]);
+  public companiesBySignalR: any | null = null;
+
 
   constructor(
     private http: HttpClient,
+    private signalRService: SignalRService,
     private sharedCompanyService: SharedCompanyService
   ) {}
 
@@ -131,6 +136,13 @@ export class MarketTableComponent {
         this.onRowSelect(this.selectedCompany);
       }
     })
+
+    this.signalRService.companies$.subscribe((companies: CompanyWithHistoryGetDTO[]) => {
+      const company = companies.find((c: CompanyWithHistoryGetDTO) => c.company.symbol === 'ALT');
+      if (company) {
+        this.companiesBySignalR = company.history[company.history.length - 1].price;
+      }
+    });
   }
 
   ngAfterViewInit() {

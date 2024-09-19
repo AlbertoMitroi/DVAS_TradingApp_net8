@@ -1,4 +1,5 @@
 ﻿using InternshipTradingApp.CompanyInventory.Features.Shared;
+using InternshipTradingApp.CompanyInventory.SignalR;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,17 +30,19 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
                 {
                     var companyInventoryService = scope.ServiceProvider.GetRequiredService<ICompanyInventoryService>();
                     var companyHistoryInventoryService = scope.ServiceProvider.GetRequiredService<ICompanyHistoryInventoryService>();
-                    await UpdatePricesAsync(companyInventoryService, companyHistoryInventoryService);
+                    var companyNotificationService = scope.ServiceProvider.GetRequiredService<ICompanyNotificationService>();
+
+                    await UpdatePricesAsync(companyInventoryService, companyHistoryInventoryService, companyNotificationService);
                 }
 
-                // 10 seconds
+                // 10 seconds delay
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
 
             _logger.LogInformation("Price Generation Service is stopping.");
         }
 
-        private async Task UpdatePricesAsync(ICompanyInventoryService companyInventoryService, ICompanyHistoryInventoryService companyHistoryInventoryService)
+        private async Task UpdatePricesAsync(ICompanyInventoryService companyInventoryService, ICompanyHistoryInventoryService companyHistoryInventoryService, ICompanyNotificationService companyNotificationService)
         {
             var companyGetDto = await companyInventoryService.GetAllCompanies();
 
@@ -58,11 +61,11 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
                 var referencePrice = lastHistory.ClosingPrice;
 
                 var variationPercentage = (decimal)(_random.NextDouble() * 0.04 - 0.02); // -2% <=> +2%
-                var newPrice = referencePrice * (1 + variationPercentage);
+                var newPrice = Math.Round(referencePrice * (1 + variationPercentage), 3);
 
                 var openingPrice = lastHistory.OpeningPrice;
                 var closingPrice = newPrice;
-                var dayVariation = (newPrice - openingPrice) / openingPrice * 100;  
+                var dayVariation = (newPrice - openingPrice) / openingPrice * 100;
                 var volume = _random.Next(100, 10000);
 
                 try
@@ -76,8 +79,8 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
                         ClosingPrice = closingPrice,
                         PER = lastHistory.PER,
                         DayVariation = dayVariation,
-                        EPS = lastHistory.EPS, 
-                        Date = new DateOnly(),
+                        EPS = lastHistory.EPS,
+                        Date = DateOnly.FromDateTime(DateTime.Now),
                         Volume = volume
                     };
                     updatedCompanyDtos.Add(addNewCompanyPrice);
@@ -91,6 +94,8 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure
             }
 
             await companyHistoryInventoryService.RegisterCompaniesHistory(updatedCompanyDtos);
+            await companyNotificationService.SendCompaniesDataAsync();
         }
     }
+
 }
