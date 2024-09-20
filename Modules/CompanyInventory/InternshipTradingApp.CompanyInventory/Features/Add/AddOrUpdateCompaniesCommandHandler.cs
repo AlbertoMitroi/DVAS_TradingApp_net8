@@ -29,7 +29,10 @@ namespace InternshipTradingApp.CompanyInventory.Features.Add
                 }
             }
 
-            await repository.SaveChanges();
+            if (processedCompanies.Any())
+            {
+                await repository.SaveChanges();
+            }
 
             return processedCompanies;
         }

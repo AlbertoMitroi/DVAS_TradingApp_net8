@@ -28,11 +28,23 @@ export class SignalRService implements OnDestroy {
   }
 
   initializeSignalRConnections(user: User): void {
+    if (this.isAlreadyConnected()) {
+      console.log('SignalR connections already initialized.');
+      return;
+    }
     this.createHubConnection(user, 'userHub', 'SendData', 'ReceiveUserDetails');
     this.createHubConnection(user, 'orderHub', 'SendOrderUpdate', 'ReceiveOrders');
     this.createHubConnection(user, 'companiesHub', 'UpdateCompaniesData', 'ReceiveCompanies');
-    console.log(`Initialize SignalR Connections`);
+    console.log('Initialize SignalR Connections');
   }
+
+  private isAlreadyConnected(): boolean {
+    return Object.keys(this.hubConnections).some(hubName => {
+      const connection = this.hubConnections[hubName];
+      return connection?.state === HubConnectionState.Connected;
+    });
+  }
+
 
   private createHubConnection(user: User, hubName: string, invokeMethod: string, receiveEvent: string): void {
     if (this.isInitialized[hubName]) return;
@@ -70,8 +82,8 @@ export class SignalRService implements OnDestroy {
     const hubConnection = this.hubConnections[hubName];
     if (hubConnection) {
       hubConnection.on(event, (data : any) => {
-        console.log(`On ${event} with hub ${hubName} with response ${data}`)
-        console.log(`${event} received from ${hubName}:`, data);
+        //console.log(`On ${event} with hub ${hubName} with response ${data}`)
+        //console.log(`${event} received from ${hubName}:`, data);
         this.dataSubjects[hubName].next(data);
       });
     }

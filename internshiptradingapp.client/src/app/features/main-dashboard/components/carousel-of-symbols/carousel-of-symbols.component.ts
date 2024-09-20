@@ -46,7 +46,7 @@ export class CarouselOfSymbolsComponent implements OnInit {
       .subscribe(
         (response: any[]) => {
           this.companyData = response;
-          console.log('Company data:', this.companyData);
+          //console.log('Company data:', this.companyData);
 
           this.companyHistoryEntries = this.companyData
             .filter(company => company.history && company.history.length > 0)
@@ -55,7 +55,7 @@ export class CarouselOfSymbolsComponent implements OnInit {
               ...company.history[company.history.length - 1]
             }));
 
-          console.log('Latest history entries:', this.companyHistoryEntries);
+          //console.log('Latest history entries:', this.companyHistoryEntries);
         },
         (error) => {
           console.error('Error fetching company data:', error);
