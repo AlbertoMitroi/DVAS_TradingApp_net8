@@ -1,8 +1,7 @@
-using ExternalDataSynchronization.Domain.MarketIndex;
 using ExternalDataSynchronization.Infrastructure;
-using ExternalDataSynchronization.Infrastructure.DataAccess;
 using InternshipTradingApp.AccountManagement.Data;
 using InternshipTradingApp.AccountManagement.Entities;
+using InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAccess;
 using InternshipTradingApp.CompanyInventory.SignalR;
 using InternshipTradingApp.OrderManagementSystem.SignalR;
 using InternshipTradingApp.Server.Extensions;
@@ -34,8 +33,6 @@ namespace InternshipTradingApp.Server
 
 
             builder.Services.AddSignalR();
-            builder.Services.AddScoped<IMarketIndexRepository, MarketIndexRepository>();
-            builder.Services.AddScoped<IMarketIndexService, MarketIndexService>();
 
             var app = builder.Build();
 

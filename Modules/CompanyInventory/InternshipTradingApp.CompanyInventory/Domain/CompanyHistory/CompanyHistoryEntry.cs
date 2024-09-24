@@ -5,20 +5,20 @@ namespace InternshipTradingApp.CompanyInventory.Domain.CompanyHistory
 {
     public class CompanyHistoryEntry
     {
-        public ulong Id { get; private set; }
+        public ulong Id { get;  set; }
         public string CompanySymbol { get; set; } = string.Empty;
-        public decimal Price { get; private set; }
-        public decimal ReferencePrice { get; private set; }
-        public decimal OpeningPrice { get; private set; }
-        public decimal ClosingPrice { get; private set; }
-        public decimal EPS { get; private set; }
-        public decimal PER { get; private set; }
-        public decimal DayVariation { get; private set; }
-        public DateOnly Date { get; private set; }
+        public decimal Price { get;  set; }
+        public decimal ReferencePrice { get;  set; }
+        public decimal OpeningPrice { get;  set; }
+        public decimal ClosingPrice { get;  set; }
+        public decimal EPS { get;  set; }
+        public decimal PER { get;  set; }
+        public decimal DayVariation { get;  set; }
+        public DateOnly Date { get;  set; }
         public Company Company { get; set; }
 
         public decimal Volume { get; set; }
-        private CompanyHistoryEntry() { }
+        public CompanyHistoryEntry() { }
 
         public static CompanyHistoryEntry Create(string companySymbol,
                                                  decimal price,

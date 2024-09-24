@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ExternalDataSynchronization.Migrations
+namespace InternshipTradingApp.CompanyInventory.Migrations.MarketIndexDb
 {
     /// <inheritdoc />
-    public partial class InitialMarketIndexMigration : Migration
+    public partial class marketindexContext : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

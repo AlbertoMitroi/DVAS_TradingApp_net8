@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExternalDataSynchronization.Domain.MarketIndex
+namespace InternshipTradingApp.CompanyInventory.Domain.MarketIndex
 {
     public class MarketIndexHistory
     {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
         public decimal Value { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExternalDataSynchronization.Domain.MarketIndex
+namespace InternshipTradingApp.CompanyInventory.Domain.MarketIndex
 {
     public interface IMarketIndexService
     {

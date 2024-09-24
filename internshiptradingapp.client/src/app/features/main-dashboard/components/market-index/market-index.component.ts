@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 interface marketIndexEntry {
   date: Date;
@@ -14,9 +15,33 @@ interface marketIndexEntry {
 export class MarketIndexComponent {
   private chart: Chart | null = null;
   public marketIndex: number = 0;
+  marketIndexEntries: marketIndexEntry[] = [];
 
+  constructor(private http: HttpClient) { }
   ngOnInit() {
+    this.getMarketIndexEntries();
     setTimeout(() => this.initializeChart(), 1);
+  }
+
+  getMarketIndexEntries() {
+    let params = new HttpParams();
+
+    console.log('API Parameters:', params.toString());
+    this.http
+      .get<marketIndexEntry[]>(
+        'https://localhost:7221/api/CompanyInventory/marketIndexHistory',
+        { params }
+      )
+      .subscribe(
+        (result) => {
+          this.marketIndexEntries = result;
+
+          setTimeout(() => this.initializeChart(), 1);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
   initializeChart() {
@@ -32,23 +57,22 @@ export class MarketIndexComponent {
       Chart.getChart('marketIndexGraph')?.destroy();
     }
 
-    // const prices =
-    //   this.selectedCompany.history?.map((entry) => entry.price) || [];
-    // const labels =
-    //   this.selectedCompany.history?.map((entry) => entry.date) || [];
+    const prices =
+      this.marketIndexEntries.slice(-7).map((entry) => entry.value) || [];
+    const labels = this.marketIndexEntries.slice(-7).map((entry) => {
+      return new Date(entry.date).toISOString().split('T')[0];
+    });
 
-    let values = [10, 20, 10, 30, 40];
-
-    this.marketIndex = values[values.length - 1];
+    this.marketIndex = prices[prices.length - 1];
 
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['M', 'T', 'W', 'T', 'F'],
+        labels: labels,
         datasets: [
           {
             label: 'Market Index',
-            data: values,
+            data: prices,
             borderColor: '#007bff',
             borderWidth: 2,
             fill: false,

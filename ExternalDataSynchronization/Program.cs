@@ -1,9 +1,8 @@
-﻿using ExternalDataSynchronization.Domain.MarketIndex;
-using ExternalDataSynchronization.Infrastructure.DataAccess;
-using ExternalDataSynchronization.Infrastructure;
+﻿using ExternalDataSynchronization.Infrastructure;
 using InternshipTradingApp.CompanyInventory.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using ExternalDataSynchronization.Infrastructure;
 
 class Program
 {
@@ -15,15 +14,5 @@ class Program
 
 
         var serviceCollection = new ServiceCollection();
-
-        // Register the DbContext (MarketIndexDbContext) with Scoped lifetime
-        serviceCollection.AddDbContext<MarketIndexDbContext>(options =>
-            options.UseSqlServer("DefaultConnection")); // Replace with your actual connection string
-
-        // Register the MarketIndexRepository and MarketIndexService with Scoped lifetime
-        serviceCollection.AddScoped<IMarketIndexRepository, MarketIndexRepository>();
-        serviceCollection.AddScoped<IMarketIndexService, MarketIndexService>();
-
-
     }
 }

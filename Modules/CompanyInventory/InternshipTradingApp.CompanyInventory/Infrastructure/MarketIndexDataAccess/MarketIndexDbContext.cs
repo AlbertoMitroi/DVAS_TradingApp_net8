@@ -1,4 +1,4 @@
-﻿using ExternalDataSynchronization.Domain.MarketIndex;
+﻿using InternshipTradingApp.CompanyInventory.Domain.MarketIndex;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExternalDataSynchronization.Infrastructure.DataAccess
+namespace InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAccess
 {
     public class MarketIndexDbContext : DbContext
     {

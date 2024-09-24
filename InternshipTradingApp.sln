@@ -23,9 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalDataSynchronization
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "internshiptradingapp.client", "internshiptradingapp.client\internshiptradingapp.client.esproj", "{88FFB490-8B73-42D0-BD13-1D540530C429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipTradingApp.AccountManagement", "InternshipTradingApp.AccountManagement\InternshipTradingApp.AccountManagement.csproj", "{D6643D19-C23F-4C70-B99C-D31B8101E298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipTradingApp.AccountManagement", "InternshipTradingApp.AccountManagement\InternshipTradingApp.AccountManagement.csproj", "{D6643D19-C23F-4C70-B99C-D31B8101E298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipTradingApp.OrderManagementSystem", "InternshipTradingApp.OrderManagementSystem\InternshipTradingApp.OrderManagementSystem.csproj", "{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipTradingApp.OrderManagementSystem", "InternshipTradingApp.OrderManagementSystem\InternshipTradingApp.OrderManagementSystem.csproj", "{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BE0AF145-CFC6-4EB5-90B1-417A209ADF67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{17A97698-0C55-4791-8599-315A736A3D56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompanyInventory", "CompanyInventory", "{E99193B1-6A71-4165-B580-ACF7754C314E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyInventory.Tests", "CompanyInventory.Tests\CompanyInventory.Tests.csproj", "{7BBB2AB8-793A-42FD-AAB4-391778408EA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +71,10 @@ Global
 		{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BBB2AB8-793A-42FD-AAB4-391778408EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BBB2AB8-793A-42FD-AAB4-391778408EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BBB2AB8-793A-42FD-AAB4-391778408EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BBB2AB8-793A-42FD-AAB4-391778408EA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +87,9 @@ Global
 		{4F07C058-D80F-47A8-9FAE-F5940DB3DB84} = {8FBDBD36-EFFD-4841-9AD5-49BCE7385A9B}
 		{D6643D19-C23F-4C70-B99C-D31B8101E298} = {0A092031-B966-4AAD-9969-ADE354035003}
 		{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7} = {25D602C5-5DEA-48B1-B5A5-9BA26C52BAEC}
+		{17A97698-0C55-4791-8599-315A736A3D56} = {BE0AF145-CFC6-4EB5-90B1-417A209ADF67}
+		{E99193B1-6A71-4165-B580-ACF7754C314E} = {17A97698-0C55-4791-8599-315A736A3D56}
+		{7BBB2AB8-793A-42FD-AAB4-391778408EA3} = {E99193B1-6A71-4165-B580-ACF7754C314E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37369618-FAD3-46EA-BD72-B13EA1F5C23A}

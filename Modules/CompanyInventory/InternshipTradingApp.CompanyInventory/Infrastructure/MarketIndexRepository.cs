@@ -1,14 +1,13 @@
-﻿using ExternalDataSynchronization.Domain.MarketIndex;
-using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
-using ExternalDataSynchronization.Infrastructure.DataAccess;
+﻿using InternshipTradingApp.CompanyInventory.Domain.MarketIndex;
+using InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
-namespace ExternalDataSynchronization.Infrastructure
+namespace InternshipTradingApp.CompanyInventory.Infrastructure
 {
     public class MarketIndexRepository : IMarketIndexRepository
     {
@@ -23,7 +22,7 @@ namespace ExternalDataSynchronization.Infrastructure
         {
             var marketIndexHistory = new MarketIndexHistory
             {
-                Date = DateTime.Now,
+                Date = DateOnly.FromDateTime(DateTime.Now),
                 Value = value
             };
 

@@ -10,9 +10,8 @@ using Stripe;
 using InternshipTradingApp.AccountManagement.Services;
 using InternshipTradingApp.OrderManagementSystem.Data;
 using InternshipTradingApp.OrderManagementSystem;
-using ExternalDataSynchronization.Infrastructure.DataAccess;
-using ExternalDataSynchronization.Domain.MarketIndex;
 using ExternalDataSynchronization.Infrastructure;
+using InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAccess;
 
 namespace InternshipTradingApp.Server.Extensions
 {
@@ -50,8 +49,6 @@ namespace InternshipTradingApp.Server.Extensions
             services.AddScoped<IBankAccountService, AccountServices.BankAccountService>();
             services.AddScoped<IFundsService, AccountServices.FundsService>();
             services.AddScoped<IUserNotificationService, UserNotificationService>();
-            services.AddScoped<IMarketIndexService, MarketIndexService>();
-            services.AddScoped<IMarketIndexRepository, MarketIndexRepository>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

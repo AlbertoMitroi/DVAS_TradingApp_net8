@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using InternshipTradingApp.CompanyInventory.Domain;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
-using ExternalDataSynchronization.Domain.MarketIndex;
 using ExternalDataSynchronization.Infrastructure;
+using InternshipTradingApp.CompanyInventory.Domain.MarketIndex;
 
 
 namespace InternshipTradingApp.Server.Controllers

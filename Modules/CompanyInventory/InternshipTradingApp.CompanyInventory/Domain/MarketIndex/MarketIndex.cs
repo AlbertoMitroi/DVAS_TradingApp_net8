@@ -1,11 +1,10 @@
-﻿using InternshipTradingApp.CompanyInventory.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExternalDataSynchronization.Domain.MarketIndex
+namespace InternshipTradingApp.CompanyInventory.Domain.MarketIndex
 {
     public class MarketIndex
     {
@@ -21,11 +20,16 @@ namespace ExternalDataSynchronization.Domain.MarketIndex
                 .Where(price => price != null)
                 .ToList();
 
-            if (validPrices != null)
+            if (validPrices.Any())
             {
                 CurrentValue = validPrices.Average(price => price.Value);
                 CurrentValue = System.Math.Round(CurrentValue, 4, MidpointRounding.AwayFromZero);
             }
+            else
+            {
+                CurrentValue = 0;
+            }
         }
     }
+
 }
