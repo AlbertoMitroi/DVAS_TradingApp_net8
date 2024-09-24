@@ -59,7 +59,6 @@
               [paginator]="true"
               [rows]="5"
               [paginatorPosition]="'bottom'"
-              [responsive]="true"
               class="table table-striped table-bordered"
                        (onRowSelect)="onRowSelect($event.data)">
                 <ng-template pTemplate="header">
@@ -115,9 +114,6 @@
         </div>
           <div *ngIf="showTrade">
             <div class="btn-container">
-              <div class="buttons-container" style="height: 35px !important;">
-                <span>{{companiesBySignalR}}</span>
-              </div>
               <div class="text-cnt">
                 <h4 class="company-details-header">Place Your Order</h4>
               </div>

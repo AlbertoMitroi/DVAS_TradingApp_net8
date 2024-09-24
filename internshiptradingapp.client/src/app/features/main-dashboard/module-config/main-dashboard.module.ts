@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MainDashboardRoutingModule } from './main-dashboard-routing.module';
 import { MainDashboardIndexComponent } from '../pages/main-dashboard-index/main-dashboard-index.component';
 import { CarouselOfSymbolsComponent } from '../components/carousel-of-symbols/carousel-of-symbols.component';
 import { MarketTableComponent } from '../components/market-table/market-table.component';
 import { TopXTableComponent } from '../components/top-xtable/top-xtable.component';
 import { MarketIndexComponent } from '../components/market-index/market-index/market-index.component';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
@@ -47,6 +45,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PlaceOrderComponent,
   ],
   imports: [
+    CommonModule,
+    MainDashboardRoutingModule,
     MatFormFieldModule,
     NgxPaginationModule,
     MatListModule,
@@ -63,9 +63,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatSlideToggleModule,
     FormsModule,
     TableModule,
-    CommonModule,
     DropdownModule,
-    MainDashboardRoutingModule,
     ButtonModule,
     SidebarModule,
     InputTextModule,
@@ -82,6 +80,5 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TopXTableComponent,
   ],
   providers: [],
-  bootstrap: [MainDashboardModule],
 })
 export class MainDashboardModule {}

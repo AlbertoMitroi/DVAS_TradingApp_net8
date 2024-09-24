@@ -37,7 +37,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: _ => {
-          //window.location.href = '/';
           this.router.navigate(['/']);
         },
         error: error => this.toastr.error(error.error)

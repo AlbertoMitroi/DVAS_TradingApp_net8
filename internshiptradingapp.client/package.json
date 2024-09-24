@@ -26,6 +26,7 @@
     "@microsoft/signalr": "^8.0.7",
     "@stripe/stripe-js": "^4.3.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.4",
     "jest-editor-support": "*",
     "ngx-bootstrap": "^18.0.2",
@@ -52,6 +53,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.5.2"
+    "typescript": "5.5"
   }
 }

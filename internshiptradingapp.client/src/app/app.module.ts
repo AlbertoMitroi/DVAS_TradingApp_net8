@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,6 +33,7 @@ import { ChartModule } from 'primeng/chart';
 import { SplitterModule } from 'primeng/splitter';
 import { CarouselModule } from 'primeng/carousel';
 import { MainDashboardModule } from './features/main-dashboard/module-config/main-dashboard.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,21 +49,19 @@ import { MainDashboardModule } from './features/main-dashboard/module-config/mai
     TransactionsComponent,
   ],
   imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
     MainDashboardModule,
     NgxPaginationModule,
     ToastModule,
     DialogModule,
-    HttpClientModule,
-    ChartModule,
-    CarouselModule,
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
     DropdownModule,
     MenubarModule,
     TabsModule,
     BsDropdownModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ButtonModule,
@@ -71,21 +69,11 @@ import { MainDashboardModule } from './features/main-dashboard/module-config/mai
     CheckboxModule,
     InputTextModule,
     MessageModule,
-    ReactiveFormsModule,
-    InputTextModule,
+    ChartModule,
     SplitterModule,
-    FormsModule,
+    CarouselModule,
   ],
-  exports:[
-  ],
-    providers: [MessageService, provideAnimationsAsync()],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
-
-import { platformBrowser } from '@angular/platform-browser';
-import { ChartComponent } from './features/main-dashboard/components/chart/chart.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-platformBrowser()
-  .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
