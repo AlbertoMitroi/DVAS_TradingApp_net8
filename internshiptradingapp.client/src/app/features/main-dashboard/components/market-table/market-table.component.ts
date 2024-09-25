@@ -233,6 +233,11 @@ export class MarketTableComponent {
     console.log(this.selectedCompany);
     setTimeout(() => this.initializeChart(), 1);
   }
+  selectAttribute(attribute: string) {
+    this.selectedAttribute = attribute; // Set the selected attribute
+    this.getCompanies(this.selectedAttribute, this.sortOrder); // Fetch companies based on the selected attribute
+  }
+
 
   initializeChart() {
     if (!this.selectedCompany) return;
@@ -262,14 +267,14 @@ export class MarketTableComponent {
           {
             label: 'Price Trend',
             data: prices,
-            borderColor: '#007bff',
+            borderColor: '#536B78',
             borderWidth: 2,
             fill: false,
           },
           {
             label: 'EPS',
             data: eps,
-            borderColor: '#545f6c',
+            borderColor: '#CEE5F2',
             borderWidth: 2,
             fill: false,
           },

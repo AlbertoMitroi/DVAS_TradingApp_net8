@@ -7,7 +7,7 @@
 .withdraw-container {
   max-width: 450px;
   margin: auto auto;
-  margin-top: 20px;
+  margin-top: 5px;
   padding: 25px;
   padding-top: 15px;
   background-color: #fff;
@@ -39,7 +39,7 @@
   padding: 10px;
   font-size: 18px;
   font-weight: 600;
-  background-color: #222831;
+  background-color: #545f6c;
   color: white;
   border: none;
   border-radius: 8px;
@@ -47,7 +47,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #59616c;
+  background-color: #253648;
 }
 
 .btn-add-bank{

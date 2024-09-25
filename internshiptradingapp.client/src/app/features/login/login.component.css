@@ -74,10 +74,14 @@ button {
     padding: 0.75rem;
     font-size: 1rem;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #222831;
     color: white;
     border: none;
     cursor: pointer;
+}
+
+button:hover {
+    background-color: #59616c;
 }
 
 button:disabled {

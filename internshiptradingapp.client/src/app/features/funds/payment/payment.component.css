@@ -43,7 +43,7 @@
     padding: 10px 20px;
     font-size: 1rem;
     color: #ffffff;
-    background-color: #222831;
+    background-color: #545f6c;
     border: none;
     border-radius: 5px;
     text-decoration: none;
@@ -52,7 +52,7 @@
   }
 
   .pay-button:hover{
-    background-color: #59616c;
+    background-color: #253648;
   }
   
   .pay-button:disabled {

@@ -32,12 +32,11 @@ import { MarketSearchBarComponent } from '../components/market-search-bar/market
 import { OrdersTableComponent } from '../components/orders/order-table/order-table.component';
 import { PlaceOrderComponent } from '../components/orders/place-order/place-order.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MarketIndexComponent } from '../components/market-index/market-index/market-index.component';
+import { MarketIndexComponent } from '../components/market-index/market-index.component'; 
 
 
 @NgModule({
   declarations: [
-    MarketIndexComponent,
     MainDashboardIndexComponent,
     CarouselOfSymbolsComponent,
     MarketTableComponent,

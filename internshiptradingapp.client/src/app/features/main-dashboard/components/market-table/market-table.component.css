@@ -292,12 +292,12 @@ app-market-index {
 
 /* Efect de hover doar pentru butonul cu clasa "custom-btn" */
 ::ng-deep .custom-btn .p-button:hover {
-  background-color: #0056b3 !important; /* Nuanță mai închisă la hover */
+  background-color: #253648 !important; /* Nuanță mai închisă la hover */
 }
 
 /* Efect de active doar pentru butonul cu clasa "custom-btn" */
 ::ng-deep .custom-btn .p-button:active {
-  background-color: #004085 !important; /* Nuanță mai închisă la click */
+  background-color: #253648 !important; /* Nuanță mai închisă la click */
 }
 
 
@@ -329,12 +329,12 @@ app-market-index {
 
 /* Efect de hover pentru butonul Trade */
 ::ng-deep .custom-btn-trade .p-button:hover {
-  background-color: #0056b3 !important; /* Nuanță mai închisă la hover */
+  background-color: #253648 !important; /* Nuanță mai închisă la hover */
 }
 
 /* Efect de active pentru butonul Trade */
 ::ng-deep .custom-btn-trade .p-button:active {
-  background-color: #004085 !important; /* Nuanță mai închisă la click */
+  background-color: #253648 !important; /* Nuanță mai închisă la click */
 }
 
 /* Adaugă o animație mică la hover */
@@ -388,4 +388,85 @@ app-market-index {
 
 ::ng-deep.sort-dropdown .mat-option:hover {
   background-color: #e9ecef; /* Culoare de fundal la hover pentru opțiuni */
+}
+
+
+/* Dropdown Container */
+.sort-dropdown {
+  width: 200px; /* Adjust as needed */
+  height: 35px;
+  background-color: white;
+  border-radius: 30px; /* Rounded corners for the whole dropdown */
+}
+
+/* Dropdown Trigger */
+.sort-dropdown .p-dropdown {
+  border: 1px solid #007bff; /* Border color */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for better visibility */
+}
+
+/* Dropdown Trigger Button */
+.sort-dropdown .p-dropdown .p-dropdown-trigger {
+  background-color: #007bff; /* Background color for dropdown trigger */
+  color: #fff; /* Text color for dropdown trigger */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+}
+
+/* Hover Effects for Trigger Button */
+.sort-dropdown .p-dropdown .p-dropdown-trigger:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+}
+
+/* Mat Form Field Customization */
+::ng-deep .sort-dropdown .mat-form-field {
+  background-color: #f8f9fa !important; /* Background color */
+  border-radius: 4px; /* Rounded corners */
+  padding: 0.5rem; /* Padding */
+}
+
+/* Label Styling */
+::ng-deep .sort-dropdown .mat-form-field-label {
+  text-align: center !important; /* Center-align text */
+  color: white !important; /* Label text color */
+}
+
+/* Select Trigger Styling */
+::ng-deep .sort-dropdown .mat-select-trigger {
+  text-align: center !important; /* Center-align text */
+}
+
+/* Option Styling */
+::ng-deep .sort-dropdown .mat-option {
+  text-align: center !important; /* Center-align text */
+  color: #495057; /* Text color for options */
+}
+
+/* Hover Effects for Options */
+::ng-deep .sort-dropdown .mat-option:hover {
+  background-color: #e9ecef; /* Background color on hover */
+}
+
+/* Dropdown Text Color */
+::ng-deep .sort-dropdown .mat-select {
+  color: #495057; /* Change text color in select */
+}
+
+/* Ensure the trigger height is auto */
+::ng-deep.sort-dropdown .mat-select-trigger {
+  height: auto; /* Adjust height */
+}
+
+
+.mat-form-field.mat-mdc-form-field.ng-tns-c2305561197-1.ng-tns-c2400808035-2.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill.mat-primary.ng-star-inserted {
+  height: 35px !important;
+}
+
+::ng-deep label#mat-mdc-form-field-label-0 {
+  height: 40px;
+}
+
+.custom-form-field {
+  height: 35px;
 }

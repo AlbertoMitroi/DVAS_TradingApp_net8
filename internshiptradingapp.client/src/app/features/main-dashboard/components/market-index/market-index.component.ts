@@ -34,7 +34,7 @@ export class MarketIndexComponent {
       )
       .subscribe(
         (result) => {
-          this.marketIndexEntries = result;
+          this.marketIndexEntries = result.reverse();
 
           setTimeout(() => this.initializeChart(), 1);
         },
@@ -73,7 +73,7 @@ export class MarketIndexComponent {
           {
             label: 'Market Index',
             data: prices,
-            borderColor: '#007bff',
+            borderColor: '#536B78',
             borderWidth: 2,
             fill: false,
           },

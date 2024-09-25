@@ -13,20 +13,19 @@
       <div class="btn-container">
         <div class="buttons-container"> 
         <div class="sort-container" style="display: flex;">
-          <mat-form-field appearance="fill" class="sort-dropdown">
-            <div class="mat-form-text">
-              <mat-label class="mat-label">Sort by Attribute</mat-label>
-              <mat-select
-              [(value)]="selectedAttribute"
-              (selectionChange)="getCompanies(selectedAttribute, sortOrder)"
-              >
-              <mat-option *ngFor="let attr of companyAttributes" [value]="attr">{{
-                attr
-              }}</mat-option>
-                </mat-select>
-            </div>
-              </mat-form-field>
-      
+          <!-- Bootstrap Dropdown for Selecting an Attribute -->
+          <mat-form-field class="custom-form-field" appearance="fill">
+            <mat-label *ngIf="!selectedAttribute">Select an attribute</mat-label>
+            <mat-select [(value)]="selectedAttribute" (selectionChange)="selectAttribute($event.value)">
+              <mat-option *ngFor="let attr of companyAttributes" [value]="attr">
+                {{ attr }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          
+          
+
               <button
               pButton
               icon="pi pi-sort"
