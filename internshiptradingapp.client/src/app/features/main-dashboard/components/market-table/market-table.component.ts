@@ -252,6 +252,8 @@ export class MarketTableComponent {
     const labels =
       this.selectedCompany.history?.map((entry) => entry.date) || [];
 
+    const eps = 
+      this.selectedCompany.history?.map((entry) => entry.eps) || [];
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -261,6 +263,13 @@ export class MarketTableComponent {
             label: 'Price Trend',
             data: prices,
             borderColor: '#007bff',
+            borderWidth: 2,
+            fill: false,
+          },
+          {
+            label: 'EPS',
+            data: eps,
+            borderColor: '#545f6c',
             borderWidth: 2,
             fill: false,
           },

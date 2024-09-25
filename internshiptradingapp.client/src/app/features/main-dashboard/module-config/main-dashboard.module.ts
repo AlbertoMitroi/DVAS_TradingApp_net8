@@ -5,7 +5,6 @@ import { MainDashboardIndexComponent } from '../pages/main-dashboard-index/main-
 import { CarouselOfSymbolsComponent } from '../components/carousel-of-symbols/carousel-of-symbols.component';
 import { MarketTableComponent } from '../components/market-table/market-table.component';
 import { TopXTableComponent } from '../components/top-xtable/top-xtable.component';
-import { MarketIndexComponent } from '../components/market-index/market-index/market-index.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
@@ -33,6 +32,8 @@ import { MarketSearchBarComponent } from '../components/market-search-bar/market
 import { OrdersTableComponent } from '../components/orders/order-table/order-table.component';
 import { PlaceOrderComponent } from '../components/orders/place-order/place-order.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MarketIndexComponent } from '../components/market-index/market-index/market-index.component';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MarketSearchBarComponent,
     OrdersTableComponent,
     PlaceOrderComponent,
+    MarketIndexComponent,
   ],
   imports: [
     CommonModule,
