@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InternshipTradingApp.AccountManagement.Interfaces;
+using InternshipTradingApp.AccountManagement.Services;
 using InternshipTradingApp.OrderManagementSystem.Data;
 using InternshipTradingApp.OrderManagementSystem.Entities;
 using InternshipTradingApp.OrderManagementSystem.Interfaces;
@@ -8,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace InternshipTradingApp.OrderManagementSystem.Services
 {
-    public class OrderMatchingEngineService(IOrderRepository orderRepository, ILogger<OrderMatchingEngineService> logger) : IOrderMatchingEngineService
+    public class OrderMatchingEngineService(IOrderRepository orderRepository, ILogger<OrderMatchingEngineService> logger, IFundsService fundsService) : IOrderMatchingEngineService
     {
         public async Task MatchOrderAsync(Order newOrder)
         {
@@ -42,7 +44,16 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
 
                 foreach (var oppositeOrder in oppositeOrders)
                 {
-                    await ExecuteMatching(newOrder, oppositeOrder);
+                    if (newOrder.CustomerId == oppositeOrder.CustomerId)
+                        break;
+                    if(newOrder.Type == OrderType.Buy)
+                    {
+                        await ExecuteMatching(newOrder, oppositeOrder);
+                    }
+                    else
+                    {
+                        await ExecuteMatching(oppositeOrder, newOrder);
+                    }
 
                     if (newOrder.Status == OrderStatus.Completed)
                     {
@@ -92,28 +103,39 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
             int buyOrderQuantity = (int)Math.Round(buyOrder.Quantity);
             int sellOrderQuantity = (int)Math.Round(sellOrder.Quantity);
 
+            decimal transactionAmount = sellOrder.Price * Math.Min(buyOrderQuantity, sellOrderQuantity);
+
             if (buyOrderQuantity == sellOrderQuantity)
             {
                 buyOrder.Status = OrderStatus.Completed;
                 sellOrder.Status = OrderStatus.Completed;
+
+                await fundsService.ReturnFundsAsync(sellOrder.CustomerId, transactionAmount);
             }
             else if (buyOrder.Quantity > sellOrder.Quantity)
             {
                 buyOrder.Quantity -= sellOrder.Quantity;
-                if(buyOrder.Quantity == sellOrder.Quantity)
+
+                if (buyOrder.Quantity == sellOrder.Quantity)
                     buyOrder.Status = OrderStatus.Completed;
+
                 sellOrder.Status = OrderStatus.Completed;
+                await fundsService.ReturnFundsAsync(sellOrder.CustomerId, transactionAmount);
             }
             else
             {
                 sellOrder.Quantity -= buyOrder.Quantity;
+
                 if (buyOrder.Quantity == sellOrder.Quantity)
                 {
                     sellOrder.Status = OrderStatus.Completed;
                     sellOrder.Quantity += buyOrder.Quantity;
                 }
+
                 buyOrder.Status = OrderStatus.Completed;
+                await fundsService.ReturnFundsAsync(sellOrder.CustomerId, transactionAmount);
             }
+
             if (sellOrder.Quantity == 0)
             {
                 sellOrder.Status = OrderStatus.Completed;
@@ -124,10 +146,12 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
                 buyOrder.Status = OrderStatus.Completed;
                 await orderRepository.UpdateAsync(buyOrder);
             }
+
             logger.LogInformation("Executing matching: BuyOrder {BuyOrderId}, SellOrder {SellOrderId}.", buyOrder.Id, sellOrder.Id);
 
             await orderRepository.UpdateAsync(buyOrder);
             await orderRepository.UpdateAsync(sellOrder);
         }
+
     }
 }

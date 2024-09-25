@@ -45,8 +45,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   reloadPage(event: Event) {
     event.preventDefault();
-    //window.location.href = '/';
-    this.router.navigate(['/']);
+    window.location.href = '/';
+    //this.router.navigate(['/']);
   }
 
   logout() {

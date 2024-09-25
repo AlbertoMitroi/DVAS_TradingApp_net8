@@ -20,7 +20,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th *ngIf="!showActiveOnly">Customer ID</th>
+            <th *ngIf="!showActiveOnly">Cust. ID</th>
             <th *ngIf="showActiveOnly">Cust. ID</th>
             <th>Stock Symbol</th>
             <th *ngIf="!showActiveOnly">Quantity</th>
@@ -38,7 +38,7 @@
               <td>{{ order.customerId }}</td>
               <td>{{ order.stockSymbol }}</td>
               <td>{{ order.quantity }}</td>
-              <td>${{ order.price }}</td>
+              <td>{{ order.price }}</td>
               <td [ngClass]="getOrderType(order.type)">{{ getOrderType(order.type) }}</td>
               <td [ngClass]="getStatusClass(order.status)">{{ getStatusText(order.status) }}</td>
               <td>{{ order.orderDate | date: 'yyyy-MM-dd' }}</td>
@@ -72,7 +72,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Customer ID</th>
+              <th>Cust. ID</th>
               <th>Stock Symbol</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -88,7 +88,7 @@
             <td>{{ order.customerId }}</td>
             <td>{{ order.stockSymbol }}</td>
             <td>{{ order.quantity }}</td>
-            <td>${{ order.price }}</td>
+            <td>{{ order.price }}</td>
               <td [ngClass]="getOrderType(order.type)">{{ getOrderType(order.type) }}</td>
               <td [ngClass]="getStatusClass(order.status)">{{ getStatusText(order.status) }}</td>
             <td>{{ order.orderDate | date: 'yyyy-MM-dd' }}</td>
@@ -122,7 +122,7 @@
           <thead>
             <tr>
               <th>ID</th>
-              <th>Customer ID</th>
+              <th>Cust. ID</th>
               <th>Stock Symbol</th>
               <th>Quantity</th>
               <th>Price</th>
@@ -138,7 +138,7 @@
               <td>{{ order.customerId }}</td>
               <td>{{ order.stockSymbol }}</td>
               <td>{{ order.quantity }}</td>
-              <td>${{ order.price }}</td>
+              <td>{{ order.price }}</td>
               <td [ngClass]="getOrderType(order.type)">{{ getOrderType(order.type) }}</td>
               <td [ngClass]="getStatusClass(order.status)">{{ getStatusText(order.status) }}</td>
               <td>{{ order.orderDate | date: 'yyyy-MM-dd' }}</td>

@@ -23,7 +23,7 @@
             <tbody>
                 <tr *ngFor="let transaction of filteredWithdrawTransactions | paginate: { id: 'withdraw', itemsPerPage: pageSize, currentPage: pWithdraw }">
                     <td>{{ transaction.date }}</td>
-                    <td>{{ transaction.amount | currency }}</td>
+                    <td>{{ transaction.amount | currency:'RON ' }}</td>
                     <td>{{ transaction.type }}</td>
                     <td>{{ transaction.bank }}</td>
                 </tr>
@@ -58,7 +58,7 @@
                     <tbody>
                         <tr *ngFor="let transaction of filteredAllTransactions | paginate: { id: 'all', itemsPerPage: pageSize, currentPage: pAll }">
                             <td>{{ transaction.date }}</td>
-                            <td>{{ transaction.amount | currency }}</td>
+                            <td>{{ transaction.amount | currency:'RON ' }}</td>
                             <td>{{ transaction.type }}</td>
                             <td>{{ transaction.bank }}</td>
                         </tr>
@@ -93,7 +93,7 @@
                     <tbody>
                         <tr *ngFor="let transaction of filteredDepositTransactions | paginate: { id: 'deposit', itemsPerPage: pageSize, currentPage: pDeposit }">
                             <td>{{ transaction.date }}</td>
-                            <td>{{ transaction.amount | currency }}</td>
+                            <td>{{ transaction.amount | currency:'RON ' }}</td>
                             <td>{{ transaction.type }}</td>
                             <td>{{ transaction.bank }}</td>
                         </tr>

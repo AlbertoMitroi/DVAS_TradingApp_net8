@@ -28,7 +28,7 @@ namespace InternshipTradingApp.Server.Controllers.AccountManagement
                         PriceData = new SessionLineItemPriceDataOptions
                         {
                             UnitAmount = request.Amount * 100,
-                            Currency = "usd",
+                            Currency = "ron",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
                                 Name = "Deposit funds"

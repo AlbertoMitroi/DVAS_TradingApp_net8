@@ -68,18 +68,14 @@ namespace InternshipTradingApp.AccountManagement.Services
             await userNotification.SendUserDetailsAsync(userId.ToString());
         }
 
-
-        public async Task BuyOrderAsync(int userId, decimal amount)
+        public async Task ReturnFundsAsync(int userId, decimal amount)
         {
             var user = await userManager.Users
-                .Include(u => u.BankAccounts)
                 .FirstOrDefaultAsync(u => u.Id == userId)
                 ?? throw new Exception("User not found");
 
-            if (user.Balance < amount)
-                throw new Exception("Insufficient funds");
-
-            user.Balance -= amount;
+            //amount *= 2;
+            user.Balance += amount;
 
             await context.SaveChangesAsync();
 
@@ -87,18 +83,20 @@ namespace InternshipTradingApp.AccountManagement.Services
             await userNotification.SendUserDetailsAsync(userId.ToString());
         }
 
-
-        public async Task SellOrderAsync(int userId, decimal amount)
+        public async Task ReserveFundsAsync(int userId, decimal amount)
         {
             var user = await userManager.Users
                 .FirstOrDefaultAsync(u => u.Id == userId)
                 ?? throw new Exception("User not found");
 
-            user.Balance += amount;
+            if (user.Balance < amount)
+            {
+                throw new InvalidOperationException("Insufficient funds.");
+            }
+
+            user.Balance -= amount;
 
             await context.SaveChangesAsync();
-
-            if (userId.ToString() == null) throw new Exception("UserId is null");
             await userNotification.SendUserDetailsAsync(userId.ToString());
         }
     }

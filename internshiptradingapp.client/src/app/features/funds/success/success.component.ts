@@ -31,8 +31,8 @@ export class SuccessComponent implements OnInit, OnDestroy {
       this.countdown--;
       if (this.countdown <= 0) {
         this.clearCountdown();
-        //window.location.href = '/';
-        this.router.navigate(['/']);
+        window.location.href = '/';
+        //this.router.navigate(['/']);
       }
     }, 1000);
   }

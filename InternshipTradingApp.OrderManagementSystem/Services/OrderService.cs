@@ -28,8 +28,19 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
 
             if (user.Balance <= valueOrder) throw new Exception("User balance is less than value Order.");
 
+            try
+            {
+                if(dto.Type == OrderType.Buy)
+                    await fundsService.ReserveFundsAsync(user.Id, valueOrder);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to reserve funds for the order.", ex);
+            }
+
             var order = mapper.Map<Order>(dto);
             await orderRepository.AddAsync(order);
+
             await orderMatchingEngine.MatchOrderAsync(order);
         }
 
