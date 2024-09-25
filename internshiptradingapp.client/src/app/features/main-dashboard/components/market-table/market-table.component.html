@@ -1,9 +1,7 @@
 <div class="full-width-height">
-  <p-splitter
-    [panelSizes]="[100, 100]"
-    [style]="{ height: '100%', width: '100%' }"
-    styleClass="custom-splitter"
-  >
+  <p-splitter [panelSizes]="[100, 100]"
+              [style]="{ height: '100%', width: '100%' }"
+              styleClass="custom-splitter">
     <!-- Left Panel: Company Table -->
     <ng-template pTemplate="left">
       <div class="left-panel">
@@ -15,27 +13,20 @@
                 <mat-form-field appearance="fill" class="sort-dropdown">
                   <div class="mat-form-text">
                     <mat-label class="mat-label">Sort by Attribute</mat-label>
-                    <mat-select
-                      [(value)]="selectedAttribute"
-                      (selectionChange)="
+                    <mat-select [(value)]="selectedAttribute"
+                                (selectionChange)="
                         getCompanies(selectedAttribute, sortOrder)
-                      "
-                    >
-                      <mat-option
-                        *ngFor="let attr of companyAttributes"
-                        [value]="attr"
-                        >{{ attr }}</mat-option
-                      >
+                      ">
+                      <mat-option *ngFor="let attr of companyAttributes"
+                                  [value]="attr">{{ attr }}</mat-option>
                     </mat-select>
                   </div>
                 </mat-form-field>
 
-                <button
-                  pButton
-                  icon="pi pi-sort"
-                  class="sort-button"
-                  (click)="toggleSortOrder()"
-                ></button>
+                <button pButton
+                        icon="pi pi-sort"
+                        class="sort-button"
+                        (click)="toggleSortOrder()"></button>
               </div>
             </div>
 
@@ -43,30 +34,24 @@
               <h4 class="company-details-header">Top Companies</h4>
             </div>
             <div class="buttons-container">
-              <p-button (click)="swapLeftPanelContent()" class="custom-btn"
-                >Trade</p-button
-              >
+              <p-button (click)="swapLeftPanelContent()" class="custom-btn">Trade</p-button>
             </div>
           </div>
 
           <div class="search-container">
-            <app-market-search-bar
-              (search)="onSearch($event)"
-            ></app-market-search-bar>
+            <app-market-search-bar (search)="onSearch($event)"></app-market-search-bar>
           </div>
 
           <div class="table-container">
             <!-- Table view for larger screens -->
             <ng-container *ngIf="!isMobileView">
-              <p-table
-                [value]="companies"
-                [paginator]="true"
-                [rows]="5"
-                [paginatorPosition]="'bottom'"
-                [responsive]="true"
-                class="table table-striped table-bordered"
-                (onRowSelect)="onRowSelect($event.data)"
-              >
+              <p-table [value]="companies"
+                       [paginator]="true"
+                       [rows]="5"
+                       [paginatorPosition]="'bottom'"
+                       [responsive]="true"
+                       class="table table-striped table-bordered"
+                       (onRowSelect)="onRowSelect($event.data)">
                 <ng-template pTemplate="header">
                   <tr>
                     <th>Symbol</th>
@@ -76,11 +61,9 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-company>
-                  <tr
-                    (click)="onRowSelect(company)"
-                    [ngClass]="{ 'selected-row': selectedRow === company }"
-                    style="cursor: pointer"
-                  >
+                  <tr (click)="onRowSelect(company)"
+                      [ngClass]="{ 'selected-row': selectedRow === company }"
+                      style="cursor: pointer">
                     <td>{{ company.company.symbol }}</td>
                     <td>{{ company.company.name }}</td>
                     <td>
@@ -94,12 +77,10 @@
             <!-- Card view for smaller screens -->
             <ng-container *ngIf="isMobileView">
               <div *ngIf="companies.length > 0" class="card-container">
-                <div
-                  class="card"
-                  *ngFor="let company of companies"
-                  (click)="onRowSelect(company)"
-                  style="cursor: pointer"
-                >
+                <div class="card"
+                     *ngFor="let company of companies"
+                     (click)="onRowSelect(company)"
+                     style="cursor: pointer">
                   <div class="card-header">
                     {{ company.company.symbol }}
                   </div>
@@ -125,9 +106,7 @@
               <h4 class="company-details-header">Place Your Order</h4>
             </div>
             <div class="buttons-container">
-              <p-button (click)="swapLeftPanelContent()" class="custom-btn"
-                >Trade</p-button
-              >
+              <p-button (click)="swapLeftPanelContent()" class="custom-btn">Trade</p-button>
             </div>
           </div>
 
@@ -143,9 +122,7 @@
         <div *ngIf="selectedCompany" class="details-panel">
           <div class="btn-container">
             <div class="buttons-container">
-              <p-button (click)="swapRightPanelContent()" class="custom-btn"
-                >Swap</p-button
-              >
+              <p-button (click)="swapRightPanelContent()" class="custom-btn">Swap</p-button>
             </div>
             <div class="text-cnt">
               <h4 class="company-details-header">Company Details</h4>
@@ -230,9 +207,7 @@
       <div *ngIf="showMarketIndex" class="details-panel">
         <div class="btn-container">
           <div class="buttons-container">
-            <p-button (click)="swapRightPanelContent()" class="custom-btn"
-              >Swap</p-button
-            >
+            <p-button (click)="swapRightPanelContent()" class="custom-btn">Swap</p-button>
           </div>
           <div class="text-cnt">
             <h4 class="company-details-header">Market Index</h4>

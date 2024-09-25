@@ -27,7 +27,11 @@ namespace InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAc
                 entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Date)
-                    .IsRequired();
+               .HasConversion(
+                   v => v.ToDateTime(TimeOnly.MinValue), 
+                   v => DateOnly.FromDateTime(v)          
+               )
+               .IsRequired();
 
                 entity.Property(e => e.Value)
                     .HasColumnType("decimal(18, 2)")

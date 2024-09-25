@@ -71,8 +71,8 @@ export class RegisterComponent {
           console.log('Full Response:', user);
 
 
-          //window.location.href = '/';
-          this.router.navigate(['/']);
+          window.location.href = '/';
+          /*this.router.navigate(['/']);*/
         },
         error: error => {
 

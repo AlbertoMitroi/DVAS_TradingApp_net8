@@ -114,7 +114,7 @@ export class MarketTableComponent {
     private http: HttpClient,
     private signalRService: SignalRService,
     private sharedCompanyService: SharedCompanyService
-  ) {}
+  ) { }
 
   // ViewChild to access the paginator component
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -235,7 +235,7 @@ export class MarketTableComponent {
     setTimeout(() => this.initializeChart(), 1);
   }
 
-  swapLeftPanelContent(){
+  swapLeftPanelContent() {
     this.showTrade = !this.showTrade;
   }
   onRowSelect(company: any) {
@@ -272,7 +272,7 @@ export class MarketTableComponent {
           {
             label: 'Price Trend',
             data: prices,
-            borderColor: '#007bff',
+            borderColor: '#1a2939bc', 
             borderWidth: 2,
             fill: false,
           },
@@ -288,6 +288,7 @@ export class MarketTableComponent {
       },
     });
   }
+
 
   // Handle paginator page changes
   onPaginateChange(event: any) {
