@@ -48,7 +48,7 @@ namespace InternshipTradingApp.OrderManagementSystem.Services
                         break;
                     if(newOrder.Type == OrderType.Buy)
                     {
-                        await ExecuteMatching(newOrder, oppositeOrder);
+                    await ExecuteMatching(newOrder, oppositeOrder);
                     }
                     else
                     {

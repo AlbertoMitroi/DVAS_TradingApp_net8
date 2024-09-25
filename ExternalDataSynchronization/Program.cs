@@ -1,4 +1,8 @@
-﻿using InternshipTradingApp.CompanyInventory.Infrastructure;
+﻿using ExternalDataSynchronization.Infrastructure;
+using InternshipTradingApp.CompanyInventory.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using ExternalDataSynchronization.Infrastructure;
 
 class Program
 {
@@ -8,5 +12,7 @@ class Program
 
         await ExternalDataService.ExecuteCommandsAsync(serviceProvider);
 
+
+        var serviceCollection = new ServiceCollection();
     }
 }

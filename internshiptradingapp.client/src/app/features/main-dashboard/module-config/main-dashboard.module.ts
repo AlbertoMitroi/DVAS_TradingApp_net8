@@ -37,6 +37,7 @@ import { MarketIndexComponent } from '../components/market-index/market-index/ma
 
 @NgModule({
   declarations: [
+    MarketIndexComponent,
     MainDashboardIndexComponent,
     CarouselOfSymbolsComponent,
     MarketTableComponent,

@@ -11,12 +11,12 @@ namespace InternshipTradingApp.CompanyInventory.Domain
         }
 
         public int Id { get; private set; }
-        public string Name { get; private set; } = string.Empty;
+        public string Name { get;  set; } = string.Empty;
         public string Symbol { get; private set; } = string.Empty;
         public CompanyStatus Status { get; private set; }
         public ICollection<CompanyHistoryEntry> CompanyHistoryEntries { get; set; } = new List<CompanyHistoryEntry>();
 
-        private Company() { }
+        public Company() { }
 
         public static Company Create(string name, string symbol)
         {

@@ -1,12 +1,14 @@
 ﻿using InternshipTradingApp.CompanyHistoryInventory;
 using InternshipTradingApp.CompanyInventory.Domain;
 using InternshipTradingApp.CompanyInventory.Domain.CompanyHistory;
+using InternshipTradingApp.CompanyInventory.Domain.MarketIndex;
 using InternshipTradingApp.CompanyInventory.Features.Add;
 using InternshipTradingApp.CompanyInventory.Features.AddCompanyHistory;
 using InternshipTradingApp.CompanyInventory.Features.Query;
 using InternshipTradingApp.CompanyInventory.Features.QueryCompanyHistory;
 using InternshipTradingApp.CompanyInventory.Infrastructure;
 using InternshipTradingApp.CompanyInventory.Infrastructure.CompanyDataAccess;
+using InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAccess;
 using InternshipTradingApp.CompanyInventory.SignalR;
 using InternshipTradingApp.ModuleIntegration.CompanyInventory;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,7 @@ namespace InternshipTradingApp.CompanyInventory
             RegisterQueryHandlers(serviceCollection);
             serviceCollection.AddScoped<ICompanyInventoryService, CompanyInventoryService>();
             serviceCollection.AddScoped<ICompanyHistoryInventoryService, CompanyHistoryInventoryService>();
+            serviceCollection.AddScoped<IMarketIndexService, MarketIndexService>();
         }
 
         private static void RegisterRepositories(IServiceCollection serviceCollection)
@@ -33,6 +36,7 @@ namespace InternshipTradingApp.CompanyInventory
             serviceCollection.AddScoped<IQueryCompanyRepository, QueryCompanyRepository>();
             serviceCollection.AddScoped<ICompanyHistoryEntryRepository, CompanyHistoryRepository>();
             serviceCollection.AddScoped<IQueryCompanyHistoryRepository, QueryCompanyHistoryRepository>();
+            serviceCollection.AddScoped<IMarketIndexRepository, MarketIndexRepository>();
         }
 
         private static void RegisterCommandHandlers(IServiceCollection serviceCollection)

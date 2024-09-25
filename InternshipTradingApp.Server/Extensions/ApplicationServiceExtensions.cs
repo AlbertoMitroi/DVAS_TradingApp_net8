@@ -10,6 +10,8 @@ using Stripe;
 using InternshipTradingApp.AccountManagement.Services;
 using InternshipTradingApp.OrderManagementSystem.Data;
 using InternshipTradingApp.OrderManagementSystem;
+using ExternalDataSynchronization.Infrastructure;
+using InternshipTradingApp.CompanyInventory.Infrastructure.MarketIndexDataAccess;
 
 namespace InternshipTradingApp.Server.Extensions
 {
@@ -31,6 +33,10 @@ namespace InternshipTradingApp.Server.Extensions
                 opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
             services.AddDbContext<OrderDbContext>(opt =>
+            {
+                opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            });
+            services.AddDbContext<MarketIndexDbContext>(opt =>
             {
                 opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });

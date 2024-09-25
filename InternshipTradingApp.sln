@@ -23,9 +23,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalDataSynchronization
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "internshiptradingapp.client", "internshiptradingapp.client\internshiptradingapp.client.esproj", "{88FFB490-8B73-42D0-BD13-1D540530C429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipTradingApp.AccountManagement", "InternshipTradingApp.AccountManagement\InternshipTradingApp.AccountManagement.csproj", "{D6643D19-C23F-4C70-B99C-D31B8101E298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipTradingApp.AccountManagement", "InternshipTradingApp.AccountManagement\InternshipTradingApp.AccountManagement.csproj", "{D6643D19-C23F-4C70-B99C-D31B8101E298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternshipTradingApp.OrderManagementSystem", "InternshipTradingApp.OrderManagementSystem\InternshipTradingApp.OrderManagementSystem.csproj", "{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InternshipTradingApp.OrderManagementSystem", "InternshipTradingApp.OrderManagementSystem\InternshipTradingApp.OrderManagementSystem.csproj", "{0EEF9528-D9D1-4E3F-9D85-A499C5F38EB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BE0AF145-CFC6-4EB5-90B1-417A209ADF67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{17A97698-0C55-4791-8599-315A736A3D56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CompanyInventory", "CompanyInventory", "{E99193B1-6A71-4165-B580-ACF7754C314E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyInventory.Tests", "CompanyInventory.Tests\CompanyInventory.Tests.csproj", "{7BBB2AB8-793A-42FD-AAB4-391778408EA3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CCE0DA68-1486-4799-86DE-BED89829C40B}"
 EndProject

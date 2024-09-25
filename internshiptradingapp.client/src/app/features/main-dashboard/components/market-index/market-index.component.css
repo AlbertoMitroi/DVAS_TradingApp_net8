@@ -1,0 +1,15 @@
+/* Ensure the canvas fills more of the available space and is centered */
+#marketIndexGraph {
+  display: block;
+  margin: auto; /* Center the graph horizontally */
+  width: 90%; /* Take 90% of the container width */
+  height: 50vh; /* Set the height to 80% of the viewport height */
+  max-width: 100%; /* Ensure the canvas doesn't overflow the container */
+  max-height: 100%; /* Ensure the canvas scales proportionally */
+  object-fit: contain; /* Make sure it maintains aspect ratio */
+}
+
+.market-index-header {
+  text-align: center;
+  margin: 10px;
+}

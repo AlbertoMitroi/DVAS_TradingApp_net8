@@ -13,23 +13,23 @@ export class CarouselOfSymbolsComponent implements OnInit {
   responsiveOptions: any[] = [
     {
       breakpoint: '1024px',
-      numVisible: 6,
-      numScroll: 6
+      numVisible: 8,
+      numScroll: 8
     },
     {
       breakpoint: '768px',
-      numVisible: 5,
-      numScroll: 5
+      numVisible: 8,
+      numScroll: 8
     },
     {
       breakpoint: '560px',
-      numVisible: 4,
-      numScroll: 4
+      numVisible: 8,
+      numScroll: 8
     },
     {
       breakpoint: '360px',
-      numVisible: 3,
-      numScroll: 3
+      numVisible: 12,
+      numScroll: 12
     }
   ];
 
