@@ -38,6 +38,15 @@ This monolithic application leverages **.NET 8** for backend services and **Angu
 - Track and manage transaction history.
 - Portfolio Management: Analyze and adjust stock holdings.
 
+### **5. Payment Management**
+- **Stripe Integration**: Secure payment processing for subscription plans and premium features.
+- **Subscription Plans**:  
+  - Unlock advanced trading tools, analytics, and historical data.  
+  - Tiered plans for enhanced access.  
+- **Payment History**: View past payments and invoices.  
+- **Refunds and Cancellations**: Manage refunds or cancel subscriptions directly through the app.  
+- **Webhooks**: Handle real-time payment notifications and updates to user subscriptions.  
+
 ---
 
 ## **🧩Non-Functional Requirements**
